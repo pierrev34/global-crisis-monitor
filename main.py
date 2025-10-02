@@ -37,9 +37,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def run_crisis_monitor(hours_back: int = 24, 
+def run_crisis_monitor(hours_back: int = 72, 
                       max_articles: int = 100,
-                      confidence_threshold: float = 0.3,
+                      confidence_threshold: float = 0.2,
                       use_cache: bool = True,
                       output_file: str = None,
                       prefer_rss: bool = True) -> str:
@@ -287,8 +287,8 @@ Examples:
     )
     
     parser.add_argument(
-        '--hours', type=int, default=24,
-        help='Hours back to search for articles (default: 24)'
+        '--hours', type=int, default=72,
+        help='Hours back to search for articles (default: 72)'
     )
     
     parser.add_argument(
@@ -297,8 +297,8 @@ Examples:
     )
     
     parser.add_argument(
-        '--confidence', '-c', type=float, default=0.3,
-        help='Minimum confidence threshold for crisis classification (default: 0.3)'
+        '--confidence', '-c', type=float, default=0.2,
+        help='Minimum confidence threshold for crisis classification (default: 0.2)'
     )
     
     parser.add_argument(

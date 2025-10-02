@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_72ee7b1deb0ba940aa7de1aac3fe2f93 {
+                #map_d0c218cd1a0aa2192fc5cad923b294c6 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -43,47 +43,14 @@
 <body>
     
     
-        <div style="position: fixed; top: 10px; right: 10px; width: 250px; 
-                    background: white; border: 2px solid #ccc; border-radius: 5px;
-                    padding: 10px; z-index: 1000; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
-            <h4 style="margin-top: 0; color: #333;">Crisis Monitor Statistics</h4>
-            
-            <table style="width: 100%; font-size: 12px;">
-                <tr><td><strong>Total Articles:</strong></td><td>2</td></tr>
-                <tr><td><strong>Locations Found:</strong></td><td>0</td></tr>
-                <tr><td><strong>Geocoded:</strong></td><td>0</td></tr>
-                <tr><td><strong>Avg Confidence:</strong></td><td>0.48</td></tr>
-            </table>
-            
-            <h5 style="margin-bottom: 5px; color: #333;">Crisis Categories:</h5>
-            <table style="width: 100%; font-size: 11px;">
-                
-                <tr>
-                    <td style="color: purple;">● Health Emergencies</td>
-                    <td>1</td>
-                </tr>
-            
-                <tr>
-                    <td style="color: orange;">● Humanitarian Crises</td>
-                    <td>1</td>
-                </tr>
-            
-            </table>
-            
-            <div style="margin-top: 10px; font-size: 10px; color: #666;">
-                Last updated: 2025-10-01 23:04
-            </div>
-        </div>
-        
-    
-            <div class="folium-map" id="map_72ee7b1deb0ba940aa7de1aac3fe2f93" ></div>
+            <div class="folium-map" id="map_d0c218cd1a0aa2192fc5cad923b294c6" ></div>
         
 </body>
 <script>
     
     
-            var map_72ee7b1deb0ba940aa7de1aac3fe2f93 = L.map(
-                "map_72ee7b1deb0ba940aa7de1aac3fe2f93",
+            var map_d0c218cd1a0aa2192fc5cad923b294c6 = L.map(
+                "map_d0c218cd1a0aa2192fc5cad923b294c6",
                 {
                     center: [20.0, 0.0],
                     crs: L.CRS.EPSG3857,
@@ -100,7 +67,7 @@
 
         
     
-            var tile_layer_9d146f49df5b230924ddf16bc53faa2e = L.tileLayer(
+            var tile_layer_c138299c8101a1f9a3cf165678b13e35 = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -117,7 +84,7 @@
             );
         
     
-            tile_layer_9d146f49df5b230924ddf16bc53faa2e.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            tile_layer_c138299c8101a1f9a3cf165678b13e35.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
         
     
             L.control.fullscreen(
@@ -127,10 +94,10 @@
   "titleCancel": "Exit Full Screen",
   "forceSeparateButton": false,
 }
-            ).addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            ).addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
         
     
-            var measure_control_c270af3f2dd06416a750d95f68b0af0b = new L.Control.Measure(
+            var measure_control_5f72014ccd2c7f2b7557aa7f5dd21356 = new L.Control.Measure(
                 {
   "position": "topright",
   "primaryLengthUnit": "meters",
@@ -138,7 +105,7 @@
   "primaryAreaUnit": "sqmeters",
   "secondaryAreaUnit": "acres",
 });
-            map_72ee7b1deb0ba940aa7de1aac3fe2f93.addControl(measure_control_c270af3f2dd06416a750d95f68b0af0b);
+            map_d0c218cd1a0aa2192fc5cad923b294c6.addControl(measure_control_5f72014ccd2c7f2b7557aa7f5dd21356);
 
             // Workaround for using this plugin with Leaflet>=1.8.0
             // https://github.com/ljagis/leaflet-measure/issues/171
@@ -157,38 +124,950 @@
 
         
     
-            var feature_group_a77535dcd46c0e738be0bf67f6f7f8aa = L.featureGroup(
+            var feature_group_3e780bbd9ef1c315ed40faf51021382c = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_a77535dcd46c0e738be0bf67f6f7f8aa.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            var marker_a065b4b66d6a3a70bcae244553985db8 = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
         
     
-            var feature_group_0f320c83078b354cdd5a25238bd3b582 = L.featureGroup(
+            var icon_a7e16185f7a46655f5e4a093a0904906 = L.AwesomeMarkers.icon(
                 {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
 }
             );
         
     
-            feature_group_0f320c83078b354cdd5a25238bd3b582.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+        var popup_dba872816023e6a5ba45c278dba62662 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_6b90cd9fef1660b69a6ee8ac476d787e = $(`<div id="html_6b90cd9fef1660b69a6ee8ac476d787e" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Hurricane season brings financial fears in the Caribbean</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 23:02:08 GMT<br>                 <strong>Confidence:</strong> 0.70             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 As islands brace for this year's big storms, many homes don't have household insurance.             </div>                          <a href="https://www.bbc.com/news/articles/c2lxvjypxreo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_dba872816023e6a5ba45c278dba62662.setContent(html_6b90cd9fef1660b69a6ee8ac476d787e);
+            
+        
+
+        marker_a065b4b66d6a3a70bcae244553985db8.bindPopup(popup_dba872816023e6a5ba45c278dba62662)
+        ;
+
         
     
-            var feature_group_7e1a16230b10a69153f45359b10b8546 = L.featureGroup(
+    
+            marker_a065b4b66d6a3a70bcae244553985db8.bindTooltip(
+                `<div>
+                     Natural Disasters: Hurricane season brings financial fears in the Car...
+                 </div>`,
                 {
+  "sticky": true,
 }
             );
         
     
-            var marker_250045ddb0b6d6a26728208222e69535 = L.marker(
+                marker_a065b4b66d6a3a70bcae244553985db8.setIcon(icon_a7e16185f7a46655f5e4a093a0904906);
+            
+    
+            var marker_17fa1da596c1ded546e6dc7b3f242011 = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
+        
+    
+            var icon_9704ab828270170131016dedff000598 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5c5011b38b8d3f07409de93fcecb83fa = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_c3af0eba97b505fddd370e3d484e75d1 = $(`<div id="html_c3af0eba97b505fddd370e3d484e75d1" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Chunk of NYC building collapses in possible explosion</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 17:33:39 GMT<br>                 <strong>Confidence:</strong> 0.28             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 No one was injured and no apartments were damaged, although some residents were evacuated.             </div>                          <a href="https://www.bbc.com/news/articles/cp8jp4y0jdmo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_5c5011b38b8d3f07409de93fcecb83fa.setContent(html_c3af0eba97b505fddd370e3d484e75d1);
+            
+        
+
+        marker_17fa1da596c1ded546e6dc7b3f242011.bindPopup(popup_5c5011b38b8d3f07409de93fcecb83fa)
+        ;
+
+        
+    
+    
+            marker_17fa1da596c1ded546e6dc7b3f242011.bindTooltip(
+                `<div>
+                     Natural Disasters: Chunk of NYC building collapses in possible explos...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_17fa1da596c1ded546e6dc7b3f242011.setIcon(icon_9704ab828270170131016dedff000598);
+            
+    
+            var marker_454ce46ed920ab8a7078d9f4a2a972c5 = L.marker(
+                [0.0, 0.0],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
+        
+    
+            var icon_50dae1a2f9eb24774dd2ead95a361cf6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0081550aee70dabd895f81244c1854b1 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_c7635ad9df4e6122474958c946b7db9e = $(`<div id="html_c7635ad9df4e6122474958c946b7db9e" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Bermuda braces for a pounding from strengthening Hurricane Imelda - Yale Climate Connections</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Environmental Issue (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 16:13:37 GMT<br>                 <strong>Confidence:</strong> 0.61             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Bermuda braces for a pounding from strengthening Hurricane Imelda&nbsp;&nbsp;Yale Climate ConnectionsHurricane Imelda strengthens, churning up powerful waves along the US East Coast as it closes in on...             </div>                          <a href="https://news.google.com/rss/articles/CBMirgFBVV95cUxNaUExbE96QXNreTcwbGlQSk51NWJtWjN6dWRJVkVqLUFqYlhaaFVOd0NXTGNsYjVCNHk5alpZbHpiWXpHM1lJUG1zelRRSjI2TVlWaHNETGloWFV2b2FDVk52VFRBaHkwcVlGQnN0VTV2QVc0LWt2RVBVS2NXNV9vaE42M3lCMU1fdW1HTENpMFhKMHFIUjlmTWNGMGRyTDlvNHZiOEdsM1R4eXF1N0E?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_0081550aee70dabd895f81244c1854b1.setContent(html_c7635ad9df4e6122474958c946b7db9e);
+            
+        
+
+        marker_454ce46ed920ab8a7078d9f4a2a972c5.bindPopup(popup_0081550aee70dabd895f81244c1854b1)
+        ;
+
+        
+    
+    
+            marker_454ce46ed920ab8a7078d9f4a2a972c5.bindTooltip(
+                `<div>
+                     Natural Disasters: Bermuda braces for a pounding from strengthening H...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_454ce46ed920ab8a7078d9f4a2a972c5.setIcon(icon_50dae1a2f9eb24774dd2ead95a361cf6);
+            
+    
+            var marker_f7f0007301b0b6b36542be4579f0f489 = L.marker(
                 [20.0, 0.0],
                 {
 }
-            ).addTo(feature_group_7e1a16230b10a69153f45359b10b8546);
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
         
     
-            var icon_b96246d7bdcc40b0c160ebf1efeb23fd = L.AwesomeMarkers.icon(
+            var icon_e7a8d47b3167eff5573b810926be1b6a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4a5b7c55cfef9c06fb40bdbb5e30d1f9 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_4a0f9af73829a4599eb3f3eec6c82748 = $(`<div id="html_4a0f9af73829a4599eb3f3eec6c82748" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Green earthquake alert (Magnitude 5.6M, Depth:151.4km) in Indonesia 01/10/2025 13:49 UTC, 100 thousand in MMI III.</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 14:10:59 GMT<br>                 <strong>Confidence:</strong> 0.40             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 10/1/2025 1:49:49 PM, an earthquake occurred in Indonesia potentially affecting 100 thousand in MMI III. The earthquake had Magnitude 5.6M, Depth:151.4km.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=EQ&eventid=1502909" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_4a5b7c55cfef9c06fb40bdbb5e30d1f9.setContent(html_4a0f9af73829a4599eb3f3eec6c82748);
+            
+        
+
+        marker_f7f0007301b0b6b36542be4579f0f489.bindPopup(popup_4a5b7c55cfef9c06fb40bdbb5e30d1f9)
+        ;
+
+        
+    
+    
+            marker_f7f0007301b0b6b36542be4579f0f489.bindTooltip(
+                `<div>
+                     Natural Disasters: Green earthquake alert (Magnitude 5.6M, Depth:151....
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f7f0007301b0b6b36542be4579f0f489.setIcon(icon_e7a8d47b3167eff5573b810926be1b6a);
+            
+    
+            var marker_5b4d18cf317fe35fbda426917b3a6d88 = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
+        
+    
+            var icon_448c4d232e3ef037a520d81555c53c54 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b79c1e2e09ff93b91f4856eb8425716d = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_0516b43d81b5fcf753d5ef698bdf8dbd = $(`<div id="html_0516b43d81b5fcf753d5ef698bdf8dbd" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">State of calamity in Philippines province as earthquake kills 69</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 09:19:59 GMT<br>                 <strong>Confidence:</strong> 0.74             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The earthquake comes barely more than a week after the country was hit by back-to-back typhoons.             </div>                          <a href="https://www.bbc.com/news/articles/ced5pyjzej3o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_b79c1e2e09ff93b91f4856eb8425716d.setContent(html_0516b43d81b5fcf753d5ef698bdf8dbd);
+            
+        
+
+        marker_5b4d18cf317fe35fbda426917b3a6d88.bindPopup(popup_b79c1e2e09ff93b91f4856eb8425716d)
+        ;
+
+        
+    
+    
+            marker_5b4d18cf317fe35fbda426917b3a6d88.bindTooltip(
+                `<div>
+                     Natural Disasters: State of calamity in Philippines province as earth...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5b4d18cf317fe35fbda426917b3a6d88.setIcon(icon_448c4d232e3ef037a520d81555c53c54);
+            
+    
+            var marker_ae0236cd2b085438a319c98ce194b13a = L.marker(
+                [39.9042, 116.4074],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
+        
+    
+            var icon_1cbb7e1c954fc00e6d5aa524f173c6a0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9eb8caab44bd51bb2947cad31f644d5d = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_b5c3c4050a4028a74dfcd8f473c57ff0 = $(`<div id="html_b5c3c4050a4028a74dfcd8f473c57ff0" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Red alert for tropical cyclone TWENTYSEVEN-25. Population affected by Category 1 (120 km/h) wind speeds or higher is 10.294 million .</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> China (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 08:57:22 GMT<br>                 <strong>Confidence:</strong> 0.34             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 From 01/10/2025 to 02/10/2025, a Tropical Storm (maximum wind speed of 139 km/h) TWENTYSEVEN-25 was active in NWPacific. The cyclone affects these countries: Philippines, China, Viet Nam (vulnerabilit...             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=TC&eventid=1001219" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_9eb8caab44bd51bb2947cad31f644d5d.setContent(html_b5c3c4050a4028a74dfcd8f473c57ff0);
+            
+        
+
+        marker_ae0236cd2b085438a319c98ce194b13a.bindPopup(popup_9eb8caab44bd51bb2947cad31f644d5d)
+        ;
+
+        
+    
+    
+            marker_ae0236cd2b085438a319c98ce194b13a.bindTooltip(
+                `<div>
+                     Natural Disasters: Red alert for tropical cyclone TWENTYSEVEN-25. Pop...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ae0236cd2b085438a319c98ce194b13a.setIcon(icon_1cbb7e1c954fc00e6d5aa524f173c6a0);
+            
+    
+            var marker_7ac74147d6311d1527af466ce7563b26 = L.marker(
+                [20.5937, 78.9629],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
+        
+    
+            var icon_fcc4d8ea29ecc991e6f3fc111ea42b63 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fdc49530fba4d0a0909a09657eb2b5a3 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_4696e48fe88751e178869f001dbe0650 = $(`<div id="html_4696e48fe88751e178869f001dbe0650" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Orange alert for tropical cyclone ONE-25. Population affected by Category 1 (120 km/h) wind speeds or higher is 0  (19.647 million in Tropical Storm).</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> India (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 08:54:11 GMT<br>                 <strong>Confidence:</strong> 0.31             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 From 01/10/2025 to 02/10/2025, a Tropical Storm (maximum wind speed of 65 km/h) ONE-25 was active in NorthIndian. The cyclone affects these countries: India (vulnerability High). Estimated population ...             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=TC&eventid=1001218" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_fdc49530fba4d0a0909a09657eb2b5a3.setContent(html_4696e48fe88751e178869f001dbe0650);
+            
+        
+
+        marker_7ac74147d6311d1527af466ce7563b26.bindPopup(popup_fdc49530fba4d0a0909a09657eb2b5a3)
+        ;
+
+        
+    
+    
+            marker_7ac74147d6311d1527af466ce7563b26.bindTooltip(
+                `<div>
+                     Natural Disasters: Orange alert for tropical cyclone ONE-25. Populati...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7ac74147d6311d1527af466ce7563b26.setIcon(icon_fcc4d8ea29ecc991e6f3fc111ea42b63);
+            
+    
+            var marker_6fea53633071e5dc90287200ace4638a = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
+        
+    
+            var icon_05386c50c7a4b34f1090ed68d78d1a34 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1fc9b5b6339bbc96d9c06cfbe3149da4 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_a9e0398951d1d087f43594a8105712a6 = $(`<div id="html_a9e0398951d1d087f43594a8105712a6" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Green earthquake alert (Magnitude 6M, Depth:13.895km) in Indonesia 30/09/2025 16:49 UTC, 110 thousand in MMI VI.</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 17:08:19 GMT<br>                 <strong>Confidence:</strong> 0.42             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 9/30/2025 4:49:42 PM, an earthquake occurred in Indonesia potentially affecting 110 thousand in MMI VI. The earthquake had Magnitude 6M, Depth:13.895km.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=EQ&eventid=1502745" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_1fc9b5b6339bbc96d9c06cfbe3149da4.setContent(html_a9e0398951d1d087f43594a8105712a6);
+            
+        
+
+        marker_6fea53633071e5dc90287200ace4638a.bindPopup(popup_1fc9b5b6339bbc96d9c06cfbe3149da4)
+        ;
+
+        
+    
+    
+            marker_6fea53633071e5dc90287200ace4638a.bindTooltip(
+                `<div>
+                     Natural Disasters: Green earthquake alert (Magnitude 6M, Depth:13.895...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6fea53633071e5dc90287200ace4638a.setIcon(icon_05386c50c7a4b34f1090ed68d78d1a34);
+            
+    
+            var marker_c03a868c58b10ff78cf4c427f0f1361e = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_3e780bbd9ef1c315ed40faf51021382c);
+        
+    
+            var icon_e89c9ef73822cc626d7f1ce825bff40a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_06f47afa72d4801bfc1a770da3ff50cf = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_2ce00c6de719663141de12065104faf3 = $(`<div id="html_2ce00c6de719663141de12065104faf3" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Orange earthquake alert (Magnitude 6.9M, Depth:10km) in Philippines 30/09/2025 13:59 UTC, 600 thousand (in MMI>=VII).</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 14:11:23 GMT<br>                 <strong>Confidence:</strong> 0.38             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 9/30/2025 1:59:43 PM, an earthquake occurred in Philippines potentially affecting 600 thousand (in MMI>=VII). The earthquake had Magnitude 6.9M, Depth:10km.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=EQ&eventid=1502713" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_06f47afa72d4801bfc1a770da3ff50cf.setContent(html_2ce00c6de719663141de12065104faf3);
+            
+        
+
+        marker_c03a868c58b10ff78cf4c427f0f1361e.bindPopup(popup_06f47afa72d4801bfc1a770da3ff50cf)
+        ;
+
+        
+    
+    
+            marker_c03a868c58b10ff78cf4c427f0f1361e.bindTooltip(
+                `<div>
+                     Natural Disasters: Orange earthquake alert (Magnitude 6.9M, Depth:10k...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c03a868c58b10ff78cf4c427f0f1361e.setIcon(icon_e89c9ef73822cc626d7f1ce825bff40a);
+            
+    
+            feature_group_3e780bbd9ef1c315ed40faf51021382c.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
+        
+    
+            var feature_group_dfa7adf91c840e5f2d36e504ed3656cc = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_f5f7188ed41cf00f731cf54516f8b15c = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_ad3d951d7289261c09d1d2a0a15400e4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_970272f52fa38d51a3efd1776fb18582 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_7d58463641eb8417cf2505004425be31 = $(`<div id="html_7d58463641eb8417cf2505004425be31" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Jane Fonda relaunches her father's McCarthy-era free speech initiative - NBC News</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 23:18:17 GMT<br>                 <strong>Confidence:</strong> 0.51             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Jane Fonda relaunches her father's McCarthy-era free speech initiative&nbsp;&nbsp;NBC NewsHundreds of celebrities relaunch a McCarthy-era committee to defend free speech&nbsp;&nbsp;NPRJane Fonda reviv...             </div>                          <a href="https://news.google.com/rss/articles/CBMipgFBVV95cUxQZ2tGM1NwM2w2eUF5NjUzU0E3clJtVEZPdlZrcFZ3dUFGcEtsRzBKTFhKWVkwWG9BdmRSUnRUR1dzQTVWeWlOV1pJeVZGWTFUV0gtbnRLNE9jT3VrVjBMN1lnTEVaYUY0dEk1dmpWM3E3d09rN1p1ZEo0ZmNOalk4SUtZY2M1cG9WRkFDQXlqd0ZQM2hBeXNvNnhMWDRyTFJubkh2cXl30gFWQVVfeXFMTzBRVTlzQ093cTVNd2FUYUJkd1ZkSkNWM3pib1p4N0tKVXFpanZNbktUanl1bk02Vm84ZVNuTWNEMmdYLWlGeUF6bkxERmRTNXEwdUVGdVE?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_970272f52fa38d51a3efd1776fb18582.setContent(html_7d58463641eb8417cf2505004425be31);
+            
+        
+
+        marker_f5f7188ed41cf00f731cf54516f8b15c.bindPopup(popup_970272f52fa38d51a3efd1776fb18582)
+        ;
+
+        
+    
+    
+            marker_f5f7188ed41cf00f731cf54516f8b15c.bindTooltip(
+                `<div>
+                     Political Conflicts: Jane Fonda relaunches her father's McCarthy-era fr...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f5f7188ed41cf00f731cf54516f8b15c.setIcon(icon_ad3d951d7289261c09d1d2a0a15400e4);
+            
+    
+            var marker_251416baa8649b54d33324fc0a5abfb1 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_02ec342052d00add3e1d8dabfbbcb487 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4cdd970db8f5f58acbb317de6e802f2a = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_9eb1e2f76736f2d4c1ee9e1e60790a4a = $(`<div id="html_9eb1e2f76736f2d4c1ee9e1e60790a4a" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Supreme Court allows Lisa Cook to remain on Fed board for now - The Washington Post</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 22:57:17 GMT<br>                 <strong>Confidence:</strong> 0.30             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Supreme Court allows Lisa Cook to remain on Fed board for now&nbsp;&nbsp;The Washington PostSupreme Court Allows Lisa Cook to Remain at Fed, for Now&nbsp;&nbsp;The New York TimesSupreme Court agrees t...             </div>                          <a href="https://news.google.com/rss/articles/CBMingFBVV95cUxPTjEyUVRmSmVTanBjWU5TdnhuVW03SDJhYjdBUWdqR19KRmRUdFBFRkVvRVNFNTA1SW40NEJYLXNyVl9uNVJ5UjRfMDhJaGJlMndqU0p1NWJJcVd2ZDJaZkE1VkxFWjBLdEd5WWZMTEVYQnRQTjRqaHZtU3p2Ym90RWVpdW52WUdmMjczVXdaRm9ILWlqWUd0dC1tRVZ3Zw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_4cdd970db8f5f58acbb317de6e802f2a.setContent(html_9eb1e2f76736f2d4c1ee9e1e60790a4a);
+            
+        
+
+        marker_251416baa8649b54d33324fc0a5abfb1.bindPopup(popup_4cdd970db8f5f58acbb317de6e802f2a)
+        ;
+
+        
+    
+    
+            marker_251416baa8649b54d33324fc0a5abfb1.bindTooltip(
+                `<div>
+                     Political Conflicts: Supreme Court allows Lisa Cook to remain on Fed bo...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_251416baa8649b54d33324fc0a5abfb1.setIcon(icon_02ec342052d00add3e1d8dabfbbcb487);
+            
+    
+            var marker_005b8f99f080787f21a5bb8a0ca8cc8b = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_c7d536a5ee0ba000d5b33d767ecaec81 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6664933517169b32cd6ee9c01299fdf0 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_e00177ff5990475c723aa0d8eff03165 = $(`<div id="html_e00177ff5990475c723aa0d8eff03165" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Pope Leo XIV says those against abortion but in favor of death penalty are "not really pro-life" - CBS News</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 22:11:00 GMT<br>                 <strong>Confidence:</strong> 0.76             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Pope Leo XIV says those against abortion but in favor of death penalty are "not really pro-life"&nbsp;&nbsp;CBS NewsPope makes rare comments on U.S. politics, military gathering&nbsp;&nbsp;The Washing...             </div>                          <a href="https://news.google.com/rss/articles/CBMiekFVX3lxTFBJSkdINWZadHVmSUk5ZF9MQjc4NHpZZzBsenVPc2c1ZHZkTUVzZ01oZmI0NzFPMzVySkhXampINW56eDdtRDI4ZGNUc1Vua3ktWVduOHFiSXp2U0h0YU8tbk9hZy1rdkZaWmYxNnExeDRQcHM0YXZ6Y1BR0gF_QVVfeXFMUFJSSnN5Qkdfbld1bzFuRXIyM3hkYkZKUFAtWmpmOTNiMl9GcGNJejcwN2FGOEJMdmpDTDY3ZzlhYVpoSExYeFd4clhvTm9VUnRDNldkSDE5Umg0MDNSZU03azd4VnFLdXdjWDBOWDVyLWNLSnlXdXN1c196SDFucw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_6664933517169b32cd6ee9c01299fdf0.setContent(html_e00177ff5990475c723aa0d8eff03165);
+            
+        
+
+        marker_005b8f99f080787f21a5bb8a0ca8cc8b.bindPopup(popup_6664933517169b32cd6ee9c01299fdf0)
+        ;
+
+        
+    
+    
+            marker_005b8f99f080787f21a5bb8a0ca8cc8b.bindTooltip(
+                `<div>
+                     Political Conflicts: Pope Leo XIV says those against abortion but in fa...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_005b8f99f080787f21a5bb8a0ca8cc8b.setIcon(icon_c7d536a5ee0ba000d5b33d767ecaec81);
+            
+    
+            var marker_7cbcbc5fd108cb91f8c8810e0b1f5b82 = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_3761ff57532cfb44caa3763701c6689a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_27f7bfe7b635164d47fffafa4e2e9929 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_64cd7046622ca487405e434566031830 = $(`<div id="html_64cd7046622ca487405e434566031830" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">'None of us have ever asked for special treatment' - female veterans respond to Hegseth</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 21:59:48 GMT<br>                 <strong>Confidence:</strong> 0.33             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The US Secretary of Defense said he wants a return to the 'male standard' for combat roles. Woman veterans say the standards were never different.             </div>                          <a href="https://www.bbc.com/news/articles/cy8525w2v5wo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_27f7bfe7b635164d47fffafa4e2e9929.setContent(html_64cd7046622ca487405e434566031830);
+            
+        
+
+        marker_7cbcbc5fd108cb91f8c8810e0b1f5b82.bindPopup(popup_27f7bfe7b635164d47fffafa4e2e9929)
+        ;
+
+        
+    
+    
+            marker_7cbcbc5fd108cb91f8c8810e0b1f5b82.bindTooltip(
+                `<div>
+                     Political Conflicts: 'None of us have ever asked for special treatment'...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7cbcbc5fd108cb91f8c8810e0b1f5b82.setIcon(icon_3761ff57532cfb44caa3763701c6689a);
+            
+    
+            var marker_1cd5e19efcfca49677bbc4ed41a1ca2a = L.marker(
+                [31.7683, 35.2137],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_08d4c64bd7b39e3d842ba530c47b6590 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_110e297c13eb38104ac334b63ee74b85 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_b1872314dababa1f87a0e6a5dcb443e0 = $(`<div id="html_b1872314dababa1f87a0e6a5dcb443e0" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Israel intercepts Gaza flotilla, detains Thunberg and others, says ‘she and her friends are safe’ - The Times of Israel</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Israel (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 20:57:00 GMT<br>                 <strong>Confidence:</strong> 0.36             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Israel intercepts Gaza flotilla, detains Thunberg and others, says ‘she and her friends are safe’&nbsp;&nbsp;The Times of IsraelIsrael stops 13 Gaza aid boats, organisers say, sparking international c...             </div>                          <a href="https://news.google.com/rss/articles/CBMivgFBVV95cUxOZWl5XzZpM1pfWlVVSGs3VXNSbzdtZFhuRWR0bWxaVGdUZF8xeWYtQk1Ibmxla2NVXzg4QTFtdmdGZGJmaFR1UXc4SFRKVWNodmlSV0ZMVmNDU1daUmxfaTNkY0VCckZNbnVXX283aDdWRGk5c194azF5bmcxUXAxTWRUbjhRUFd0WVpwbjdaXzN3ZjN0YXRGbFAzTmd4Njl1bVRKNDAzclpxdlBuUFpBSjVXNGpveWVaMHhDWkp30gHDAUFVX3lxTE9KVXV2UDJwVGZLc1l4MFFiNDM1T3NCSmdzOWZLOTNrMHQyVm1vejBTYUhLcUtFWFBUQUJ2dnBTaVhINjNQakdaY08weG5zZlpsWmV3SkxZQzI5M1pqV2lsSFZyTTBKb3J1cl9vcHJFeU84TDNIRjZ4XzBDbjdQTEVEdExyMXZPWG9RQ3lyNFM0S1o5WUF6djlFOVcxYS1qZ1RRMk9mYzVsQjNaRVNNalA2UDdwNnNsaHBPc20wTXpRbkQ2MA?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_110e297c13eb38104ac334b63ee74b85.setContent(html_b1872314dababa1f87a0e6a5dcb443e0);
+            
+        
+
+        marker_1cd5e19efcfca49677bbc4ed41a1ca2a.bindPopup(popup_110e297c13eb38104ac334b63ee74b85)
+        ;
+
+        
+    
+    
+            marker_1cd5e19efcfca49677bbc4ed41a1ca2a.bindTooltip(
+                `<div>
+                     Political Conflicts: Israel intercepts Gaza flotilla, detains Thunberg ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1cd5e19efcfca49677bbc4ed41a1ca2a.setIcon(icon_08d4c64bd7b39e3d842ba530c47b6590);
+            
+    
+            var marker_8b647a99c481e640b8faaa9dbc34dca0 = L.marker(
+                [55.7558, 37.6176],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_006cbfce5087a9e70060da20e1a35741 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6bdc191ba6964009cfbc978f83732058 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_6b633b7993410fc687f52f808d28d8d8 = $(`<div id="html_6b633b7993410fc687f52f808d28d8d8" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">French troops board oil tanker linked to Russian 'shadow fleet'</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Russia (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 20:49:13 GMT<br>                 <strong>Confidence:</strong> 0.28             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 President Emmanuel Macron said the crew had committed "serious offences" but did not directly link the vessel to Russia.             </div>                          <a href="https://www.bbc.com/news/articles/cx2j1gynjddo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_6bdc191ba6964009cfbc978f83732058.setContent(html_6b633b7993410fc687f52f808d28d8d8);
+            
+        
+
+        marker_8b647a99c481e640b8faaa9dbc34dca0.bindPopup(popup_6bdc191ba6964009cfbc978f83732058)
+        ;
+
+        
+    
+    
+            marker_8b647a99c481e640b8faaa9dbc34dca0.bindTooltip(
+                `<div>
+                     Political Conflicts: French troops board oil tanker linked to Russian '...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8b647a99c481e640b8faaa9dbc34dca0.setIcon(icon_006cbfce5087a9e70060da20e1a35741);
+            
+    
+            var marker_27f7ae975ea6a0bee7100695cab0d270 = L.marker(
+                [55.7558, 37.6176],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_782137883626ea37890cc5dc0e8d3cd5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_134049f21e52567b7a380e36858eb215 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_0b184a80c969cefa02f1d983a15d5428 = $(`<div id="html_0b184a80c969cefa02f1d983a15d5428" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Danish PM calls for strong answer from EU leaders to Russia's hybrid attacks</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Russia (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 20:26:37 GMT<br>                 <strong>Confidence:</strong> 0.48             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Copenhagen is on alert as EU leaders discuss boosting their defences in response to disruption from drones and Russian war planes.             </div>                          <a href="https://www.bbc.com/news/articles/cp8jdene16ro?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_134049f21e52567b7a380e36858eb215.setContent(html_0b184a80c969cefa02f1d983a15d5428);
+            
+        
+
+        marker_27f7ae975ea6a0bee7100695cab0d270.bindPopup(popup_134049f21e52567b7a380e36858eb215)
+        ;
+
+        
+    
+    
+            marker_27f7ae975ea6a0bee7100695cab0d270.bindTooltip(
+                `<div>
+                     Political Conflicts: Danish PM calls for strong answer from EU leaders ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_27f7ae975ea6a0bee7100695cab0d270.setIcon(icon_782137883626ea37890cc5dc0e8d3cd5);
+            
+    
+            var marker_ec57cf1b5c7bfd12be87c9f5121bc41e = L.marker(
+                [31.7683, 35.2137],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_04112289aa40fd7a8cfa601d8a2ce1c2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_759278ce1ab5f72f5e3e3117185ebb40 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_ede40c401b05c1dd87c1487754a87123 = $(`<div id="html_ede40c401b05c1dd87c1487754a87123" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Germany arrests suspected Hamas members over alleged attack plot</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Israel (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 18:37:32 GMT<br>                 <strong>Confidence:</strong> 0.35             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The three men are accused of planning attacks on Jewish and Israeli institutions in Germany, federal prosecutors says.             </div>                          <a href="https://www.bbc.com/news/articles/cgknpzrkyvno?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_759278ce1ab5f72f5e3e3117185ebb40.setContent(html_ede40c401b05c1dd87c1487754a87123);
+            
+        
+
+        marker_ec57cf1b5c7bfd12be87c9f5121bc41e.bindPopup(popup_759278ce1ab5f72f5e3e3117185ebb40)
+        ;
+
+        
+    
+    
+            marker_ec57cf1b5c7bfd12be87c9f5121bc41e.bindTooltip(
+                `<div>
+                     Political Conflicts: Germany arrests suspected Hamas members over alleg...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ec57cf1b5c7bfd12be87c9f5121bc41e.setIcon(icon_04112289aa40fd7a8cfa601d8a2ce1c2);
+            
+    
+            var marker_e2537c928ca7c8519350bfd161e501bf = L.marker(
+                [31.7683, 35.2137],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_9212b1cbe15c2326f3722e09349b28c4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_71b963d919b5c2c8c6e285160b5693fe = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_1b0dcaf41b27aef426a2ab01f88c7d40 = $(`<div id="html_1b0dcaf41b27aef426a2ab01f88c7d40" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Israel 'tightens siege' of Gaza City as Hamas reviews Trump peace plan</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Israel (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 16:38:26 GMT<br>                 <strong>Confidence:</strong> 0.38             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The defence minister warns Palestinians to leave, saying those remaining will be considered "terrorists and supporters of terror".             </div>                          <a href="https://www.bbc.com/news/articles/cvgnznkjrx6o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_71b963d919b5c2c8c6e285160b5693fe.setContent(html_1b0dcaf41b27aef426a2ab01f88c7d40);
+            
+        
+
+        marker_e2537c928ca7c8519350bfd161e501bf.bindPopup(popup_71b963d919b5c2c8c6e285160b5693fe)
+        ;
+
+        
+    
+    
+            marker_e2537c928ca7c8519350bfd161e501bf.bindTooltip(
+                `<div>
+                     Political Conflicts: Israel 'tightens siege' of Gaza City as Hamas revi...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e2537c928ca7c8519350bfd161e501bf.setIcon(icon_9212b1cbe15c2326f3722e09349b28c4);
+            
+    
+            var marker_175d23a17edd7c130404677f548f308d = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_dfa7adf91c840e5f2d36e504ed3656cc);
+        
+    
+            var icon_308f5ff6e7ec845eb2c61c2190f7b0bc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c19e09b21bcfe9b2d1dcc6a98f044505 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_b50c6b2511764e20653db5d682fcafef = $(`<div id="html_b50c6b2511764e20653db5d682fcafef" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">South African firebrand MP Malema convicted of firing a gun in public</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 10:57:45 GMT<br>                 <strong>Confidence:</strong> 0.69             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Julius Malema, known for his incendiary rhetoric, was recently convicted of hate speech.             </div>                          <a href="https://www.bbc.com/news/articles/c79vj85px54o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_c19e09b21bcfe9b2d1dcc6a98f044505.setContent(html_b50c6b2511764e20653db5d682fcafef);
+            
+        
+
+        marker_175d23a17edd7c130404677f548f308d.bindPopup(popup_c19e09b21bcfe9b2d1dcc6a98f044505)
+        ;
+
+        
+    
+    
+            marker_175d23a17edd7c130404677f548f308d.bindTooltip(
+                `<div>
+                     Political Conflicts: South African firebrand MP Malema convicted of fir...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_175d23a17edd7c130404677f548f308d.setIcon(icon_308f5ff6e7ec845eb2c61c2190f7b0bc);
+            
+    
+            feature_group_dfa7adf91c840e5f2d36e504ed3656cc.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
+        
+    
+            var feature_group_0f2d5200234691fb517900d7403289c8 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_d6319f928c310916a41297adb010bf86 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0f2d5200234691fb517900d7403289c8);
+        
+    
+            var icon_b26f3a8baa9bdb5c0c714a0e3c98c0f4 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "orange",
   "iconColor": "white",
@@ -199,26 +1078,26 @@
             );
         
     
-        var popup_06921b7cec823f3c55f839dc65e45e3d = L.popup({
+        var popup_db39c559e450395623e584dbf88db427 = L.popup({
   "maxWidth": 400,
 });
 
         
             
-                var html_ced5fffd5fa22ea91749f50327155a0f = $(`<div id="html_ced5fffd5fa22ea91749f50327155a0f" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Almost 200 animals rescued from puppy mill</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> CNN US<br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.57             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Almost 200 animals rescued from puppy mill             </div>                          <a href="https://www.cbsnews.com/philadelphia/news/almost-200-animals-rescued-from-puppy-mill-in-ocean-county/" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
-                popup_06921b7cec823f3c55f839dc65e45e3d.setContent(html_ced5fffd5fa22ea91749f50327155a0f);
+                var html_11563973ec04aef3324de0a3174d00ae = $(`<div id="html_11563973ec04aef3324de0a3174d00ae" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">'An extraordinary legacy': Tributes after chimpanzee expert Jane Goodall dies age 91 - BBC</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 20:48:45 GMT<br>                 <strong>Confidence:</strong> 0.28             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 'An extraordinary legacy': Tributes after chimpanzee expert Jane Goodall dies age 91&nbsp;&nbsp;BBCPrince Harry and Meghan Markle Recall Jane Goodall Holding Their Son Archie in Tribute After Her Deat...             </div>                          <a href="https://news.google.com/rss/articles/CBMiVEFVX3lxTE1fem84Vk4yQ1ZqYVlFa3FZUURFM1NDVE5zMnpnWjB0YjVwNVI2SjhpS3NZaGt0S3p0dkNqQVFKVXNBVlpKQWpRczlzSTVhY0VNZG01Mg?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_db39c559e450395623e584dbf88db427.setContent(html_11563973ec04aef3324de0a3174d00ae);
             
         
 
-        marker_250045ddb0b6d6a26728208222e69535.bindPopup(popup_06921b7cec823f3c55f839dc65e45e3d)
+        marker_d6319f928c310916a41297adb010bf86.bindPopup(popup_db39c559e450395623e584dbf88db427)
         ;
 
         
     
     
-            marker_250045ddb0b6d6a26728208222e69535.bindTooltip(
+            marker_d6319f928c310916a41297adb010bf86.bindTooltip(
                 `<div>
-                     Humanitarian Crises: Almost 200 animals rescued from puppy mill...
+                     Humanitarian Crises: 'An extraordinary legacy': Tributes after chimpanz...
                  </div>`,
                 {
   "sticky": true,
@@ -226,35 +1105,419 @@
             );
         
     
-                marker_250045ddb0b6d6a26728208222e69535.setIcon(icon_b96246d7bdcc40b0c160ebf1efeb23fd);
+                marker_d6319f928c310916a41297adb010bf86.setIcon(icon_b26f3a8baa9bdb5c0c714a0e3c98c0f4);
             
     
-            feature_group_7e1a16230b10a69153f45359b10b8546.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            var marker_7cdf439f0dcb05f80012dfa123ed6e9f = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_0f2d5200234691fb517900d7403289c8);
         
     
-            var feature_group_bf86bb52faa1973191ec862f5893776c = L.featureGroup(
+            var icon_d0ee4e8c725dc3a975415940cd6b115a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_68e5dad4124a9dac3a35306ddcfc6293 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_504caabcff3241ff66c1c2174300c538 = $(`<div id="html_504caabcff3241ff66c1c2174300c538" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">'It's safe now': See students pulled from rubble of collapsed Indonesian school</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 14:51:10 GMT<br>                 <strong>Confidence:</strong> 0.47             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Dramatic rescue footage shows the boys in Indonesia pulled to safety after their school collapsed.             </div>                          <a href="https://www.bbc.com/news/videos/cn5qpeq2rx9o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_68e5dad4124a9dac3a35306ddcfc6293.setContent(html_504caabcff3241ff66c1c2174300c538);
+            
+        
+
+        marker_7cdf439f0dcb05f80012dfa123ed6e9f.bindPopup(popup_68e5dad4124a9dac3a35306ddcfc6293)
+        ;
+
+        
+    
+    
+            marker_7cdf439f0dcb05f80012dfa123ed6e9f.bindTooltip(
+                `<div>
+                     Humanitarian Crises: 'It's safe now': See students pulled from rubble o...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7cdf439f0dcb05f80012dfa123ed6e9f.setIcon(icon_d0ee4e8c725dc3a975415940cd6b115a);
+            
+    
+            var marker_919bf4da0fc361840569c6fa006897d3 = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_0f2d5200234691fb517900d7403289c8);
+        
+    
+            var icon_e3a4dc7ffe376ffe04c7f94b9b446c2d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c7f0f46f47a63e4dc3a9e950403df131 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_596098c4b5f7e25dcdce163f867d4d23 = $(`<div id="html_596098c4b5f7e25dcdce163f867d4d23" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Kenya offers reward as anger grows over failure to arrest suspected serial killer</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 11:33:10 GMT<br>                 <strong>Confidence:</strong> 0.39             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Collins Jumaisi Khalusha, a prime suspect in the murder of more than 40 women, escaped from custody over a year ago.             </div>                          <a href="https://www.bbc.com/news/articles/ckgqpnx7577o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_c7f0f46f47a63e4dc3a9e950403df131.setContent(html_596098c4b5f7e25dcdce163f867d4d23);
+            
+        
+
+        marker_919bf4da0fc361840569c6fa006897d3.bindPopup(popup_c7f0f46f47a63e4dc3a9e950403df131)
+        ;
+
+        
+    
+    
+            marker_919bf4da0fc361840569c6fa006897d3.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Kenya offers reward as anger grows over failure to...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_919bf4da0fc361840569c6fa006897d3.setIcon(icon_e3a4dc7ffe376ffe04c7f94b9b446c2d);
+            
+    
+            var marker_b63caeb7e6a33428287abf59045b8777 = L.marker(
+                [31.7683, 35.2137],
+                {
+}
+            ).addTo(feature_group_0f2d5200234691fb517900d7403289c8);
+        
+    
+            var icon_62135e58b501b906d6d9fda405014392 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_867372f9b1a2602f2e28ba7850459ead = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_7fa376557ff8f014d410f1071b534253 = $(`<div id="html_7fa376557ff8f014d410f1071b534253" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Gaza doctors are starving while fighting to save lives, evacuated medic tells BBC</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Israel (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 05:00:51 GMT<br>                 <strong>Confidence:</strong> 0.48             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Dr Mohammed Abu Mughaisib, who worked in hospitals in Gaza for two years, says Israeli strikes have made conditions "indescribable" for colleagues still there.             </div>                          <a href="https://www.bbc.com/news/articles/c1wg4dyxjv9o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_867372f9b1a2602f2e28ba7850459ead.setContent(html_7fa376557ff8f014d410f1071b534253);
+            
+        
+
+        marker_b63caeb7e6a33428287abf59045b8777.bindPopup(popup_867372f9b1a2602f2e28ba7850459ead)
+        ;
+
+        
+    
+    
+            marker_b63caeb7e6a33428287abf59045b8777.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Gaza doctors are starving while fighting to save l...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b63caeb7e6a33428287abf59045b8777.setIcon(icon_62135e58b501b906d6d9fda405014392);
+            
+    
+            var marker_a93411533a5c1a347fd6f116c18af631 = L.marker(
+                [20.5937, 78.9629],
+                {
+}
+            ).addTo(feature_group_0f2d5200234691fb517900d7403289c8);
+        
+    
+            var icon_e25480a233ea841ef262514711c7d864 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8c722c132fac28f2941e8243f4af81ea = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_d9d363f63e671739d4c8162a1b4d8d9a = $(`<div id="html_d9d363f63e671739d4c8162a1b4d8d9a" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">No more scribbling: Indian court tells doctors to fix their handwriting</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> India (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 01:29:09 GMT<br>                 <strong>Confidence:</strong> 0.31             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 A legible medical prescription can make a difference between life and death, the court says.             </div>                          <a href="https://www.bbc.com/news/articles/cn0r88nrx70o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_8c722c132fac28f2941e8243f4af81ea.setContent(html_d9d363f63e671739d4c8162a1b4d8d9a);
+            
+        
+
+        marker_a93411533a5c1a347fd6f116c18af631.bindPopup(popup_8c722c132fac28f2941e8243f4af81ea)
+        ;
+
+        
+    
+    
+            marker_a93411533a5c1a347fd6f116c18af631.bindTooltip(
+                `<div>
+                     Humanitarian Crises: No more scribbling: Indian court tells doctors to ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a93411533a5c1a347fd6f116c18af631.setIcon(icon_e25480a233ea841ef262514711c7d864);
+            
+    
+            var marker_abfd701d46b3ac2c276efb2b5549dc7f = L.marker(
+                [50.4501, 30.5234],
+                {
+}
+            ).addTo(feature_group_0f2d5200234691fb517900d7403289c8);
+        
+    
+            var icon_9e5a0066b900d3d01c83fdba9fdaa25e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f023a405fb9b1c83014c877519dc0ef5 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_76b172540671874ebfca6adfd492beca = $(`<div id="html_76b172540671874ebfca6adfd492beca" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Anne visits Ukraine to support children traumatised by war</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Ukraine (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 00:17:36 GMT<br>                 <strong>Confidence:</strong> 0.69             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 She meets children displaced from their families and visited a memorial for young people killed during the war.             </div>                          <a href="https://www.bbc.com/news/articles/cgrqlrjgd51o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_f023a405fb9b1c83014c877519dc0ef5.setContent(html_76b172540671874ebfca6adfd492beca);
+            
+        
+
+        marker_abfd701d46b3ac2c276efb2b5549dc7f.bindPopup(popup_f023a405fb9b1c83014c877519dc0ef5)
+        ;
+
+        
+    
+    
+            marker_abfd701d46b3ac2c276efb2b5549dc7f.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Anne visits Ukraine to support children traumatise...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_abfd701d46b3ac2c276efb2b5549dc7f.setIcon(icon_9e5a0066b900d3d01c83fdba9fdaa25e);
+            
+    
+            var marker_2200707626e6f944a8280fbfe4a5198e = L.marker(
+                [33.9391, 67.71],
+                {
+}
+            ).addTo(feature_group_0f2d5200234691fb517900d7403289c8);
+        
+    
+            var icon_2907580358f270fd45169077e78bf8d2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fb8daaa83ae3385b00750960bea2c05a = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_8ad096978e8b9ddbab21687f08180e65 = $(`<div id="html_8ad096978e8b9ddbab21687f08180e65" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Flights in Afghanistan grounded after internet shutdown</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Afghanistan (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 13:45:15 GMT<br>                 <strong>Confidence:</strong> 0.32             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The Taliban have yet to give an official reason for the shutdown, but said it would last indefinitely.             </div>                          <a href="https://www.bbc.com/news/articles/cdxqdy5nrlqo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_fb8daaa83ae3385b00750960bea2c05a.setContent(html_8ad096978e8b9ddbab21687f08180e65);
+            
+        
+
+        marker_2200707626e6f944a8280fbfe4a5198e.bindPopup(popup_fb8daaa83ae3385b00750960bea2c05a)
+        ;
+
+        
+    
+    
+            marker_2200707626e6f944a8280fbfe4a5198e.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Flights in Afghanistan grounded after internet shu...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2200707626e6f944a8280fbfe4a5198e.setIcon(icon_2907580358f270fd45169077e78bf8d2);
+            
+    
+            feature_group_0f2d5200234691fb517900d7403289c8.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
+        
+    
+            var feature_group_2b19d84325950ac859eeb703866514cd = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_bf86bb52faa1973191ec862f5893776c.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            var marker_abb63fbbd13b70e7a04a10c25f37dca4 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_2b19d84325950ac859eeb703866514cd);
         
     
-            var feature_group_99f12fe2e4bb01a35320e733c719fcfa = L.featureGroup(
+            var icon_153430bd34a33b44d30c32680cb9f228 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4a48b32a725581fb0cc238862e6ec15d = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_f23382186815e07f4b94c4949e51032f = $(`<div id="html_f23382186815e07f4b94c4949e51032f" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: blue; margin-bottom: 10px;">                 Economic Crises             </h4>             <h5 style="margin-bottom: 8px;">Trump 2.0 tariff tracker - Trade Compliance Resource Hub</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 22:09:49 GMT<br>                 <strong>Confidence:</strong> 0.42             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Trump 2.0 tariff tracker&nbsp;&nbsp;Trade Compliance Resource HubWall Street, Republicans and some courts have tried to stop Trump’s tariffs. Here’s why they’re still in place&nbsp;&nbsp;CNNThe indust...             </div>                          <a href="https://news.google.com/rss/articles/CBMihgFBVV95cUxQbmFiLW5rNjV5NWpCeTB4aHotbnBfSnQ1STVsU2R2amptMW5PU1ZFZnRJVGtMUmJ1WTZaQzVGUDJVQUVsVFljdWp1NW5SbHh3RWZ4ZXJIbHRLT004dEVoeVY0UWNUUGFuSGVESmJrSGZMX0o2Q3RkQVJlYUJrNmIxakJPX1VLZw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_4a48b32a725581fb0cc238862e6ec15d.setContent(html_f23382186815e07f4b94c4949e51032f);
+            
+        
+
+        marker_abb63fbbd13b70e7a04a10c25f37dca4.bindPopup(popup_4a48b32a725581fb0cc238862e6ec15d)
+        ;
+
+        
+    
+    
+            marker_abb63fbbd13b70e7a04a10c25f37dca4.bindTooltip(
+                `<div>
+                     Economic Crises: Trump 2.0 tariff tracker - Trade Compliance Resour...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_abb63fbbd13b70e7a04a10c25f37dca4.setIcon(icon_153430bd34a33b44d30c32680cb9f228);
+            
+    
+            var marker_b3991d66c269bd28479498b63ca99e24 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_2b19d84325950ac859eeb703866514cd);
+        
+    
+            var icon_70f67077308377abc60fadee3f261091 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6a88d3a3d3bfcc73a01942912686c4a1 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_041dca4a3988f4703c08cfb4190a21f9 = $(`<div id="html_041dca4a3988f4703c08cfb4190a21f9" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: blue; margin-bottom: 10px;">                 Economic Crises             </h4>             <h5 style="margin-bottom: 8px;">Nicole Kidman wished Keith Urban was more supportive of her career before filing for divorce, report says: The latest on the estranged couple - Yahoo</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 21:00:01 GMT<br>                 <strong>Confidence:</strong> 0.29             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Nicole Kidman wished Keith Urban was more supportive of her career before filing for divorce, report says: The latest on the estranged couple&nbsp;&nbsp;YahooKeith Urban, Nicole Kidman divorce sends s...             </div>                          <a href="https://news.google.com/rss/articles/CBMisgJBVV95cUxPY0NtbVBKSl9jNmVsOWM3enlSNVNDanN2T2JvanJCaHUwQy1uVzJyYTRFNjZuanhva1FiY1paX1NTT0JKdTVLcVc4Q1NRcjdoaXVMeFVTWnQ5RGlhc21lNERMVzdPMGE1LUZVZnNBWnRNcEpsSDdEUmdvdXYzTV9TTnN6SlAxcHB0ZjZITGxfMDlwSVZYWUxaTGhNNlJvZVQ0akFDQTM4bnFQaTQyMF8zdlJwUGRDLXM2QU95V25QaGFfOFFja0RzX2NyWmRtd3JLOVlNTXkzb1NlbWFQd01ranFNQ0lpM1h0cTBjNnMyNUpCMXpPMFpDTlVRR3Y5bnROMkxWQ0pRU215TEozZkN6a3NmSVlHNXFwd21NUkN6aENpVnZ4STFFRy1lV04xNzNnV0E?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_6a88d3a3d3bfcc73a01942912686c4a1.setContent(html_041dca4a3988f4703c08cfb4190a21f9);
+            
+        
+
+        marker_b3991d66c269bd28479498b63ca99e24.bindPopup(popup_6a88d3a3d3bfcc73a01942912686c4a1)
+        ;
+
+        
+    
+    
+            marker_b3991d66c269bd28479498b63ca99e24.bindTooltip(
+                `<div>
+                     Economic Crises: Nicole Kidman wished Keith Urban was more supporti...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b3991d66c269bd28479498b63ca99e24.setIcon(icon_70f67077308377abc60fadee3f261091);
+            
+    
+            feature_group_2b19d84325950ac859eeb703866514cd.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
+        
+    
+            var feature_group_3a615568943253d7786b9a30d84f001a = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_ba3b76d3272117790f58f5c66aca1b2e = L.marker(
-                [39.9042, 116.4074],
+            var marker_7eb248baa41ee31e1fb0eface438688d = L.marker(
+                [20.0, 0.0],
                 {
 }
-            ).addTo(feature_group_99f12fe2e4bb01a35320e733c719fcfa);
+            ).addTo(feature_group_3a615568943253d7786b9a30d84f001a);
         
     
-            var icon_7410e0c90e6121c4a35307064adba1b8 = L.AwesomeMarkers.icon(
+            var icon_d55d2f7ab787732411f7037d8cc554a3 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "purple",
   "iconColor": "white",
@@ -265,26 +1528,26 @@
             );
         
     
-        var popup_b6deaecc15f177790d6bdeaaaafe221c = L.popup({
+        var popup_90eaf8d92f051b4d961548a3c4d41cbb = L.popup({
   "maxWidth": 400,
 });
 
         
             
-                var html_dfe66b81d7871b720ed7255b309fceca = $(`<div id="html_dfe66b81d7871b720ed7255b309fceca" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: purple; margin-bottom: 10px;">                 Health Emergencies             </h4>             <h5 style="margin-bottom: 8px;">Hundreds of millions at risk from Chinese shopping app malware</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> China (estimated)<br>                 <strong>Source:</strong> CNN International<br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.38             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Hundreds of millions at risk from Chinese shopping app malware             </div>                          <a href="https://cnn.it/40OSomK" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
-                popup_b6deaecc15f177790d6bdeaaaafe221c.setContent(html_dfe66b81d7871b720ed7255b309fceca);
+                var html_c3dcea8402d91a6fe57b9681eb469bf3 = $(`<div id="html_c3dcea8402d91a6fe57b9681eb469bf3" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: purple; margin-bottom: 10px;">                 Health Emergencies             </h4>             <h5 style="margin-bottom: 8px;">Echo, Kindle, Ring, and More: All the New Products Amazon Announced at Its Fall Hardware Event - PCMag</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 16:11:03 GMT<br>                 <strong>Confidence:</strong> 0.24             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Echo, Kindle, Ring, and More: All the New Products Amazon Announced at Its Fall Hardware Event&nbsp;&nbsp;PCMagAmazon refreshes device lineup to integrate new AI-powered Alexa+&nbsp;&nbsp;ReutersAmazo...             </div>                          <a href="https://news.google.com/rss/articles/CBMiogFBVV95cUxOcEpkVDdZZnRBMXd0Zl9sWm42YzBxcU0tSzN5V3ozUHBlVFBFalZfYUQtLThGVlJSc2I1cGxGSVhUcloxLVBQTDFQSElXQWhKQTQweWd1Tjh1WWZQZVlMbkJqUTA4RzgyOE5MNWo0QktPY0JpU0xSMzhubUdMX1l0b2lEbElYa2hMQmNoWE10QmViMDQxTlRBcHo4d1hfekpfN0E?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_90eaf8d92f051b4d961548a3c4d41cbb.setContent(html_c3dcea8402d91a6fe57b9681eb469bf3);
             
         
 
-        marker_ba3b76d3272117790f58f5c66aca1b2e.bindPopup(popup_b6deaecc15f177790d6bdeaaaafe221c)
+        marker_7eb248baa41ee31e1fb0eface438688d.bindPopup(popup_90eaf8d92f051b4d961548a3c4d41cbb)
         ;
 
         
     
     
-            marker_ba3b76d3272117790f58f5c66aca1b2e.bindTooltip(
+            marker_7eb248baa41ee31e1fb0eface438688d.bindTooltip(
                 `<div>
-                     Health Emergencies: Hundreds of millions at risk from Chinese shopping...
+                     Health Emergencies: Echo, Kindle, Ring, and More: All the New Products...
                  </div>`,
                 {
   "sticky": true,
@@ -292,53 +1555,1061 @@
             );
         
     
-                marker_ba3b76d3272117790f58f5c66aca1b2e.setIcon(icon_7410e0c90e6121c4a35307064adba1b8);
+                marker_7eb248baa41ee31e1fb0eface438688d.setIcon(icon_d55d2f7ab787732411f7037d8cc554a3);
             
     
-            feature_group_99f12fe2e4bb01a35320e733c719fcfa.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            var marker_dc1de4f7b9100dd9bb4ade9f75b155cb = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_3a615568943253d7786b9a30d84f001a);
         
     
-            var feature_group_2149412fd8e607191072fa4f8eb41e12 = L.featureGroup(
+            var icon_c9e73880d5a33ed85404590384a78c6a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ae5b1e629623bfbff794b3a265f2ca2d = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_a3e877e448800de6259bf595f522c79c = $(`<div id="html_a3e877e448800de6259bf595f522c79c" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: purple; margin-bottom: 10px;">                 Health Emergencies             </h4>             <h5 style="margin-bottom: 8px;">Hunter S Thompson's death to be reviewed 20 years on</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 15:32:56 GMT<br>                 <strong>Confidence:</strong> 0.31             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Investigators will look at the writer's 2005 death, which was ruled a suicide, at the family's request despite no new evidence of foul play.             </div>                          <a href="https://www.bbc.com/news/articles/cgrqpqe81qjo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_ae5b1e629623bfbff794b3a265f2ca2d.setContent(html_a3e877e448800de6259bf595f522c79c);
+            
+        
+
+        marker_dc1de4f7b9100dd9bb4ade9f75b155cb.bindPopup(popup_ae5b1e629623bfbff794b3a265f2ca2d)
+        ;
+
+        
+    
+    
+            marker_dc1de4f7b9100dd9bb4ade9f75b155cb.bindTooltip(
+                `<div>
+                     Health Emergencies: Hunter S Thompson's death to be reviewed 20 years ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_dc1de4f7b9100dd9bb4ade9f75b155cb.setIcon(icon_c9e73880d5a33ed85404590384a78c6a);
+            
+    
+            var marker_78e5e207258bdee699c89ffc499c125f = L.marker(
+                [51.5074, -0.1278],
+                {
+}
+            ).addTo(feature_group_3a615568943253d7786b9a30d84f001a);
+        
+    
+            var icon_b945df13f030703e8fa80ee247fdaf29 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0800e4457102f43a8d0e2acec0f7fab1 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_8fa1a8195e6ae6f0abcea26071a85bfd = $(`<div id="html_8fa1a8195e6ae6f0abcea26071a85bfd" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: purple; margin-bottom: 10px;">                 Health Emergencies             </h4>             <h5 style="margin-bottom: 8px;">Munich Oktoberfest to re-open after fatal house fire and bomb threat</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> BBC World Report (estimated)<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 14:45:35 GMT<br>                 <strong>Confidence:</strong> 0.34             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The annual beer festival was closed for several hours because of possible links to an explosion and fire.             </div>                          <a href="https://www.bbc.com/news/articles/c3rv2pv20rvo?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_0800e4457102f43a8d0e2acec0f7fab1.setContent(html_8fa1a8195e6ae6f0abcea26071a85bfd);
+            
+        
+
+        marker_78e5e207258bdee699c89ffc499c125f.bindPopup(popup_0800e4457102f43a8d0e2acec0f7fab1)
+        ;
+
+        
+    
+    
+            marker_78e5e207258bdee699c89ffc499c125f.bindTooltip(
+                `<div>
+                     Health Emergencies: Munich Oktoberfest to re-open after fatal house fi...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_78e5e207258bdee699c89ffc499c125f.setIcon(icon_b945df13f030703e8fa80ee247fdaf29);
+            
+    
+            var marker_d8972316e18a12d993ac00100375bfa5 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_3a615568943253d7786b9a30d84f001a);
+        
+    
+            var icon_fc1c903db9fa13dac3625a6a3a852a8f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ef597236ed83c7f67a2d19a846e6e1a2 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_1772b35e6e9ff882d1cc4b58ce62ca90 = $(`<div id="html_1772b35e6e9ff882d1cc4b58ce62ca90" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: purple; margin-bottom: 10px;">                 Health Emergencies             </h4>             <h5 style="margin-bottom: 8px;">Should the Autism Spectrum Be Split Apart? - The New York Times</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 09:00:41 GMT<br>                 <strong>Confidence:</strong> 0.25             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Should the Autism Spectrum Be Split Apart?&nbsp;&nbsp;The New York TimesIn America's war on autism, families like Eileen's are on the frontline&nbsp;&nbsp;SBS AustraliaNeurodiversity provides strength...             </div>                          <a href="https://news.google.com/rss/articles/CBMijgFBVV95cUxQV1VpX2Rod0Ixc1dITDYyQ2dFMTltQWt4ejNidFVFOEpoSW1LQU4zWnlaTkU2aUVrTVBRTExCMXVCLWNfaGFwMTY5bmt0Q2hwR0x5Zl90QjBSRnFwOWNtV05kclRKQ0tjM1EzenFHbWVHd1VQS05qWDFuYzctSjY3dFhXTlVqWFNJRTJFamFR?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_ef597236ed83c7f67a2d19a846e6e1a2.setContent(html_1772b35e6e9ff882d1cc4b58ce62ca90);
+            
+        
+
+        marker_d8972316e18a12d993ac00100375bfa5.bindPopup(popup_ef597236ed83c7f67a2d19a846e6e1a2)
+        ;
+
+        
+    
+    
+            marker_d8972316e18a12d993ac00100375bfa5.bindTooltip(
+                `<div>
+                     Health Emergencies: Should the Autism Spectrum Be Split Apart? - The N...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d8972316e18a12d993ac00100375bfa5.setIcon(icon_fc1c903db9fa13dac3625a6a3a852a8f);
+            
+    
+            var marker_6bca43716435125d8cbc04dedae9ada2 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_3a615568943253d7786b9a30d84f001a);
+        
+    
+            var icon_9822f704a1b1504ca79b2ea705999984 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "purple",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8cec3ee2577b543b895098a7e00f5dba = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_acd942d3f6a58a3a6b56a45232991e16 = $(`<div id="html_acd942d3f6a58a3a6b56a45232991e16" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: purple; margin-bottom: 10px;">                 Health Emergencies             </h4>             <h5 style="margin-bottom: 8px;">Breast Cancer Awareness Month 2025 - World Health Organization (WHO)</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Thu, 02 Oct 2025 05:11:54 GMT<br>                 <strong>Confidence:</strong> 0.36             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Breast Cancer Awareness Month 2025&nbsp;&nbsp;World Health Organization (WHO)Breast cancer resources: What you need to know about diagnosis, treatments, support&nbsp;&nbsp;ABC News - Breaking News, La...             </div>                          <a href="https://news.google.com/rss/articles/CBMiqgFBVV95cUxPMm8yYm9oWFEzaDdpWEZFZmdBV25oeUpSNDBfeUN2QWo0OUhVWVhzSjMtbzZZSUo1LXFfWjZldVRCRXI5SkY2OHRyaTRSa1prc2tFbzYyOVFIUnFBVlhvaXdZclBIeFdsOWl6NXBSWW0xLWw5Q1BVZU80UFBULXJKcW82dVFQU0tGSVdHX210ck9qbFRYNkhiRmdYQXVJa1Ftd0JfRUdkMHlRZw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_8cec3ee2577b543b895098a7e00f5dba.setContent(html_acd942d3f6a58a3a6b56a45232991e16);
+            
+        
+
+        marker_6bca43716435125d8cbc04dedae9ada2.bindPopup(popup_8cec3ee2577b543b895098a7e00f5dba)
+        ;
+
+        
+    
+    
+            marker_6bca43716435125d8cbc04dedae9ada2.bindTooltip(
+                `<div>
+                     Health Emergencies: Breast Cancer Awareness Month 2025 - World Health ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6bca43716435125d8cbc04dedae9ada2.setIcon(icon_9822f704a1b1504ca79b2ea705999984);
+            
+    
+            feature_group_3a615568943253d7786b9a30d84f001a.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
+        
+    
+            var feature_group_0e5c75d20941b0573fc4ffb6b435bffe = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_2149412fd8e607191072fa4f8eb41e12.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            var marker_76bd3da20bb897521d8b89ca775c3757 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
         
     
-            var feature_group_f35704ced63fc4e9f7a0fdfe56c2f1ef = L.featureGroup(
+            var icon_92892542684ec1ec36564e15dbc2e5c4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ccdf2091db4b1cb54e87d6f763f3a394 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_8538134443b1c0f383394bce71ef545c = $(`<div id="html_8538134443b1c0f383394bce71ef545c" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Brazil</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 23:01:01 GMT<br>                 <strong>Confidence:</strong> 0.42             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a forest fire started in Brazil, until 02/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025174" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_ccdf2091db4b1cb54e87d6f763f3a394.setContent(html_8538134443b1c0f383394bce71ef545c);
+            
+        
+
+        marker_76bd3da20bb897521d8b89ca775c3757.bindPopup(popup_ccdf2091db4b1cb54e87d6f763f3a394)
+        ;
+
+        
+    
+    
+            marker_76bd3da20bb897521d8b89ca775c3757.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Brazil...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_76bd3da20bb897521d8b89ca775c3757.setIcon(icon_92892542684ec1ec36564e15dbc2e5c4);
+            
+    
+            var marker_3f67afc592a9fdfd91370dcf6077aabe = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_7ab39943d675481f7845f582339b0e74 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4e8acf7b2d44fe16f9899ba92b7c484d = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_b19a541ee8c21bcf8f8c68605341f91d = $(`<div id="html_b19a541ee8c21bcf8f8c68605341f91d" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Brazil</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 23:00:43 GMT<br>                 <strong>Confidence:</strong> 0.42             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a forest fire started in Brazil, until 02/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025172" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_4e8acf7b2d44fe16f9899ba92b7c484d.setContent(html_b19a541ee8c21bcf8f8c68605341f91d);
+            
+        
+
+        marker_3f67afc592a9fdfd91370dcf6077aabe.bindPopup(popup_4e8acf7b2d44fe16f9899ba92b7c484d)
+        ;
+
+        
+    
+    
+            marker_3f67afc592a9fdfd91370dcf6077aabe.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Brazil...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3f67afc592a9fdfd91370dcf6077aabe.setIcon(icon_7ab39943d675481f7845f582339b0e74);
+            
+    
+            var marker_e064dc29cd139565bcc680bed9269422 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_de2a2a09c2a1bba40c9d03dc5fd40684 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5d0f2bfbe7e0f3bd66f9938d0a14a0f9 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_3f12f111894f541bc2f108d03a5cf160 = $(`<div id="html_3f12f111894f541bc2f108d03a5cf160" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Brazil</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 23:00:38 GMT<br>                 <strong>Confidence:</strong> 0.42             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a forest fire started in Brazil, until 02/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025171" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_5d0f2bfbe7e0f3bd66f9938d0a14a0f9.setContent(html_3f12f111894f541bc2f108d03a5cf160);
+            
+        
+
+        marker_e064dc29cd139565bcc680bed9269422.bindPopup(popup_5d0f2bfbe7e0f3bd66f9938d0a14a0f9)
+        ;
+
+        
+    
+    
+            marker_e064dc29cd139565bcc680bed9269422.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Brazil...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e064dc29cd139565bcc680bed9269422.setIcon(icon_de2a2a09c2a1bba40c9d03dc5fd40684);
+            
+    
+            var marker_2a2a6d0411164be5c5c4258c4289d275 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_e096b3b2a642e5006cd097c60d603e75 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f776a7d31d1789c1df758f322bb26af3 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_9513cef9812e46bbc95a58bf69ea2c30 = $(`<div id="html_9513cef9812e46bbc95a58bf69ea2c30" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Brazil</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 19:01:05 GMT<br>                 <strong>Confidence:</strong> 0.41             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a forest fire started in Brazil, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025163" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_f776a7d31d1789c1df758f322bb26af3.setContent(html_9513cef9812e46bbc95a58bf69ea2c30);
+            
+        
+
+        marker_2a2a6d0411164be5c5c4258c4289d275.bindPopup(popup_f776a7d31d1789c1df758f322bb26af3)
+        ;
+
+        
+    
+    
+            marker_2a2a6d0411164be5c5c4258c4289d275.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Brazil...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2a2a6d0411164be5c5c4258c4289d275.setIcon(icon_e096b3b2a642e5006cd097c60d603e75);
+            
+    
+            var marker_78951694a36e6f134faae340f1b6351d = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_eabeb85c91e2bbb3c3895493211ebf48 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_44d61b98b8f706972c416eb629d93a6d = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_47bf6778d85146023a3599ef17685d55 = $(`<div id="html_47bf6778d85146023a3599ef17685d55" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Botswana</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 15:00:29 GMT<br>                 <strong>Confidence:</strong> 0.50             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 29/09/2025, a forest fire started in Botswana, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025162" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_44d61b98b8f706972c416eb629d93a6d.setContent(html_47bf6778d85146023a3599ef17685d55);
+            
+        
+
+        marker_78951694a36e6f134faae340f1b6351d.bindPopup(popup_44d61b98b8f706972c416eb629d93a6d)
+        ;
+
+        
+    
+    
+            marker_78951694a36e6f134faae340f1b6351d.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Botswana...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_78951694a36e6f134faae340f1b6351d.setIcon(icon_eabeb85c91e2bbb3c3895493211ebf48);
+            
+    
+            var marker_64952a426e0e325813b450a9badf1fe9 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_6d3f3cde85f13bff3fe15a31b903153b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d6723a923de10c980785fbc5b9dd6063 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_e3ab4e56cae949bb641ea6737f3b96f9 = $(`<div id="html_e3ab4e56cae949bb641ea6737f3b96f9" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green flood alert in Laos</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 11:06:35 GMT<br>                 <strong>Confidence:</strong> 0.35             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 29/09/2025, a flood started in Laos, lasting until 01/10/2025 (last update). The flood caused 3 deaths and 2531 displaced .             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103532" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_d6723a923de10c980785fbc5b9dd6063.setContent(html_e3ab4e56cae949bb641ea6737f3b96f9);
+            
+        
+
+        marker_64952a426e0e325813b450a9badf1fe9.bindPopup(popup_d6723a923de10c980785fbc5b9dd6063)
+        ;
+
+        
+    
+    
+            marker_64952a426e0e325813b450a9badf1fe9.bindTooltip(
+                `<div>
+                     Environmental Issues: Green flood alert in Laos...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_64952a426e0e325813b450a9badf1fe9.setIcon(icon_6d3f3cde85f13bff3fe15a31b903153b);
+            
+    
+            var marker_e01ab01d943f16a03015ff97f17860e7 = L.marker(
+                [50.4501, 30.5234],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_f24ed6e7c0ce2f679ad3c71848d23ebc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6d2a02b6aa675383349e925e3c7a9845 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_281f5deb782997a5e190a5cd8dd72554 = $(`<div id="html_281f5deb782997a5e190a5cd8dd72554" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green flood alert in Ukraine</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Ukraine (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 10:16:21 GMT<br>                 <strong>Confidence:</strong> 0.46             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 30/09/2025, a flood started in Ukraine, lasting until 02/10/2025 (last update). The flood caused 9 deaths and 0 displaced .             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103530" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_6d2a02b6aa675383349e925e3c7a9845.setContent(html_281f5deb782997a5e190a5cd8dd72554);
+            
+        
+
+        marker_e01ab01d943f16a03015ff97f17860e7.bindPopup(popup_6d2a02b6aa675383349e925e3c7a9845)
+        ;
+
+        
+    
+    
+            marker_e01ab01d943f16a03015ff97f17860e7.bindTooltip(
+                `<div>
+                     Environmental Issues: Green flood alert in Ukraine...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e01ab01d943f16a03015ff97f17860e7.setIcon(icon_f24ed6e7c0ce2f679ad3c71848d23ebc);
+            
+    
+            var marker_f46d9b04f7ad305049a7dcccef25b876 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_a33079c4bce134b7c724950cb3045400 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_06a1175e466d4d307a038717ddaf33f3 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_57bd38fcec8fdac5ab683400198bd207 = $(`<div id="html_57bd38fcec8fdac5ab683400198bd207" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green flood alert in Nicaragua</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 09:49:20 GMT<br>                 <strong>Confidence:</strong> 0.42             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a flood started in Nicaragua, lasting until 30/09/2025 (last update). The flood caused 0 deaths and 0 displaced .             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103529" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_06a1175e466d4d307a038717ddaf33f3.setContent(html_57bd38fcec8fdac5ab683400198bd207);
+            
+        
+
+        marker_f46d9b04f7ad305049a7dcccef25b876.bindPopup(popup_06a1175e466d4d307a038717ddaf33f3)
+        ;
+
+        
+    
+    
+            marker_f46d9b04f7ad305049a7dcccef25b876.bindTooltip(
+                `<div>
+                     Environmental Issues: Green flood alert in Nicaragua...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f46d9b04f7ad305049a7dcccef25b876.setIcon(icon_a33079c4bce134b7c724950cb3045400);
+            
+    
+            var marker_c8c813aa58079799aad7f5980476d280 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_0f31688fc4239afee586aa688b1ea369 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_74d5ef3805ac9def5a6aba5b8a7b21c9 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_db62d04b0b83805c4fdd0f2d0b1181bd = $(`<div id="html_db62d04b0b83805c4fdd0f2d0b1181bd" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green flood alert in Cuba</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 09:46:19 GMT<br>                 <strong>Confidence:</strong> 0.35             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 27/09/2025, a flood started in Cuba, lasting until 29/09/2025 (last update). The flood caused 1 deaths and 18000 displaced .             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103528" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_74d5ef3805ac9def5a6aba5b8a7b21c9.setContent(html_db62d04b0b83805c4fdd0f2d0b1181bd);
+            
+        
+
+        marker_c8c813aa58079799aad7f5980476d280.bindPopup(popup_74d5ef3805ac9def5a6aba5b8a7b21c9)
+        ;
+
+        
+    
+    
+            marker_c8c813aa58079799aad7f5980476d280.bindTooltip(
+                `<div>
+                     Environmental Issues: Green flood alert in Cuba...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c8c813aa58079799aad7f5980476d280.setIcon(icon_0f31688fc4239afee586aa688b1ea369);
+            
+    
+            var marker_3a98928004ef028d372a945fa5a808d1 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_20d675240f2697b3e29f3a32f5997c7b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c832ed0a65032ac450cf3da4c95329b5 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_665a9b74538df8a3c5cbe725ffa5211f = $(`<div id="html_665a9b74538df8a3c5cbe725ffa5211f" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Australia</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 07:00:49 GMT<br>                 <strong>Confidence:</strong> 0.40             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a forest fire started in Australia, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025166" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_c832ed0a65032ac450cf3da4c95329b5.setContent(html_665a9b74538df8a3c5cbe725ffa5211f);
+            
+        
+
+        marker_3a98928004ef028d372a945fa5a808d1.bindPopup(popup_c832ed0a65032ac450cf3da4c95329b5)
+        ;
+
+        
+    
+    
+            marker_3a98928004ef028d372a945fa5a808d1.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Australia...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3a98928004ef028d372a945fa5a808d1.setIcon(icon_20d675240f2697b3e29f3a32f5997c7b);
+            
+    
+            var marker_084a9eb72b4558ff2e254c2bee534995 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_c0fd40f44f2b32462bb65576231b338c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2e8999d08b5980615f0f4d9d9041123a = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_4b125fad9f24cf8a19eca0ccbe47274e = $(`<div id="html_4b125fad9f24cf8a19eca0ccbe47274e" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Australia</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Wed, 01 Oct 2025 07:00:23 GMT<br>                 <strong>Confidence:</strong> 0.41             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 30/09/2025, a forest fire started in Australia, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025165" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_2e8999d08b5980615f0f4d9d9041123a.setContent(html_4b125fad9f24cf8a19eca0ccbe47274e);
+            
+        
+
+        marker_084a9eb72b4558ff2e254c2bee534995.bindPopup(popup_2e8999d08b5980615f0f4d9d9041123a)
+        ;
+
+        
+    
+    
+            marker_084a9eb72b4558ff2e254c2bee534995.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Australia...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_084a9eb72b4558ff2e254c2bee534995.setIcon(icon_c0fd40f44f2b32462bb65576231b338c);
+            
+    
+            var marker_09ec2f2c18aab22008d67427827b3278 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_87ac023c110ddca41bb42d54ccd41c86 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_be3af01cb14089dc7353329ddde4fd75 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_97417639a714582e0b2dc9b7d96e4e0e = $(`<div id="html_97417639a714582e0b2dc9b7d96e4e0e" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Angola, Namibia</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 15:01:10 GMT<br>                 <strong>Confidence:</strong> 0.49             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 27/09/2025, a forest fire started in Angola, Namibia, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025151" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_be3af01cb14089dc7353329ddde4fd75.setContent(html_97417639a714582e0b2dc9b7d96e4e0e);
+            
+        
+
+        marker_09ec2f2c18aab22008d67427827b3278.bindPopup(popup_be3af01cb14089dc7353329ddde4fd75)
+        ;
+
+        
+    
+    
+            marker_09ec2f2c18aab22008d67427827b3278.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Angola, Namibia...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_09ec2f2c18aab22008d67427827b3278.setIcon(icon_87ac023c110ddca41bb42d54ccd41c86);
+            
+    
+            var marker_4ef856143919d6e3256849f64eeef4aa = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_85432dce1cf8f1c3a1d1357f89e908ea = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0797131feb77904e1b74eee7d0d8650a = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_48e82daec63ec489813c55d04f234bd7 = $(`<div id="html_48e82daec63ec489813c55d04f234bd7" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Australia</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 15:00:27 GMT<br>                 <strong>Confidence:</strong> 0.40             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a forest fire started in Australia, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025158" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_0797131feb77904e1b74eee7d0d8650a.setContent(html_48e82daec63ec489813c55d04f234bd7);
+            
+        
+
+        marker_4ef856143919d6e3256849f64eeef4aa.bindPopup(popup_0797131feb77904e1b74eee7d0d8650a)
+        ;
+
+        
+    
+    
+            marker_4ef856143919d6e3256849f64eeef4aa.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Australia...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4ef856143919d6e3256849f64eeef4aa.setIcon(icon_85432dce1cf8f1c3a1d1357f89e908ea);
+            
+    
+            var marker_aac8adc56c000fb04e845713c3ca2904 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_0645d247e99a1cc5f0a95ef4deec9ee5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_97b096c6e5b6b6449be12ddd49d61dc3 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_5ce98e32119d666e6383e73f9ece5ccd = $(`<div id="html_5ce98e32119d666e6383e73f9ece5ccd" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green alert for tropical cyclone OCTAVE-25. Population affected by Category 1 (120 km/h) wind speeds or higher is 0  (0 in Tropical Storm).</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 08:52:38 GMT<br>                 <strong>Confidence:</strong> 0.25             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 From 30/09/2025 to 02/10/2025, a Tropical Storm (maximum wind speed of 120 km/h) OCTAVE-25 was active in EastPacific. The cyclone affects these countries: [unknown] (vulnerability [unknown]). Estimate...             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=TC&eventid=1001217" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_97b096c6e5b6b6449be12ddd49d61dc3.setContent(html_5ce98e32119d666e6383e73f9ece5ccd);
+            
+        
+
+        marker_aac8adc56c000fb04e845713c3ca2904.bindPopup(popup_97b096c6e5b6b6449be12ddd49d61dc3)
+        ;
+
+        
+    
+    
+            marker_aac8adc56c000fb04e845713c3ca2904.bindTooltip(
+                `<div>
+                     Environmental Issues: Green alert for tropical cyclone OCTAVE-25. Popula...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aac8adc56c000fb04e845713c3ca2904.setIcon(icon_0645d247e99a1cc5f0a95ef4deec9ee5);
+            
+    
+            var marker_8c62197061345dfd4c849e13615dbd76 = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_c080aebe7ce66bc96c5dae8252884928 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9924b7808cb21c5c24f4014c799ab019 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_955877b608baa3ebb7b1d4d2edec601e = $(`<div id="html_955877b608baa3ebb7b1d4d2edec601e" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green flood alert in Haiti</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 05:49:40 GMT<br>                 <strong>Confidence:</strong> 0.36             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 29/09/2025, a flood started in Haiti, lasting until 29/09/2025 (last update). The flood caused 1 deaths and 0 displaced .             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103526" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_9924b7808cb21c5c24f4014c799ab019.setContent(html_955877b608baa3ebb7b1d4d2edec601e);
+            
+        
+
+        marker_8c62197061345dfd4c849e13615dbd76.bindPopup(popup_9924b7808cb21c5c24f4014c799ab019)
+        ;
+
+        
+    
+    
+            marker_8c62197061345dfd4c849e13615dbd76.bindTooltip(
+                `<div>
+                     Environmental Issues: Green flood alert in Haiti...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8c62197061345dfd4c849e13615dbd76.setIcon(icon_c080aebe7ce66bc96c5dae8252884928);
+            
+    
+            var marker_2ff41706f86fb6e718ecec8abeb8fa3b = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_a57eb7f9e811a36414ffe96692aebc58 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6285e03cfd60e4d0f7158d2dc1431572 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_c51cd73ce10aa10396c1ff0b5a81086d = $(`<div id="html_c51cd73ce10aa10396c1ff0b5a81086d" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Brazil</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 03:00:28 GMT<br>                 <strong>Confidence:</strong> 0.41             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 27/09/2025, a forest fire started in Brazil, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025153" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_6285e03cfd60e4d0f7158d2dc1431572.setContent(html_c51cd73ce10aa10396c1ff0b5a81086d);
+            
+        
+
+        marker_2ff41706f86fb6e718ecec8abeb8fa3b.bindPopup(popup_6285e03cfd60e4d0f7158d2dc1431572)
+        ;
+
+        
+    
+    
+            marker_2ff41706f86fb6e718ecec8abeb8fa3b.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Brazil...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2ff41706f86fb6e718ecec8abeb8fa3b.setIcon(icon_a57eb7f9e811a36414ffe96692aebc58);
+            
+    
+            var marker_da8ea003d8bf7a9fd57fdcaedf30ab9e = L.marker(
+                [20.0, 0.0],
+                {
+}
+            ).addTo(feature_group_0e5c75d20941b0573fc4ffb6b435bffe);
+        
+    
+            var icon_37c0a81419d1beaeac5576e11363a234 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a4d7a04e4b8b509babf1220b9b1c7710 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_d55ba9c2cf01784f6dc03ef7e2fa71e3 = $(`<div id="html_d55ba9c2cf01784f6dc03ef7e2fa71e3" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: green; margin-bottom: 10px;">                 Environmental Issues             </h4>             <h5 style="margin-bottom: 8px;">Green forest fire alert in Australia</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Global Crisis Event (estimated)<br>                 <strong>Source:</strong> GDACS Global Disasters<br>                 <strong>Date:</strong> Tue, 30 Sep 2025 03:00:12 GMT<br>                 <strong>Confidence:</strong> 0.40             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 On 28/09/2025, a forest fire started in Australia, until 01/10/2025.             </div>                          <a href="https://www.gdacs.org/report.aspx?eventtype=WF&eventid=1025157" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_a4d7a04e4b8b509babf1220b9b1c7710.setContent(html_d55ba9c2cf01784f6dc03ef7e2fa71e3);
+            
+        
+
+        marker_da8ea003d8bf7a9fd57fdcaedf30ab9e.bindPopup(popup_a4d7a04e4b8b509babf1220b9b1c7710)
+        ;
+
+        
+    
+    
+            marker_da8ea003d8bf7a9fd57fdcaedf30ab9e.bindTooltip(
+                `<div>
+                     Environmental Issues: Green forest fire alert in Australia...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_da8ea003d8bf7a9fd57fdcaedf30ab9e.setIcon(icon_37c0a81419d1beaeac5576e11363a234);
+            
+    
+            feature_group_0e5c75d20941b0573fc4ffb6b435bffe.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
+        
+    
+            var feature_group_d499be8b6874a34941c6ddb6dc5b0097 = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_f35704ced63fc4e9f7a0fdfe56c2f1ef.addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            feature_group_d499be8b6874a34941c6ddb6dc5b0097.addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
         
     
-            var layer_control_1be655ce6df9d264b5edf9d5dfdbe1c2_layers = {
+            var layer_control_a92aef17e19c5dd2b2bb1a48b2cceb61_layers = {
                 base_layers : {
-                    "openstreetmap" : tile_layer_9d146f49df5b230924ddf16bc53faa2e,
+                    "openstreetmap" : tile_layer_c138299c8101a1f9a3cf165678b13e35,
                 },
                 overlays :  {
-                    "Natural Disasters" : feature_group_a77535dcd46c0e738be0bf67f6f7f8aa,
-                    "Political Conflicts" : feature_group_0f320c83078b354cdd5a25238bd3b582,
-                    "Humanitarian Crises" : feature_group_7e1a16230b10a69153f45359b10b8546,
-                    "Economic Crises" : feature_group_bf86bb52faa1973191ec862f5893776c,
-                    "Health Emergencies" : feature_group_99f12fe2e4bb01a35320e733c719fcfa,
-                    "Environmental Issues" : feature_group_2149412fd8e607191072fa4f8eb41e12,
-                    "Other" : feature_group_f35704ced63fc4e9f7a0fdfe56c2f1ef,
+                    "Natural Disasters" : feature_group_3e780bbd9ef1c315ed40faf51021382c,
+                    "Political Conflicts" : feature_group_dfa7adf91c840e5f2d36e504ed3656cc,
+                    "Humanitarian Crises" : feature_group_0f2d5200234691fb517900d7403289c8,
+                    "Economic Crises" : feature_group_2b19d84325950ac859eeb703866514cd,
+                    "Health Emergencies" : feature_group_3a615568943253d7786b9a30d84f001a,
+                    "Environmental Issues" : feature_group_0e5c75d20941b0573fc4ffb6b435bffe,
+                    "Other" : feature_group_d499be8b6874a34941c6ddb6dc5b0097,
                 },
             };
-            let layer_control_1be655ce6df9d264b5edf9d5dfdbe1c2 = L.control.layers(
-                layer_control_1be655ce6df9d264b5edf9d5dfdbe1c2_layers.base_layers,
-                layer_control_1be655ce6df9d264b5edf9d5dfdbe1c2_layers.overlays,
+            let layer_control_a92aef17e19c5dd2b2bb1a48b2cceb61 = L.control.layers(
+                layer_control_a92aef17e19c5dd2b2bb1a48b2cceb61_layers.base_layers,
+                layer_control_a92aef17e19c5dd2b2bb1a48b2cceb61_layers.overlays,
                 {
   "position": "topright",
   "collapsed": true,
   "autoZIndex": true,
 }
-            ).addTo(map_72ee7b1deb0ba940aa7de1aac3fe2f93);
+            ).addTo(map_d0c218cd1a0aa2192fc5cad923b294c6);
 
         
 </script>

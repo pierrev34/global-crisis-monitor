@@ -93,9 +93,9 @@ class CrisisClassifier:
             if top_score < confidence_threshold:
                 top_label = "Unknown"
                 top_score = 0.0
-            
+
             return self._create_classification_result(
-                article, top_label, top_score, all_scores
+                article, top_label, top_score, all_scores, confidence_threshold
             )
             
         except Exception as e:
@@ -138,18 +138,24 @@ class CrisisClassifier:
         return results
     
     def _create_classification_result(self, article: Dict, category: str, 
-                                    confidence: float, all_scores: Dict) -> Dict:
+                                    confidence: float, all_scores: Dict,
+                                    min_confidence: float = 0.3) -> Dict:
         """Create standardized classification result"""
         return {
             'article': article,
             'predicted_category': category,
             'confidence': confidence,
             'all_scores': all_scores,
-            'is_crisis': category in self.categories and confidence > 0.3,
+            'is_crisis': (
+                category in self.categories and
+                category != "Unknown" and
+                confidence >= min_confidence
+            ),
             'classification_metadata': {
                 'model_used': self.model_name,
                 'categories_available': self.categories,
-                'device_used': self.device
+                'device_used': self.device,
+                'min_confidence': min_confidence
             }
         }
     

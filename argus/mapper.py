@@ -476,8 +476,9 @@ class CrisisMapper:
         if include_heatmap:
             world_map = self.add_crisis_heatmap(world_map, crisis_data)
         
-        if include_statistics:
-            world_map = self.add_statistics_panel(world_map, crisis_data)
+        # Statistics panel removed to avoid duplication with main page panel
+        # if include_statistics:
+        #     world_map = self.add_statistics_panel(world_map, crisis_data)
         
         # Title panel removed per user request
         

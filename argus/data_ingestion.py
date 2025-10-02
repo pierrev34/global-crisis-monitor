@@ -333,7 +333,7 @@ def get_crisis_articles(hours_back: int = 24, use_cache: bool = True, prefer_rss
                 hours_back=hours_back
             )
             
-            if articles and len(articles) >= 3:  # Only use RSS if we get decent coverage
+            if articles and len(articles) >= 1:  # Use RSS even with fewer articles
                 logger.info(f"✅ Successfully fetched {len(articles)} articles from RSS feeds")
                 # Cache the results
                 ingester.save_articles_to_file(articles)

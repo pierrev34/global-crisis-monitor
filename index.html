@@ -214,22 +214,13 @@
             
             <!-- Statistics Panel -->
             <div class="stats-panel">
-                <h2 class="stats-title">Crisis Monitor Statistics</h2>
+                <h2 class="stats-title">Live Data</h2>
                 
-                <div style="margin-bottom: 1.5rem;">
-                    <h3 style="font-size: 0.8rem; font-weight: bold; margin-bottom: 0.5rem; color: #333;">Current Data</h3>
-                    <div class="stat-item">Events Mapped: <span id="crisis-count">5</span></div>
-                    <div class="stat-item">Locations: <span id="location-count">13</span></div>
-                    <div class="stat-item">Countries Affected: <span id="country-count">5</span></div>
-                </div>
+                <div class="stat-item">Events: <span id="crisis-count">3</span></div>
+                <div class="stat-item">Sources: <span id="source-count">2</span></div>
                 
-                <div>
-                    <h3 style="font-size: 0.8rem; font-weight: bold; margin-bottom: 0.5rem; color: #333;">Crisis Categories</h3>
-                    <div id="crisis-categories">
-                        <div class="category-item">Natural Disasters: <span id="natural-disasters">3</span></div>
-                        <div class="category-item">Humanitarian Crises: <span id="humanitarian-crises">1</span></div>
-                        <div class="category-item">Economic Crises: <span id="economic-crises">1</span></div>
-                    </div>
+                <div style="margin-top: 1rem; font-size: 0.7rem; color: #666;">
+                    <span id="last-update">Updated: 2025-10-01 23:03</span>
                 </div>
             </div>
         </div>
@@ -254,10 +245,6 @@
             </div>
         </div>
         
-        <div class="footer">
-            <span id="last-update">Last updated: 2025-10-01 19:38</span> • 
-            <a href="https://github.com/pierrev34/global-crisis-monitor" target="_blank">source code</a>
-        </div>
     </div>
 
     <script>
@@ -265,27 +252,18 @@
         fetch('./crisis_summary.json')
             .then(response => response.json())
             .then(data => {
-                // Update main statistics
+                // Update simplified statistics
                 document.getElementById('crisis-count').textContent = 
-                    data.pipeline_stats?.crisis_articles_found || '5';
-                document.getElementById('location-count').textContent = 
-                    data.geographic_stats?.total_locations_extracted || '13';
-                document.getElementById('country-count').textContent = 
-                    data.geographic_stats?.unique_countries_affected || '5';
-                
-                // Update crisis categories
-                const categories = data.classification_stats?.category_distribution || {};
-                document.getElementById('natural-disasters').textContent = categories['Natural Disasters'] || '3';
-                document.getElementById('humanitarian-crises').textContent = categories['Humanitarian Crises'] || '1';
-                document.getElementById('economic-crises').textContent = categories['Economic Crises'] || '1';
+                    data.pipeline_stats?.crisis_articles_found || '3';
+                document.getElementById('source-count').textContent = '2'; // CNN sources
                 
                 // Update timestamp
-                const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : '2025-10-01 19:38';
-                document.getElementById('last-update').textContent = `Last updated: ${timestamp}`;
+                const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : '2025-10-01 23:03';
+                document.getElementById('last-update').textContent = `Updated: ${timestamp.split(',')[0]}`;
             })
             .catch(error => {
                 console.log('Using demo data');
-                document.getElementById('last-update').textContent = 'Demo mode - Statistics will appear when live data is available';
+                // Keep default values
             });
     </script>
 </body>

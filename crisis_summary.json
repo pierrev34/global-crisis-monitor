@@ -1,23 +1,26 @@
 {
-  "timestamp": "2025-10-01T23:04:09.153156",
+  "timestamp": "2025-10-01T23:24:23.338017",
   "pipeline_stats": {
-    "total_articles_fetched": 3,
-    "articles_classified": 3,
-    "crisis_articles_found": 2,
-    "mappable_crisis_articles": 2
+    "total_articles_fetched": 50,
+    "articles_classified": 50,
+    "crisis_articles_found": 50,
+    "mappable_crisis_articles": 50
   },
   "classification_stats": {
     "category_distribution": {
-      "Health Emergencies": 1,
-      "Humanitarian Crises": 1,
-      "Unknown": 1
+      "Political Conflicts": 10,
+      "Natural Disasters": 9,
+      "Environmental Issues": 17,
+      "Economic Crises": 2,
+      "Humanitarian Crises": 7,
+      "Health Emergencies": 5
     },
-    "average_confidence": 0.3188251753648122
+    "average_confidence": 0.4122216513752937
   },
   "geographic_stats": {
-    "total_locations_extracted": 0,
+    "total_locations_extracted": 54,
     "successfully_geocoded": 0,
-    "geocoding_success_rate": 0,
+    "geocoding_success_rate": 0.0,
     "unique_countries_affected": 0,
     "countries_list": []
   },

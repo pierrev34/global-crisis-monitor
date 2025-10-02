@@ -12,6 +12,10 @@ from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
 import time
 import re
+import os
+from dotenv import load_dotenv
+import requests
+from urllib.parse import quote
 from .config import SPACY_MODEL, GEOCODING_TIMEOUT, MAX_LOCATIONS_PER_ARTICLE
 
 # Set up logging
@@ -32,6 +36,13 @@ class GeographicExtractor:
         self.model_name = spacy_model or SPACY_MODEL
         self.nlp = None
         self.geocoder = Nominatim(user_agent="argus-crisis-monitor", timeout=GEOCODING_TIMEOUT)
+        # Load .env (if present) for API keys
+        try:
+            load_dotenv()
+        except Exception:
+            pass
+        self.mapbox_token = os.getenv("MAPBOX_TOKEN")
+        self.mapbox_endpoint = "https://api.mapbox.com/geocoding/v5/mapbox.places/"
         
         # Cache for geocoding results to avoid repeated API calls
         self.geocoding_cache = {}
@@ -167,9 +178,16 @@ class GeographicExtractor:
         try:
             # Add rate limiting to avoid overwhelming the geocoding service
             time.sleep(0.1)
-            
-            location = self.geocoder.geocode(location_text)
-            
+
+            # Primary: Nominatim (OSM)
+            location = None
+            try:
+                location = self.geocoder.geocode(location_text)
+            except (GeocoderTimedOut, GeocoderServiceError) as e:
+                logger.warning(f"Geocoding service error for '{location_text}': {e}")
+            except Exception as e:
+                logger.warning(f"Unexpected geocoding error for '{location_text}': {e}")
+
             if location:
                 result = {
                     'query': location_text,
@@ -178,18 +196,44 @@ class GeographicExtractor:
                     'longitude': location.longitude,
                     'raw_data': location.raw
                 }
-                
-                # Cache the result
+                # Cache and return
                 self.geocoding_cache[cache_key] = result
                 return result
-            else:
-                # Cache negative results too
-                self.geocoding_cache[cache_key] = None
-                return None
-                
-        except (GeocoderTimedOut, GeocoderServiceError) as e:
-            logger.warning(f"Geocoding service error for '{location_text}': {e}")
+
+            # Fallback: Mapbox Geocoding API (requires MAPBOX_TOKEN)
+            if self.mapbox_token:
+                try:
+                    q = quote(location_text)
+                    url = f"{self.mapbox_endpoint}{q}.json"
+                    params = {
+                        'access_token': self.mapbox_token,
+                        'limit': 1,
+                        'language': 'en'
+                    }
+                    resp = requests.get(url, params=params, timeout=10)
+                    if resp.ok:
+                        data = resp.json()
+                        features = data.get('features', [])
+                        if features:
+                            center = features[0].get('center', [])
+                            place_name = features[0].get('place_name', location_text)
+                            if len(center) == 2:
+                                result = {
+                                    'query': location_text,
+                                    'found_name': place_name,
+                                    'latitude': center[1],
+                                    'longitude': center[0],
+                                    'raw_data': features[0]
+                                }
+                                self.geocoding_cache[cache_key] = result
+                                return result
+                except Exception as e:
+                    logger.warning(f"Mapbox fallback failed for '{location_text}': {e}")
+
+            # Cache negative results too
+            self.geocoding_cache[cache_key] = None
             return None
+
         except Exception as e:
             logger.error(f"Unexpected geocoding error for '{location_text}': {e}")
             return None

@@ -29,6 +29,12 @@ class RSSCrisisFetcher:
             'CNN Politics': 'http://rss.cnn.com/rss/cnn_allpolitics.rss',
             'CNN Health': 'http://rss.cnn.com/rss/cnn_health.rss',
             'CNN Tech': 'http://rss.cnn.com/rss/cnn_tech.rss',
+            # Crisis-native feeds (higher signal)
+            'USGS Earthquakes (All, 24h)': 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.atom',
+            'USGS Earthquakes (M2.5+, 24h)': 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.atom',
+            'GDACS Global Disasters': 'https://www.gdacs.org/xml/rss.xml',
+            'WHO Disease Outbreaks': 'https://www.who.int/feeds/entity/csr/don/en/rss.xml',
+            'ReliefWeb Updates': 'https://reliefweb.int/updates?format=rss',
             # Add more working feeds
             'Yahoo News': 'https://news.yahoo.com/rss/world',
             'Google News': 'https://news.google.com/rss?topic=w&hl=en-US&gl=US&ceid=US:en',
@@ -95,8 +101,29 @@ class RSSCrisisFetcher:
             try:
                 logger.debug(f"Fetching from {source_name}: {feed_url}")
                 
-                # Parse RSS feed with timeout
-                feed = feedparser.parse(feed_url)
+                # Fetch RSS with requests first (handles SSL/certs better), then parse bytes
+                headers = {
+                    'User-Agent': 'ARGUS/1.0 (+https://github.com/pierrev34/global-crisis-monitor)'
+                }
+                feed_content = None
+                try:
+                    resp = requests.get(feed_url, headers=headers, timeout=20)
+                    resp.raise_for_status()
+                    feed_content = resp.content
+                except requests.exceptions.SSLError as ssl_err:
+                    logger.warning(f"SSL issue for {source_name}, retrying without verify: {ssl_err}")
+                    try:
+                        resp = requests.get(feed_url, headers=headers, timeout=20, verify=False)
+                        resp.raise_for_status()
+                        feed_content = resp.content
+                    except Exception as e2:
+                        logger.warning(f"Failed fetching {source_name} after SSL fallback: {e2}")
+                        continue
+                except Exception as e:
+                    logger.warning(f"HTTP error fetching {source_name}: {e}")
+                    continue
+
+                feed = feedparser.parse(feed_content)
                 
                 if feed.bozo:
                     logger.warning(f"RSS feed parsing issues for {source_name}: {feed.bozo_exception}")
@@ -114,7 +141,7 @@ class RSSCrisisFetcher:
                                 articles_from_source += 1
                                 
                                 # Increase limit per source for more articles
-                                if articles_from_source >= 20:
+                                if articles_from_source >= 30:
                                     break
                 
                 logger.info(f"Found {articles_from_source} crisis articles from {source_name}")
@@ -169,12 +196,13 @@ class RSSCrisisFetcher:
         # Also check for general news keywords that might indicate crises
         general_crisis_words = ['breaking', 'urgent', 'alert', 'warning', 'threat', 'danger', 
                                'death', 'killed', 'injured', 'damage', 'destroy', 'collapse',
-                               'strike', 'attack', 'bomb', 'shoot', 'fire', 'burn', 'crash']
+                               'strike', 'attack', 'bomb', 'shoot', 'fire', 'burn', 'crash',
+                               'rescue', 'emergency', 'evacuate', 'missing', 'search', 'found dead']
         
         general_score = sum(1 for word in general_crisis_words if word in text_to_check)
         
-        # Require at least 1 crisis keyword OR 2 general crisis words
-        return crisis_score >= 1 or general_score >= 2
+        # More inclusive: 1 crisis keyword OR 1 general crisis word
+        return crisis_score >= 1 or general_score >= 1
     
     def _process_rss_entry(self, entry: Dict, source_name: str) -> Optional[Dict]:
         """Process RSS entry into article format"""
