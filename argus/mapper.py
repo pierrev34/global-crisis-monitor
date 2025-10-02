@@ -261,11 +261,6 @@ class CrisisMapper:
         published_date = article.get('published_date', 'Unknown date')
         location_name = location.get('found_name', location.get('text', 'Unknown location'))
         
-        # Check if this is real data vs demo data
-        is_real_data = not url.startswith('https://example.com')
-        data_type = "✅ REAL DATA" if is_real_data else "⚠️ DEMO DATA"
-        data_color = "green" if is_real_data else "orange"
-        
         # Check if using fallback location
         is_fallback = location.get('fallback', False)
         location_note = " (estimated)" if is_fallback else ""
@@ -275,12 +270,9 @@ class CrisisMapper:
         if len(content) > 200:
             content = content[:200] + "..."
         
-        # Create HTML popup
+        # Create HTML popup (clean, no "REAL DATA" banner)
         popup_html = f"""
         <div style="width: 350px;">
-            <div style="background-color: {data_color}; color: white; padding: 5px; margin-bottom: 10px; text-align: center; font-weight: bold;">
-                {data_type}
-            </div>
             <h4 style="color: {self.crisis_colors.get(category, 'black')}; margin-bottom: 10px;">
                 {category}
             </h4>
@@ -298,7 +290,7 @@ class CrisisMapper:
             </div>
             
             <a href="{url}" target="_blank" style="color: #007cba; text-decoration: none;">
-                📰 {'Read Real Article' if is_real_data else 'Sample Article (Demo)'}
+                📰 Read Article
             </a>
         </div>
         """
@@ -487,21 +479,7 @@ class CrisisMapper:
         if include_statistics:
             world_map = self.add_statistics_panel(world_map, crisis_data)
         
-        # Add title
-        title_html = '''
-        <div style="position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
-                    background: rgba(255,255,255,0.9); padding: 10px; border-radius: 5px;
-                    z-index: 1000; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
-            <h2 style="margin: 0; color: #333; text-align: center;">
-                🌍 Global Crisis Monitor
-            </h2>
-            <p style="margin: 5px 0 0 0; text-align: center; color: #666; font-size: 12px;">
-                Real-time AI-powered crisis mapping from global news sources
-            </p>
-        </div>
-        '''
-        
-        world_map.get_root().html.add_child(folium.Element(title_html))
+        # Title panel removed per user request
         
         # Save map to file
         world_map.save(output_file)

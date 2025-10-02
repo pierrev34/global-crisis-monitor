@@ -333,24 +333,42 @@ def get_crisis_articles(hours_back: int = 24, use_cache: bool = True, prefer_rss
                 hours_back=hours_back
             )
             
-            if articles:
+            if articles and len(articles) >= 3:  # Only use RSS if we get decent coverage
                 logger.info(f"✅ Successfully fetched {len(articles)} articles from RSS feeds")
                 # Cache the results
                 ingester.save_articles_to_file(articles)
                 return articles
             else:
-                logger.warning("No articles found from RSS feeds, trying GDELT...")
+                logger.warning(f"Only found {len(articles)} articles from RSS feeds, trying GDELT for more coverage...")
                 
         except Exception as e:
             logger.warning(f"RSS fetch failed: {e}, trying GDELT...")
     
-    # Fallback to GDELT API
-    if not articles:
-        logger.info("📡 Trying GDELT API...")
-        articles = ingester.fetch_recent_articles(hours_back=hours_back)
-        
-        # Cache the results if we got any
+    # Try GDELT API to supplement RSS articles
+    logger.info("📡 Trying GDELT API for additional coverage...")
+    gdelt_articles = ingester.fetch_recent_articles(hours_back=hours_back)
+    
+    # Combine RSS and GDELT articles
+    if gdelt_articles:
         if articles:
-            ingester.save_articles_to_file(articles)
+            # Combine and deduplicate
+            combined_articles = articles + gdelt_articles
+            # Simple deduplication by URL
+            seen_urls = set()
+            unique_articles = []
+            for article in combined_articles:
+                url = article.get('url', '')
+                if url not in seen_urls:
+                    seen_urls.add(url)
+                    unique_articles.append(article)
+            articles = unique_articles[:MAX_ARTICLES_TO_PROCESS]
+            logger.info(f"✅ Combined RSS and GDELT: {len(articles)} unique articles")
+        else:
+            articles = gdelt_articles
+            logger.info(f"✅ Using GDELT articles: {len(articles)} articles")
+    
+    # Cache the results if we got any
+    if articles:
+        ingester.save_articles_to_file(articles)
     
     return articles

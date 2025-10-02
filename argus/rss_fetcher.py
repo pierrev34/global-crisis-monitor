@@ -23,16 +23,18 @@ class RSSCrisisFetcher:
         # Major news RSS feeds that cover crisis events
         # Using HTTP where possible to avoid SSL issues
         self.rss_feeds = {
-            'BBC World': 'http://feeds.bbci.co.uk/news/world/rss.xml',
             'CNN International': 'http://rss.cnn.com/rss/edition.rss',
             'CNN World': 'http://rss.cnn.com/rss/cnn_world.rss',
-            'ABC News': 'https://abcnews.go.com/abcnews/internationalheadlines',
-            'CBS News': 'https://www.cbsnews.com/latest/rss/world',
-            'NBC News': 'http://feeds.nbcnews.com/nbcnews/public/world',
-            'Fox News World': 'http://feeds.foxnews.com/foxnews/world',
-            # Backup feeds
-            'Reuters (backup)': 'http://feeds.reuters.com/reuters/worldNews',
-            'AP News (backup)': 'http://feeds.apnews.com/ApNews/WorldNews'
+            'CNN US': 'http://rss.cnn.com/rss/cnn_us.rss',
+            'CNN Politics': 'http://rss.cnn.com/rss/cnn_allpolitics.rss',
+            'CNN Health': 'http://rss.cnn.com/rss/cnn_health.rss',
+            'CNN Tech': 'http://rss.cnn.com/rss/cnn_tech.rss',
+            # Add more working feeds
+            'Yahoo News': 'https://news.yahoo.com/rss/world',
+            'Google News': 'https://news.google.com/rss?topic=w&hl=en-US&gl=US&ceid=US:en',
+            # Keep some backups
+            'BBC World': 'http://feeds.bbci.co.uk/news/world/rss.xml',
+            'Reuters': 'http://feeds.reuters.com/reuters/worldNews'
         }
         
         # Crisis-related keywords to filter articles
@@ -102,17 +104,17 @@ class RSSCrisisFetcher:
                 articles_from_source = 0
                 
                 for entry in feed.entries:
-                    # Check if article is recent enough
+                    # Check if article is recent enough (be more lenient with time)
                     if self._is_article_recent(entry, cutoff_time):
-                        # Check if article is crisis-related
+                        # Check if article is crisis-related (be more inclusive)
                         if self._is_crisis_related(entry):
                             article = self._process_rss_entry(entry, source_name)
                             if article:
                                 all_articles.append(article)
                                 articles_from_source += 1
                                 
-                                # Limit articles per source to ensure diversity
-                                if articles_from_source >= 10:
+                                # Increase limit per source for more articles
+                                if articles_from_source >= 20:
                                     break
                 
                 logger.info(f"Found {articles_from_source} crisis articles from {source_name}")
@@ -164,8 +166,15 @@ class RSSCrisisFetcher:
         # Check for crisis keywords
         crisis_score = sum(1 for keyword in self.crisis_keywords if keyword in text_to_check)
         
-        # Require at least 1 crisis keyword
-        return crisis_score >= 1
+        # Also check for general news keywords that might indicate crises
+        general_crisis_words = ['breaking', 'urgent', 'alert', 'warning', 'threat', 'danger', 
+                               'death', 'killed', 'injured', 'damage', 'destroy', 'collapse',
+                               'strike', 'attack', 'bomb', 'shoot', 'fire', 'burn', 'crash']
+        
+        general_score = sum(1 for word in general_crisis_words if word in text_to_check)
+        
+        # Require at least 1 crisis keyword OR 2 general crisis words
+        return crisis_score >= 1 or general_score >= 2
     
     def _process_rss_entry(self, entry: Dict, source_name: str) -> Optional[Dict]:
         """Process RSS entry into article format"""

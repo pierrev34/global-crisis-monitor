@@ -1,16 +1,18 @@
 {
-  "timestamp": "2025-10-01T22:51:55.089803",
+  "timestamp": "2025-10-01T22:59:55.991927",
   "pipeline_stats": {
-    "total_articles_fetched": 1,
-    "articles_classified": 1,
-    "crisis_articles_found": 1,
-    "mappable_crisis_articles": 1
+    "total_articles_fetched": 3,
+    "articles_classified": 3,
+    "crisis_articles_found": 2,
+    "mappable_crisis_articles": 2
   },
   "classification_stats": {
     "category_distribution": {
-      "Health Emergencies": 1
+      "Health Emergencies": 1,
+      "Humanitarian Crises": 1,
+      "Unknown": 1
     },
-    "average_confidence": 0.38193264603614807
+    "average_confidence": 0.3188251753648122
   },
   "geographic_stats": {
     "total_locations_extracted": 0,
