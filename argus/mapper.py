@@ -151,11 +151,77 @@ class CrisisMapper:
         source = article.get('source', '').lower()
         text = f"{title} {content}".lower()
         
-        # Geographic keyword mapping
+        # Geographic keyword mapping (expanded for Americas + key cities)
         location_keywords = {
             'china': (39.9042, 116.4074, 'China'),
             'chinese': (39.9042, 116.4074, 'China'),
             'beijing': (39.9042, 116.4074, 'Beijing, China'),
+            # United States & major US cities/states
+            'united states': (39.8283, -98.5795, 'United States'),
+            'usa': (39.8283, -98.5795, 'United States'),
+            'u.s.': (39.8283, -98.5795, 'United States'),
+            'us ': (39.8283, -98.5795, 'United States'),
+            'america': (39.8283, -98.5795, 'United States'),
+            'washington': (38.9072, -77.0369, 'Washington, DC, USA'),
+            'new york': (40.7128, -74.0060, 'New York, USA'),
+            'los angeles': (34.0522, -118.2437, 'Los Angeles, USA'),
+            'san francisco': (37.7749, -122.4194, 'San Francisco, USA'),
+            'chicago': (41.8781, -87.6298, 'Chicago, USA'),
+            'miami': (25.7617, -80.1918, 'Miami, USA'),
+            'seattle': (47.6062, -122.3321, 'Seattle, USA'),
+            'boston': (42.3601, -71.0589, 'Boston, USA'),
+            'atlanta': (33.7490, -84.3880, 'Atlanta, USA'),
+            'houston': (29.7604, -95.3698, 'Houston, USA'),
+            'dallas': (32.7767, -96.7970, 'Dallas, USA'),
+            'austin': (30.2672, -97.7431, 'Austin, USA'),
+            'phoenix': (33.4484, -112.0740, 'Phoenix, USA'),
+            'denver': (39.7392, -104.9903, 'Denver, USA'),
+            'philadelphia': (39.9526, -75.1652, 'Philadelphia, USA'),
+            'nashville': (36.1627, -86.7816, 'Nashville, USA'),
+            'san diego': (32.7157, -117.1611, 'San Diego, USA'),
+            'orlando': (28.5384, -81.3789, 'Orlando, USA'),
+            'minneapolis': (44.9778, -93.2650, 'Minneapolis, USA'),
+            # Canada & key cities
+            'canada': (56.1304, -106.3468, 'Canada'),
+            'toronto': (43.6532, -79.3832, 'Toronto, Canada'),
+            'vancouver': (49.2827, -123.1207, 'Vancouver, Canada'),
+            'montreal': (45.5019, -73.5674, 'Montreal, Canada'),
+            'ottawa': (45.4215, -75.6972, 'Ottawa, Canada'),
+            # Mexico & LATAM
+            'mexico': (23.6345, -102.5528, 'Mexico'),
+            'mexico city': (19.4326, -99.1332, 'Mexico City, Mexico'),
+            'brazil': ( -14.2350, -51.9253, 'Brazil'),
+            'brasilia': (-15.8267, -47.9218, 'Brasilia, Brazil'),
+            'sao paulo': (-23.5505, -46.6333, 'Sao Paulo, Brazil'),
+            'rio de janeiro': (-22.9068, -43.1729, 'Rio de Janeiro, Brazil'),
+            'argentina': (-34.6037, -58.3816, 'Argentina'),
+            'buenos aires': (-34.6037, -58.3816, 'Buenos Aires, Argentina'),
+            'chile': (-33.4489, -70.6693, 'Chile'),
+            'santiago': (-33.4489, -70.6693, 'Santiago, Chile'),
+            'colombia': (4.7110, -74.0721, 'Colombia'),
+            'bogota': (4.7110, -74.0721, 'Bogotá, Colombia'),
+            'peru': (-12.0464, -77.0428, 'Peru'),
+            'lima': (-12.0464, -77.0428, 'Lima, Peru'),
+            'venezuela': (10.4806, -66.9036, 'Venezuela'),
+            'caracas': (10.4806, -66.9036, 'Caracas, Venezuela'),
+            'haiti': (18.5944, -72.3074, 'Haiti'),
+            'port-au-prince': (18.5944, -72.3074, 'Port-au-Prince, Haiti'),
+            'cuba': (23.1136, -82.3666, 'Cuba'),
+            'havana': (23.1136, -82.3666, 'Havana, Cuba'),
+            'dominican republic': (18.4861, -69.9312, 'Dominican Republic'),
+            'santo domingo': (18.4861, -69.9312, 'Santo Domingo, Dominican Republic'),
+            'puerto rico': (18.4655, -66.1057, 'Puerto Rico'),
+            'san juan': (18.4655, -66.1057, 'San Juan, Puerto Rico'),
+            'guatemala': (14.6349, -90.5069, 'Guatemala'),
+            'guatemala city': (14.6349, -90.5069, 'Guatemala City, Guatemala'),
+            'ecuador': (-0.1807, -78.4678, 'Ecuador'),
+            'quito': (-0.1807, -78.4678, 'Quito, Ecuador'),
+            'bolivia': (-16.4897, -68.1193, 'Bolivia'),
+            'la paz': (-16.4897, -68.1193, 'La Paz, Bolivia'),
+            'paraguay': (-25.2637, -57.5759, 'Paraguay'),
+            'asuncion': (-25.2637, -57.5759, 'Asunción, Paraguay'),
+            'uruguay': (-34.9011, -56.1645, 'Uruguay'),
+            'montevideo': (-34.9011, -56.1645, 'Montevideo, Uruguay'),
             'turkey': (39.9334, 32.8597, 'Turkey'),
             'turkish': (39.9334, 32.8597, 'Turkey'),
             'ankara': (39.9334, 32.8597, 'Ankara, Turkey'),
@@ -184,7 +250,7 @@ class CrisisMapper:
             if keyword in text:
                 return (lat, lon, name)
         
-        # Category-based fallbacks
+        # Category-based fallbacks (bias to US for common US hazards)
         if 'cyber' in text or 'malware' in text or 'hack' in text:
             return (37.7749, -122.4194, 'Global Cyber Threat')  # San Francisco (tech hub)
         
@@ -194,9 +260,16 @@ class CrisisMapper:
         if 'climate' in text or 'environment' in text:
             return (0, 0, 'Global Environmental Issue')  # Equator
         
+        if 'wildfire' in text or 'brush fire' in text:
+            return (36.7783, -119.4179, 'Wildfire (USA)')  # California centroid
+        if 'hurricane' in text or 'tropical storm' in text:
+            return (25.7617, -80.1918, 'Hurricane Event (USA)')  # Miami area
+        if 'tornado' in text:
+            return (35.4676, -97.5164, 'Tornado Alley (USA)')  # Oklahoma City
+        
         # Source-based fallbacks
-        if 'cnn' in source:
-            return (33.7490, -84.3880, 'CNN International Report')  # Atlanta
+        if any(s in source for s in ['cnn', 'cbsnews', 'nbcnews', 'apnews', 'foxnews', 'abcnews', 'nytimes', 'washingtonpost', 'usatoday', 'latimes', 'wsj']):
+            return (39.8283, -98.5795, 'United States (News Source)')  # US centroid
         elif 'bbc' in source:
             return (51.5074, -0.1278, 'BBC World Report')  # London
         elif 'reuters' in source:
