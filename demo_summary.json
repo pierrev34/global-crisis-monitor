@@ -1,0 +1,9 @@
+{
+  "demo_timestamp": "2025-10-01T17:43:31.879085",
+  "articles_processed": 5,
+  "classifications_completed": 5,
+  "locations_extracted": 13,
+  "geocoded_locations": 13,
+  "map_generated": false,
+  "map_file": null
+}

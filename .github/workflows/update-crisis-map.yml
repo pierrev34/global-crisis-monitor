@@ -1,0 +1,48 @@
+name: Update Crisis Map
+
+on:
+  schedule:
+    # Run every 6 hours (4 times per day)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [ main ]
+
+jobs:
+  update-map:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        python -m spacy download en_core_web_sm
+        
+    - name: Run ARGUS Crisis Monitor
+      run: |
+        python main.py --hours 12 --max-articles 50 --confidence 0.4
+        
+    - name: Commit and push updated map
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add crisis_map.html crisis_summary.json || true
+        git diff --staged --quiet || git commit -m "🌍 Auto-update crisis map - $(date)"
+        git push || true
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        keep_files: true

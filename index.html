@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARGUS - Global Crisis Monitor</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin: 0;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            opacity: 0.9;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .map-container {
+            margin: 2rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: white;
+        }
+        
+        .map-frame {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            display: block;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0,0,0,0.2);
+            margin-top: 2rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .tech-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .update-time {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .stats { gap: 1rem; }
+            .map-container { margin: 1rem; }
+            .map-frame { height: 60vh; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🌍 ARGUS</h1>
+        <p>AI-Powered Global Crisis Monitor</p>
+        <p>Real-time detection and mapping of global crises using artificial intelligence</p>
+        
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <span class="stat-number" id="crisis-count">Loading...</span>
+                <span>Active Crises</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="location-count">Loading...</span>
+                <span>Locations Monitored</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="confidence">Loading...</span>
+                <span>Avg Confidence</span>
+            </div>
+        </div>
+        
+        <div class="tech-stack">
+            <span class="tech-badge">🤖 AI Classification</span>
+            <span class="tech-badge">🌍 Geographic NLP</span>
+            <span class="tech-badge">📊 Real-time Data</span>
+            <span class="tech-badge">🗺️ Interactive Maps</span>
+        </div>
+    </div>
+    
+    <div class="map-container">
+        <iframe 
+            src="./crisis_map.html" 
+            class="map-frame"
+            title="Global Crisis Monitor Map">
+        </iframe>
+    </div>
+    
+    <div class="footer">
+        <h3>🔧 Technology Stack</h3>
+        <div class="tech-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">Hugging Face Transformers</span>
+            <span class="tech-badge">spaCy NLP</span>
+            <span class="tech-badge">GDELT Project</span>
+            <span class="tech-badge">Folium Mapping</span>
+            <span class="tech-badge">GitHub Actions</span>
+        </div>
+        
+        <p>
+            <strong>ARGUS</strong> combines cutting-edge AI with real-time global news data to provide 
+            automated crisis detection and geographic visualization. The system processes thousands 
+            of news articles, classifies them using zero-shot learning, extracts geographic entities, 
+            and creates interactive crisis maps.
+        </p>
+        
+        <div class="update-time" id="last-update">
+            Last updated: Loading...
+        </div>
+        
+        <p style="margin-top: 2rem;">
+            <a href="https://github.com/pierrev34/global-crisis-monitor" 
+               style="color: #4ecdc4; text-decoration: none;">
+                📚 View Source Code on GitHub
+            </a>
+        </p>
+    </div>
+
+    <script>
+        // Load statistics from crisis_summary.json
+        fetch('./crisis_summary.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('crisis-count').textContent = 
+                    data.pipeline_stats?.crisis_articles_found || '0';
+                document.getElementById('location-count').textContent = 
+                    data.geographic_stats?.unique_countries_affected || '0';
+                document.getElementById('confidence').textContent = 
+                    (data.classification_stats?.average_confidence * 100).toFixed(0) + '%' || 'N/A';
+                document.getElementById('last-update').textContent = 
+                    'Last updated: ' + new Date(data.timestamp).toLocaleString();
+            })
+            .catch(error => {
+                console.log('Statistics not available:', error);
+                document.getElementById('crisis-count').textContent = 'Demo';
+                document.getElementById('location-count').textContent = 'Mode';
+                document.getElementById('confidence').textContent = 'Active';
+                document.getElementById('last-update').textContent = 
+                    'Demo mode - Statistics will appear when live data is available';
+            });
+    </script>
+</body>
+</html>
