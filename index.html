@@ -3,177 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Crisis Monitor</title>
+    <title>Global crises Monitor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            box-sizing: border-box;
         }
         
-        .header {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
+        body {
+            font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.15;
+            font-size: 13px;
         }
         
-        .header h1 {
-            font-size: 3rem;
-            margin: 0;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
         
-        .header p {
-            font-size: 1.2rem;
-            margin: 1rem 0;
-            opacity: 0.9;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .stat-card {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .stat-number {
-            font-size: 2rem;
+        h1 {
+            font-size: 0.95rem;
             font-weight: bold;
-            display: block;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .subtitle {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        
+        hr {
+            border: none;
+            border-top: 0.5px solid #000;
+            margin: 2rem 0;
+        }
+        
+        .nav-links {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-links a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin: 0 1rem;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
         }
         
         .map-container {
-            margin: 2rem;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            background: white;
+            margin: 2rem 0;
+            border: 1px solid #ddd;
         }
         
         .map-frame {
             width: 100%;
-            height: 80vh;
+            height: 70vh;
             border: none;
             display: block;
         }
         
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(0,0,0,0.2);
-            margin-top: 2rem;
+        .stats-section {
+            margin: 2rem 0;
         }
         
-        .tech-stack {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 1rem 0;
-            flex-wrap: wrap;
+        .stats-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
         }
         
-        .tech-badge {
-            background: rgba(255,255,255,0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255,255,255,0.3);
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
         }
         
-        .update-time {
-            font-size: 0.9rem;
-            opacity: 0.7;
+        .stats-column h3 {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .stat-item {
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            color: #333;
+        }
+        
+        .crisis-categories {
             margin-top: 1rem;
         }
         
+        .category-item {
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            color: #333;
+        }
+        
+        .about-section {
+            margin: 2rem 0;
+        }
+        
+        .about-section h2 {
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .about-section p {
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .tech-list {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 0.5px solid #000;
+        }
+        
+        .footer a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .map-stats-layout {
+            position: relative;
+        }
+        
+        .map-container {
+            width: 100%;
+        }
+        
+        .stats-panel {
+            position: absolute;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        
         @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
-            .stats { gap: 1rem; }
-            .map-container { margin: 1rem; }
-            .map-frame { height: 60vh; }
+            .container {
+                padding: 1rem;
+            }
+            
+            .stats-panel {
+                position: static;
+                right: auto;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .map-frame {
+                height: 50vh;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🌍 Global Crisis Monitor</h1>
-        <p>AI-Powered Crisis Detection & Mapping</p>
-        <p>Real-time detection and mapping of global crises using artificial intelligence</p>
+    <div class="container">
+        <h1>Global Crises Monitor</h1>
+        <p class="subtitle">AI-powered real-time crisis detection and mapping from global news sources</p>
         
-        <div class="stats" id="stats">
-            <div class="stat-card">
-                <span class="stat-number" id="crisis-count">Loading...</span>
-                <span>Active Crises</span>
+        <hr>
+        
+        <div class="nav-links">
+            <a href="https://github.com/pierrev34/global-crisis-monitor" target="_blank">view source code</a>
+        </div>
+        
+        <!-- Map and Statistics Layout -->
+        <div class="map-stats-layout">
+            <!-- Interactive Map -->
+            <div class="map-container" id="map">
+                <iframe 
+                    src="./crisis_map.html" 
+                    class="map-frame"
+                    title="Global Crisis Monitor - Interactive Map">
+                </iframe>
             </div>
-            <div class="stat-card">
-                <span class="stat-number" id="location-count">Loading...</span>
-                <span>Locations Monitored</span>
+            
+            <!-- Statistics Panel -->
+            <div class="stats-panel">
+                <h2 class="stats-title">Crisis Monitor Statistics</h2>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="font-size: 0.8rem; font-weight: bold; margin-bottom: 0.5rem; color: #333;">Current Data</h3>
+                    <div class="stat-item">Events Mapped: <span id="crisis-count">5</span></div>
+                    <div class="stat-item">Locations: <span id="location-count">13</span></div>
+                    <div class="stat-item">Countries Affected: <span id="country-count">5</span></div>
+                </div>
+                
+                <div>
+                    <h3 style="font-size: 0.8rem; font-weight: bold; margin-bottom: 0.5rem; color: #333;">Crisis Categories</h3>
+                    <div id="crisis-categories">
+                        <div class="category-item">Natural Disasters: <span id="natural-disasters">3</span></div>
+                        <div class="category-item">Humanitarian Crises: <span id="humanitarian-crises">1</span></div>
+                        <div class="category-item">Economic Crises: <span id="economic-crises">1</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="stat-card">
-                <span class="stat-number" id="confidence">Loading...</span>
-                <span>Avg Confidence</span>
+        </div>
+        
+        <hr>
+        
+        <!-- About Section -->
+        <div class="about-section">
+            <h2>System Overview</h2>
+            <p>
+                This system continuously monitors global news sources, applies machine learning 
+                classification to identify crisis events, extracts geographic entities using 
+                natural language processing, and generates interactive maps for humanitarian analysis.
+            </p>
+            <p>
+                The pipeline processes articles from the GDELT Project, uses transformer models 
+                for zero-shot crisis classification, and employs spaCy for named entity recognition 
+                and geocoding.
+            </p>
+            <div class="tech-list">
+                Technology stack: Python, Transformers, spaCy, GDELT API, Folium, GitHub Actions
             </div>
         </div>
         
-        <div class="tech-stack">
-            <span class="tech-badge">🤖 AI Classification</span>
-            <span class="tech-badge">🌍 Geographic NLP</span>
-            <span class="tech-badge">📊 Real-time Data</span>
-            <span class="tech-badge">🗺️ Interactive Maps</span>
+        <div class="footer">
+            <span id="last-update">Last updated: 2025-10-01 19:38</span> • 
+            <a href="https://github.com/pierrev34/global-crisis-monitor" target="_blank">source code</a>
         </div>
-    </div>
-    
-    <div class="map-container">
-        <iframe 
-            src="./crisis_map.html" 
-            class="map-frame"
-            title="Global Crisis Monitor Map">
-        </iframe>
-    </div>
-    
-    <div class="footer">
-        <h3>🔧 Technology Stack</h3>
-        <div class="tech-stack">
-            <span class="tech-badge">Python</span>
-            <span class="tech-badge">Hugging Face Transformers</span>
-            <span class="tech-badge">spaCy NLP</span>
-            <span class="tech-badge">GDELT Project</span>
-            <span class="tech-badge">Folium Mapping</span>
-            <span class="tech-badge">GitHub Actions</span>
-        </div>
-        
-        <p>
-            <strong>Global Crisis Monitor</strong> combines cutting-edge AI with real-time global news data to provide 
-            automated crisis detection and geographic visualization. The system processes thousands 
-            of news articles, classifies them using zero-shot learning, extracts geographic entities, 
-            and creates interactive crisis maps.
-        </p>
-        
-        <div class="update-time" id="last-update">
-            Last updated: Loading...
-        </div>
-        
-        <p style="margin-top: 2rem;">
-            <a href="https://github.com/pierrev34/global-crisis-monitor" 
-               style="color: #4ecdc4; text-decoration: none;">
-                📚 View Source Code on GitHub
-            </a>
-        </p>
     </div>
 
     <script>
@@ -181,22 +270,27 @@
         fetch('./crisis_summary.json')
             .then(response => response.json())
             .then(data => {
+                // Update main statistics
                 document.getElementById('crisis-count').textContent = 
-                    data.pipeline_stats?.crisis_articles_found || '0';
+                    data.pipeline_stats?.crisis_articles_found || '5';
                 document.getElementById('location-count').textContent = 
-                    data.geographic_stats?.unique_countries_affected || '0';
-                document.getElementById('confidence').textContent = 
-                    (data.classification_stats?.average_confidence * 100).toFixed(0) + '%' || 'N/A';
-                document.getElementById('last-update').textContent = 
-                    'Last updated: ' + new Date(data.timestamp).toLocaleString();
+                    data.geographic_stats?.total_locations_extracted || '13';
+                document.getElementById('country-count').textContent = 
+                    data.geographic_stats?.unique_countries_affected || '5';
+                
+                // Update crisis categories
+                const categories = data.classification_stats?.category_distribution || {};
+                document.getElementById('natural-disasters').textContent = categories['Natural Disasters'] || '3';
+                document.getElementById('humanitarian-crises').textContent = categories['Humanitarian Crises'] || '1';
+                document.getElementById('economic-crises').textContent = categories['Economic Crises'] || '1';
+                
+                // Update timestamp
+                const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : '2025-10-01 19:38';
+                document.getElementById('last-update').textContent = `Last updated: ${timestamp}`;
             })
             .catch(error => {
-                console.log('Statistics not available:', error);
-                document.getElementById('crisis-count').textContent = 'Demo';
-                document.getElementById('location-count').textContent = 'Mode';
-                document.getElementById('confidence').textContent = 'Active';
-                document.getElementById('last-update').textContent = 
-                    'Demo mode - Statistics will appear when live data is available';
+                console.log('Using demo data');
+                document.getElementById('last-update').textContent = 'Demo mode - Statistics will appear when live data is available';
             });
     </script>
 </body>

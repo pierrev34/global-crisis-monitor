@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_d16773fced212b0f0669af7f702197b5 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.fullscreen@3.0.0/Control.FullScreen.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ljagis/leaflet-measure@2.1.7/dist/leaflet-measure.min.css"/>
+    <script src="https://cdn.jsdelivr.net/gh/python-visualization/folium@main/folium/templates/leaflet_heat.min.js"></script>
+</head>
+<body>
+    
+        <div style="position: fixed; top: 10px; right: -270px; width: 250px; 
+                    background: white; border: 2px solid #ccc; border-radius: 5px;
+                    padding: 10px; z-index: 1000; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+            <h4 style="margin-top: 0; color: #333;">Crisis Monitor Statistics</h4>
+            
+            <table style="width: 100%; font-size: 12px;">
+                <tr><td><strong>Total Articles:</strong></td><td>5</td></tr>
+                <tr><td><strong>Locations Found:</strong></td><td>13</td></tr>
+                <tr><td><strong>Geocoded:</strong></td><td>13</td></tr>
+                <tr><td><strong>Avg Confidence:</strong></td><td>0.72</td></tr>
+            </table>
+            
+            <h5 style="margin-bottom: 5px; color: #333;">Crisis Categories:</h5>
+            <table style="width: 100%; font-size: 11px;">
+                
+                <tr>
+                    <td style="color: red;">● Natural Disasters</td>
+                    <td>3</td>
+                </tr>
+            
+                <tr>
+                    <td style="color: orange;">● Humanitarian Crises</td>
+                    <td>1</td>
+                </tr>
+            
+                <tr>
+                    <td style="color: blue;">● Economic Crises</td>
+                    <td>1</td>
+                </tr>
+            
+            </table>
+            
+            <div style="margin-top: 10px; font-size: 10px; color: #666;">
+                Last updated: 2025-10-01 19:38
+            </div>
+        </div>
+        
+    
+            <div class="folium-map" id="map_d16773fced212b0f0669af7f702197b5" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_d16773fced212b0f0669af7f702197b5 = L.map(
+                "map_d16773fced212b0f0669af7f702197b5",
+                {
+                    center: [20.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 2,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_6f30e04aea9b1d6d3b0bd4e8e18aaa32 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_6f30e04aea9b1d6d3b0bd4e8e18aaa32.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            L.control.fullscreen(
+                {
+  "position": "topleft",
+  "title": "Full Screen",
+  "titleCancel": "Exit Full Screen",
+  "forceSeparateButton": false,
+}
+            ).addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var measure_control_941244573f7f3bea18997105f29937f1 = new L.Control.Measure(
+                {
+  "position": "topright",
+  "primaryLengthUnit": "meters",
+  "secondaryLengthUnit": "miles",
+  "primaryAreaUnit": "sqmeters",
+  "secondaryAreaUnit": "acres",
+});
+            map_d16773fced212b0f0669af7f702197b5.addControl(measure_control_941244573f7f3bea18997105f29937f1);
+
+            // Workaround for using this plugin with Leaflet>=1.8.0
+            // https://github.com/ljagis/leaflet-measure/issues/171
+            L.Control.Measure.include({
+                _setCaptureMarkerIcon: function () {
+                    // disable autopan
+                    this._captureMarker.options.autoPanOnFocus = false;
+                    // default function
+                    this._captureMarker.setIcon(
+                        L.divIcon({
+                            iconSize: this._map.getSize().multiplyBy(2)
+                        })
+                    );
+                },
+            });
+
+        
+    
+            var feature_group_2b503d213c3b074352de7cdd8360d95c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_4a1e85024e19d8c097046da7a6b0782a = L.marker(
+                [39.294076, 35.2316631],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_cf27d370dce609d2280a53d2ae1fb632 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c308cdce812b518c89cbbbe22871e256 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_d4bb44775ac667830371e226a127b4b9 = $(`<div id="html_d4bb44775ac667830371e226a127b4b9" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Earthquake Strikes Central Turkey, Magnitude 7.2</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Türkiye<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.68             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 A powerful earthquake measuring 7.2 on the Richter scale struck central Turkey near Ankara early this morning. The earthquake caused significant damage to buildings and infrastructure across the regio...             </div>                          <a href="https://example.com/turkey-earthquake" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_c308cdce812b518c89cbbbe22871e256.setContent(html_d4bb44775ac667830371e226a127b4b9);
+            
+        
+
+        marker_4a1e85024e19d8c097046da7a6b0782a.bindPopup(popup_c308cdce812b518c89cbbbe22871e256)
+        ;
+
+        
+    
+    
+            marker_4a1e85024e19d8c097046da7a6b0782a.bindTooltip(
+                `<div>
+                     Natural Disasters: Earthquake Strikes Central Turkey, Magnitude 7.2...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4a1e85024e19d8c097046da7a6b0782a.setIcon(icon_cf27d370dce609d2280a53d2ae1fb632);
+            
+    
+            var marker_066bf69a410bdd6271b24088092ab549 = L.marker(
+                [39.9207759, 32.8540497],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_31241ab1a34602d2506314cbdf1cf557 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a29b9c649ef89d20b5ceeec4c3a19a5c = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_b882354c66dc08fa7e3082d5008dbfdb = $(`<div id="html_b882354c66dc08fa7e3082d5008dbfdb" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Earthquake Strikes Central Turkey, Magnitude 7.2</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Ankara, Çankaya, Ankara, İç Anadolu Bölgesi, 06420, Türkiye<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.68             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 A powerful earthquake measuring 7.2 on the Richter scale struck central Turkey near Ankara early this morning. The earthquake caused significant damage to buildings and infrastructure across the regio...             </div>                          <a href="https://example.com/turkey-earthquake" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_a29b9c649ef89d20b5ceeec4c3a19a5c.setContent(html_b882354c66dc08fa7e3082d5008dbfdb);
+            
+        
+
+        marker_066bf69a410bdd6271b24088092ab549.bindPopup(popup_a29b9c649ef89d20b5ceeec4c3a19a5c)
+        ;
+
+        
+    
+    
+            marker_066bf69a410bdd6271b24088092ab549.bindTooltip(
+                `<div>
+                     Natural Disasters: Earthquake Strikes Central Turkey, Magnitude 7.2...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_066bf69a410bdd6271b24088092ab549.setIcon(icon_31241ab1a34602d2506314cbdf1cf557);
+            
+    
+            var marker_3a00384554542be2eff88cf13f7e09ba = L.marker(
+                [12.7503486, 122.7312101],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_6e4f4bd4738adbbfb969589adf54cc8f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1b691494daf8beb4430911ba58f2fa4f = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_765d8b3904c66031cf97c6bcde689239 = $(`<div id="html_765d8b3904c66031cf97c6bcde689239" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Typhoon Approaches Philippines, Millions Evacuated</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Philippines<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.54             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Super Typhoon Maria is approaching the Philippines with winds reaching 180 km/h. Authorities in Manila and surrounding provinces have ordered the evacuation of over 3 million residents from coastal an...             </div>                          <a href="https://example.com/philippines-typhoon" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_1b691494daf8beb4430911ba58f2fa4f.setContent(html_765d8b3904c66031cf97c6bcde689239);
+            
+        
+
+        marker_3a00384554542be2eff88cf13f7e09ba.bindPopup(popup_1b691494daf8beb4430911ba58f2fa4f)
+        ;
+
+        
+    
+    
+            marker_3a00384554542be2eff88cf13f7e09ba.bindTooltip(
+                `<div>
+                     Natural Disasters: Typhoon Approaches Philippines, Millions Evacuated...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3a00384554542be2eff88cf13f7e09ba.setIcon(icon_6e4f4bd4738adbbfb969589adf54cc8f);
+            
+    
+            var marker_fed3265c69d3abd5fdbcc2d390dc238f = L.marker(
+                [14.5904492, 120.9803621],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_ee8e634157167264b7a4939aea48a2d1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c26cb676c86069225193e329c6d3d928 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_33c95ab3c806dfe1e73030e8fc1a479b = $(`<div id="html_33c95ab3c806dfe1e73030e8fc1a479b" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Typhoon Approaches Philippines, Millions Evacuated</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Manila, Capital District, Metro Manila, Philippines<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.54             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Super Typhoon Maria is approaching the Philippines with winds reaching 180 km/h. Authorities in Manila and surrounding provinces have ordered the evacuation of over 3 million residents from coastal an...             </div>                          <a href="https://example.com/philippines-typhoon" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_c26cb676c86069225193e329c6d3d928.setContent(html_33c95ab3c806dfe1e73030e8fc1a479b);
+            
+        
+
+        marker_fed3265c69d3abd5fdbcc2d390dc238f.bindPopup(popup_c26cb676c86069225193e329c6d3d928)
+        ;
+
+        
+    
+    
+            marker_fed3265c69d3abd5fdbcc2d390dc238f.bindTooltip(
+                `<div>
+                     Natural Disasters: Typhoon Approaches Philippines, Millions Evacuated...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fed3265c69d3abd5fdbcc2d390dc238f.setIcon(icon_ee8e634157167264b7a4939aea48a2d1);
+            
+    
+            var marker_8fcd8ec31194133bbacb09448db34d65 = L.marker(
+                [15.5504104, 120.7434436],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_f0e0939476d0e585d68f1aeb22aa7527 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3c8c10288f56756f74aef986d25ca68c = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_ee7cc5ed5f5e9faaa21e0953cd6fbd40 = $(`<div id="html_ee7cc5ed5f5e9faaa21e0953cd6fbd40" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Typhoon Approaches Philippines, Millions Evacuated</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Luzon, Central Luzon, Philippines<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.54             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Super Typhoon Maria is approaching the Philippines with winds reaching 180 km/h. Authorities in Manila and surrounding provinces have ordered the evacuation of over 3 million residents from coastal an...             </div>                          <a href="https://example.com/philippines-typhoon" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_3c8c10288f56756f74aef986d25ca68c.setContent(html_ee7cc5ed5f5e9faaa21e0953cd6fbd40);
+            
+        
+
+        marker_8fcd8ec31194133bbacb09448db34d65.bindPopup(popup_3c8c10288f56756f74aef986d25ca68c)
+        ;
+
+        
+    
+    
+            marker_8fcd8ec31194133bbacb09448db34d65.bindTooltip(
+                `<div>
+                     Natural Disasters: Typhoon Approaches Philippines, Millions Evacuated...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8fcd8ec31194133bbacb09448db34d65.setIcon(icon_f0e0939476d0e585d68f1aeb22aa7527);
+            
+    
+            var marker_011b1eed6944d03e5d3d774141e4cb76 = L.marker(
+                [36.7014631, -118.755997],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_9531dc88a7660f7de7cd43fe222812a0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_548afda00c85448dc0e4814e4e12fd9d = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_99607f73380a0ed27c4354666abb9319 = $(`<div id="html_99607f73380a0ed27c4354666abb9319" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Wildfire Emergency Declared in California</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> California, United States<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.44             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 A massive wildfire in Northern California has burned over 50,000 acres and forced the evacuation of several communities near Sacramento. The fire, dubbed the "Golden Fire," is being fueled by strong w...             </div>                          <a href="https://example.com/california-wildfire" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_548afda00c85448dc0e4814e4e12fd9d.setContent(html_99607f73380a0ed27c4354666abb9319);
+            
+        
+
+        marker_011b1eed6944d03e5d3d774141e4cb76.bindPopup(popup_548afda00c85448dc0e4814e4e12fd9d)
+        ;
+
+        
+    
+    
+            marker_011b1eed6944d03e5d3d774141e4cb76.bindTooltip(
+                `<div>
+                     Natural Disasters: Wildfire Emergency Declared in California...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_011b1eed6944d03e5d3d774141e4cb76.setIcon(icon_9531dc88a7660f7de7cd43fe222812a0);
+            
+    
+            var marker_ef40559bb886d3226342b0e115b05604 = L.marker(
+                [38.5134669, -122.1045118],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_5c737e0edf051d5bbc4ac1fbbab4cfa4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d38eea9199567e105a8a6cfe34df9075 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_ee5ebd2dc122a8f4bb5f4cc5e310078d = $(`<div id="html_ee5ebd2dc122a8f4bb5f4cc5e310078d" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Wildfire Emergency Declared in California</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Northern Penstock, Monticello Dam, Napa County, California, United States<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.44             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 A massive wildfire in Northern California has burned over 50,000 acres and forced the evacuation of several communities near Sacramento. The fire, dubbed the "Golden Fire," is being fueled by strong w...             </div>                          <a href="https://example.com/california-wildfire" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_d38eea9199567e105a8a6cfe34df9075.setContent(html_ee5ebd2dc122a8f4bb5f4cc5e310078d);
+            
+        
+
+        marker_ef40559bb886d3226342b0e115b05604.bindPopup(popup_d38eea9199567e105a8a6cfe34df9075)
+        ;
+
+        
+    
+    
+            marker_ef40559bb886d3226342b0e115b05604.bindTooltip(
+                `<div>
+                     Natural Disasters: Wildfire Emergency Declared in California...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ef40559bb886d3226342b0e115b05604.setIcon(icon_5c737e0edf051d5bbc4ac1fbbab4cfa4);
+            
+    
+            var marker_229a9a7139efb24a33604fffc695f493 = L.marker(
+                [38.5810606, -121.493895],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_e336dce5ea7614777d5e09b063caa32e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bb01f847e4af601f3cb0c8e7ca72363c = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_177f1df5951c88666a3814b8ededf52d = $(`<div id="html_177f1df5951c88666a3814b8ededf52d" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Wildfire Emergency Declared in California</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Sacramento, Sacramento County, California, United States<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.44             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 A massive wildfire in Northern California has burned over 50,000 acres and forced the evacuation of several communities near Sacramento. The fire, dubbed the "Golden Fire," is being fueled by strong w...             </div>                          <a href="https://example.com/california-wildfire" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_bb01f847e4af601f3cb0c8e7ca72363c.setContent(html_177f1df5951c88666a3814b8ededf52d);
+            
+        
+
+        marker_229a9a7139efb24a33604fffc695f493.bindPopup(popup_bb01f847e4af601f3cb0c8e7ca72363c)
+        ;
+
+        
+    
+    
+            marker_229a9a7139efb24a33604fffc695f493.bindTooltip(
+                `<div>
+                     Natural Disasters: Wildfire Emergency Declared in California...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_229a9a7139efb24a33604fffc695f493.setIcon(icon_e336dce5ea7614777d5e09b063caa32e);
+            
+    
+            var marker_32d05dba7f37623287d993985812d7d5 = L.marker(
+                [37.7884969, -122.3558473],
+                {
+}
+            ).addTo(feature_group_2b503d213c3b074352de7cdd8360d95c);
+        
+    
+            var icon_8c50b9e8cffd9e3b544dd3ab81aec7c9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_97b067b6f4890ec4df7c7416b45ed927 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_75ddf1f77fbcb7a31cd5fba2a0d4b7e7 = $(`<div id="html_75ddf1f77fbcb7a31cd5fba2a0d4b7e7" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Wildfire Emergency Declared in California</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> San Francisco Bay Area, San Francisco, California, 94110, United States<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.44             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 A massive wildfire in Northern California has burned over 50,000 acres and forced the evacuation of several communities near Sacramento. The fire, dubbed the "Golden Fire," is being fueled by strong w...             </div>                          <a href="https://example.com/california-wildfire" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_97b067b6f4890ec4df7c7416b45ed927.setContent(html_75ddf1f77fbcb7a31cd5fba2a0d4b7e7);
+            
+        
+
+        marker_32d05dba7f37623287d993985812d7d5.bindPopup(popup_97b067b6f4890ec4df7c7416b45ed927)
+        ;
+
+        
+    
+    
+            marker_32d05dba7f37623287d993985812d7d5.bindTooltip(
+                `<div>
+                     Natural Disasters: Wildfire Emergency Declared in California...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_32d05dba7f37623287d993985812d7d5.setIcon(icon_8c50b9e8cffd9e3b544dd3ab81aec7c9);
+            
+    
+            feature_group_2b503d213c3b074352de7cdd8360d95c.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var feature_group_506966fa2053058bc0801a56a36e5ee3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_506966fa2053058bc0801a56a36e5ee3.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var feature_group_2d6833f0793dcf2404663f211828a7b1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_4b8d66c6af2a351d73b15dc988694392 = L.marker(
+                [14.5844444, 29.4917691],
+                {
+}
+            ).addTo(feature_group_2d6833f0793dcf2404663f211828a7b1);
+        
+    
+            var icon_219415fbd0bcb3579c9d01407d857a88 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3b99e83ed0513c9d2e2c29b4cf3f6ac9 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_346b6c4a601bcb33e071b16edae611bc = $(`<div id="html_346b6c4a601bcb33e071b16edae611bc" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Humanitarian Crisis Deepens in Sudan as Conflict Continues</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> السودان<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.95             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The ongoing conflict in Sudan has created a severe humanitarian crisis, with over 2 million people displaced from their homes. The United Nations reports that food insecurity is reaching critical leve...             </div>                          <a href="https://example.com/sudan-crisis" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_3b99e83ed0513c9d2e2c29b4cf3f6ac9.setContent(html_346b6c4a601bcb33e071b16edae611bc);
+            
+        
+
+        marker_4b8d66c6af2a351d73b15dc988694392.bindPopup(popup_3b99e83ed0513c9d2e2c29b4cf3f6ac9)
+        ;
+
+        
+    
+    
+            marker_4b8d66c6af2a351d73b15dc988694392.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Humanitarian Crisis Deepens in Sudan as Conflict C...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4b8d66c6af2a351d73b15dc988694392.setIcon(icon_219415fbd0bcb3579c9d01407d857a88);
+            
+    
+            var marker_c9509ab5bf05446dc989e99b340a99ba = L.marker(
+                [44.0513467, -94.8380398],
+                {
+}
+            ).addTo(feature_group_2d6833f0793dcf2404663f211828a7b1);
+        
+    
+            var icon_85ab2b13e6d62d223de6f0d1bcebaa61 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fa3acb7eaf12fcf6376a4d0472f91199 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_464d11bf2f857e39bd3c5fbde4518bd2 = $(`<div id="html_464d11bf2f857e39bd3c5fbde4518bd2" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Humanitarian Crisis Deepens in Sudan as Conflict Continues</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Darfur, Watonwan County, Minnesota, 56022, United States<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.95             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The ongoing conflict in Sudan has created a severe humanitarian crisis, with over 2 million people displaced from their homes. The United Nations reports that food insecurity is reaching critical leve...             </div>                          <a href="https://example.com/sudan-crisis" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_fa3acb7eaf12fcf6376a4d0472f91199.setContent(html_464d11bf2f857e39bd3c5fbde4518bd2);
+            
+        
+
+        marker_c9509ab5bf05446dc989e99b340a99ba.bindPopup(popup_fa3acb7eaf12fcf6376a4d0472f91199)
+        ;
+
+        
+    
+    
+            marker_c9509ab5bf05446dc989e99b340a99ba.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Humanitarian Crisis Deepens in Sudan as Conflict C...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c9509ab5bf05446dc989e99b340a99ba.setIcon(icon_85ab2b13e6d62d223de6f0d1bcebaa61);
+            
+    
+            feature_group_2d6833f0793dcf2404663f211828a7b1.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var feature_group_fa2b616c7099ff2d751e468b166885a8 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_42da916c2563cf1ef694d743e661b873 = L.marker(
+                [-34.9964963, -64.9672817],
+                {
+}
+            ).addTo(feature_group_fa2b616c7099ff2d751e468b166885a8);
+        
+    
+            var icon_7180a0a40c3f9cb3b73da26adaea48cc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_61efe7e93c5a6afda7157803597b29c5 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_4b2aebafb14ef7d1119b58a95fe8120b = $(`<div id="html_4b2aebafb14ef7d1119b58a95fe8120b" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: blue; margin-bottom: 10px;">                 Economic Crises             </h4>             <h5 style="margin-bottom: 8px;">Economic Crisis Hits Argentina as Inflation Soars</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Argentina<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.97             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Argentina is facing a severe economic crisis as inflation rates have reached 150% annually. The peso has lost significant value against the dollar, making basic goods unaffordable for many citizens. P...             </div>                          <a href="https://example.com/argentina-economy" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_61efe7e93c5a6afda7157803597b29c5.setContent(html_4b2aebafb14ef7d1119b58a95fe8120b);
+            
+        
+
+        marker_42da916c2563cf1ef694d743e661b873.bindPopup(popup_61efe7e93c5a6afda7157803597b29c5)
+        ;
+
+        
+    
+    
+            marker_42da916c2563cf1ef694d743e661b873.bindTooltip(
+                `<div>
+                     Economic Crises: Economic Crisis Hits Argentina as Inflation Soars...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_42da916c2563cf1ef694d743e661b873.setIcon(icon_7180a0a40c3f9cb3b73da26adaea48cc);
+            
+    
+            var marker_55ec76b47e8a546c170ddb47016372a1 = L.marker(
+                [-34.6095579, -58.3887904],
+                {
+}
+            ).addTo(feature_group_fa2b616c7099ff2d751e468b166885a8);
+        
+    
+            var icon_6f62e7baec63ec702d13c42e7a8d1134 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_74c7f6017c7a14e8208384be54136e5c = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_91f520219156a7910ad933e31cf453b5 = $(`<div id="html_91f520219156a7910ad933e31cf453b5" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: blue; margin-bottom: 10px;">                 Economic Crises             </h4>             <h5 style="margin-bottom: 8px;">Economic Crisis Hits Argentina as Inflation Soars</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Buenos Aires, Comuna 1, Ciudad Autónoma de Buenos Aires, Argentina<br>                 <strong>Source:</strong> <br>                 <strong>Date:</strong> <br>                 <strong>Confidence:</strong> 0.97             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Argentina is facing a severe economic crisis as inflation rates have reached 150% annually. The peso has lost significant value against the dollar, making basic goods unaffordable for many citizens. P...             </div>                          <a href="https://example.com/argentina-economy" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Full Article             </a>         </div>         </div>`)[0];
+                popup_74c7f6017c7a14e8208384be54136e5c.setContent(html_91f520219156a7910ad933e31cf453b5);
+            
+        
+
+        marker_55ec76b47e8a546c170ddb47016372a1.bindPopup(popup_74c7f6017c7a14e8208384be54136e5c)
+        ;
+
+        
+    
+    
+            marker_55ec76b47e8a546c170ddb47016372a1.bindTooltip(
+                `<div>
+                     Economic Crises: Economic Crisis Hits Argentina as Inflation Soars...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_55ec76b47e8a546c170ddb47016372a1.setIcon(icon_6f62e7baec63ec702d13c42e7a8d1134);
+            
+    
+            feature_group_fa2b616c7099ff2d751e468b166885a8.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var feature_group_09a59cc8ba3c8405a1417430c52d3b58 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_09a59cc8ba3c8405a1417430c52d3b58.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var feature_group_d338dc31e31480a6e2f77213f6193a31 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_d338dc31e31480a6e2f77213f6193a31.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var feature_group_294cda67871d20a181bf23c3498d71e3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            feature_group_294cda67871d20a181bf23c3498d71e3.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+    
+            var layer_control_a2141126291aa01fc6eb09dcc04ceff3_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_6f30e04aea9b1d6d3b0bd4e8e18aaa32,
+                },
+                overlays :  {
+                    "Natural Disasters" : feature_group_2b503d213c3b074352de7cdd8360d95c,
+                    "Political Conflicts" : feature_group_506966fa2053058bc0801a56a36e5ee3,
+                    "Humanitarian Crises" : feature_group_2d6833f0793dcf2404663f211828a7b1,
+                    "Economic Crises" : feature_group_fa2b616c7099ff2d751e468b166885a8,
+                    "Health Emergencies" : feature_group_09a59cc8ba3c8405a1417430c52d3b58,
+                    "Environmental Issues" : feature_group_d338dc31e31480a6e2f77213f6193a31,
+                    "Other" : feature_group_294cda67871d20a181bf23c3498d71e3,
+                    "Crisis Density Heatmap" : heat_map_54f8bb55afd2ed0c68ebc582926fa141,
+                },
+            };
+            let layer_control_a2141126291aa01fc6eb09dcc04ceff3 = L.control.layers(
+                layer_control_a2141126291aa01fc6eb09dcc04ceff3_layers.base_layers,
+                layer_control_a2141126291aa01fc6eb09dcc04ceff3_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": true,
+  "autoZIndex": true,
+}
+            ).addTo(map_d16773fced212b0f0669af7f702197b5);
+
+        
+    
+            var heat_map_54f8bb55afd2ed0c68ebc582926fa141 = L.heatLayer(
+                [[39.294076, 35.2316631, 0.6773256659507751], [39.9207759, 32.8540497, 0.6773256659507751], [14.5844444, 29.4917691, 0.9540462493896484], [44.0513467, -94.8380398, 0.9540462493896484], [12.7503486, 122.7312101, 0.5363625884056091], [14.5904492, 120.9803621, 0.5363625884056091], [15.5504104, 120.7434436, 0.5363625884056091], [-34.9964963, -64.9672817, 0.9730309844017029], [-34.6095579, -58.3887904, 0.9730309844017029], [36.7014631, -118.755997, 0.4378848075866699], [38.5134669, -122.1045118, 0.4378848075866699], [38.5810606, -121.493895, 0.4378848075866699], [37.7884969, -122.3558473, 0.4378848075866699]],
+                {
+  "minOpacity": 0.2,
+  "maxZoom": 18,
+  "radius": 15,
+  "blur": 10,
+  "gradient": {
+  0.2: "blue",
+  0.4: "lime",
+  0.6: "orange",
+  0.8: "red",
+  1.0: "darkred",
+},
+}
+            );
+        
+    
+            heat_map_54f8bb55afd2ed0c68ebc582926fa141.addTo(map_d16773fced212b0f0669af7f702197b5);
+        
+</script>
+</html>

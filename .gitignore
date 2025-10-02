@@ -46,8 +46,8 @@ Thumbs.db
 
 # Project specific
 *.log
-crisis_map.html
-crisis_summary.json
+# crisis_map.html
+# crisis_summary.json
 articles_cache.json
 crisis_data.json
 

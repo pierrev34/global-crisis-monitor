@@ -1,0 +1,72 @@
+{
+  "timestamp": "2025-10-01T19:38:56.082575",
+  "pipeline_stats": {
+    "total_articles_fetched": 5,
+    "articles_classified": 5,
+    "crisis_articles_found": 5,
+    "mappable_crisis_articles": 5
+  },
+  "classification_stats": {
+    "category_distribution": {
+      "Natural Disasters": 3,
+      "Humanitarian Crises": 1,
+      "Economic Crises": 1
+    },
+    "average_confidence": 0.7157300591468811
+  },
+  "geographic_stats": {
+    "total_locations_extracted": 13,
+    "successfully_geocoded": 13,
+    "geocoding_success_rate": 1.0,
+    "unique_countries_affected": 5,
+    "countries_list": [
+      "Argentina",
+      "Philippines",
+      "Türkiye",
+      "United States",
+      "السودان"
+    ]
+  },
+  "top_crisis_locations": [
+    [
+      "Türkiye",
+      1
+    ],
+    [
+      "Ankara, Çankaya, Ankara, İç Anadolu Bölgesi, 06420, Türkiye",
+      1
+    ],
+    [
+      "السودان",
+      1
+    ],
+    [
+      "Darfur, Watonwan County, Minnesota, 56022, United States",
+      1
+    ],
+    [
+      "Philippines",
+      1
+    ],
+    [
+      "Manila, Capital District, Metro Manila, Philippines",
+      1
+    ],
+    [
+      "Luzon, Central Luzon, Philippines",
+      1
+    ],
+    [
+      "Argentina",
+      1
+    ],
+    [
+      "Buenos Aires, Comuna 1, Ciudad Autónoma de Buenos Aires, Argentina",
+      1
+    ],
+    [
+      "California, United States",
+      1
+    ]
+  ]
+}
