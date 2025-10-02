@@ -17,6 +17,15 @@ from .config import GDELT_BASE_URL, GDELT_PARAMS, MAX_ARTICLES_TO_PROCESS, MIN_A
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Try to import RSS fetcher
+try:
+    from .rss_fetcher import get_real_crisis_news
+    RSS_AVAILABLE = True
+    logger.info("RSS fetcher available")
+except ImportError as e:
+    logger.warning(f"RSS fetcher not available: {e}")
+    RSS_AVAILABLE = False
+
 
 class GDELTIngester:
     """Handles data ingestion from GDELT Project API"""
@@ -57,14 +66,30 @@ class GDELTIngester:
         
         try:
             logger.info(f"Fetching articles from GDELT API from {start_time} to {end_time}")
+            logger.debug(f"API URL: {self.base_url}")
+            logger.debug(f"API Params: {params}")
+            
             response = requests.get(self.base_url, params=params, timeout=30)
             response.raise_for_status()
+            
+            # Log response details for debugging
+            logger.debug(f"Response status: {response.status_code}")
+            logger.debug(f"Response headers: {response.headers}")
             
             data = response.json()
             articles = data.get('articles', [])
             
-            logger.info(f"Successfully fetched {len(articles)} articles from GDELT")
-            return self._process_articles(articles)
+            logger.info(f"Successfully fetched {len(articles)} raw articles from GDELT")
+            
+            # Process and filter articles
+            processed_articles = self._process_articles(articles)
+            
+            if not processed_articles:
+                logger.warning("No valid articles found after processing. Using demo data...")
+                return self._get_demo_data()
+            
+            logger.info(f"Successfully processed {len(processed_articles)} valid articles")
+            return processed_articles
             
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching data from GDELT API: {e}")
@@ -73,6 +98,10 @@ class GDELTIngester:
         except json.JSONDecodeError as e:
             logger.error(f"Error parsing GDELT API response: {e}")
             logger.info("GDELT returned invalid JSON, falling back to demo data...")
+            return self._get_demo_data()
+        except Exception as e:
+            logger.error(f"Unexpected error in GDELT fetch: {e}")
+            logger.info("Falling back to demo data...")
             return self._get_demo_data()
     
     def _process_articles(self, raw_articles: List[Dict]) -> List[Dict]:
@@ -89,30 +118,51 @@ class GDELTIngester:
         
         for article in raw_articles:
             try:
-                # Extract relevant fields
+                # Extract relevant fields from GDELT structure
+                title = article.get('title', '').strip()
+                url = article.get('url', '')
+                domain = article.get('domain', '')
+                language = article.get('language', 'en').lower()
+                
+                # Skip non-English articles and gaming/mod content
+                if language not in ['en', 'english']:
+                    continue
+                    
+                # Filter out gaming content
+                title_lower = title.lower()
+                domain_lower = domain.lower()
+                if any(keyword in title_lower or keyword in domain_lower 
+                       for keyword in ['game', 'gaming', 'mod', 'patch', '生化危机', 'resident evil']):
+                    continue
+                
+                # Create content from title (GDELT doesn't provide full content)
+                content = title  # GDELT API typically only provides titles
+                
                 processed_article = {
-                    'title': article.get('title', '').strip(),
-                    'content': article.get('content', '').strip(),
-                    'url': article.get('url', ''),
-                    'source': article.get('domain', ''),
+                    'title': title,
+                    'content': content,
+                    'url': url,
+                    'source': domain,
                     'published_date': article.get('seendate', ''),
-                    'language': article.get('language', 'en'),
-                    'tone': article.get('tone', 0.0),  # GDELT tone score
-                    'raw_data': article  # Keep original for reference
+                    'language': language,
+                    'tone': article.get('tone', 0.0),
+                    'country': article.get('sourcecountry', ''),
+                    'raw_data': article
                 }
                 
-                # Filter out articles that are too short or missing key data
-                if (len(processed_article['content']) >= MIN_ARTICLE_LENGTH and 
-                    processed_article['title'] and 
-                    processed_article['url']):
+                # Filter out articles that are missing key data
+                if (title and url and domain and 
+                    len(title) >= 20 and  # Reasonable title length
+                    not url.startswith('https://example.com')):  # Not demo data
                     
                     processed_articles.append(processed_article)
+                    logger.debug(f"Processed article: {title[:50]}...")
                     
             except Exception as e:
                 logger.warning(f"Error processing article: {e}")
                 continue
         
-        logger.info(f"Processed {len(processed_articles)} valid articles")
+        logger.info(f"Processed {len(processed_articles)} valid articles from {len(raw_articles)} raw articles")
         return processed_articles
     
     def _get_demo_data(self) -> List[Dict]:
@@ -123,6 +173,8 @@ class GDELTIngester:
             List of sample crisis articles
         """
         logger.info("Using demo crisis data for demonstration")
+        logger.info("💡 Note: These are sample articles with example.com URLs for demonstration purposes")
+        logger.info("💡 To get real crisis data, the GDELT API integration needs to be working properly")
         
         demo_articles = [
             {
@@ -249,13 +301,14 @@ class GDELTIngester:
             return []
 
 
-def get_crisis_articles(hours_back: int = 24, use_cache: bool = True) -> List[Dict]:
+def get_crisis_articles(hours_back: int = 24, use_cache: bool = True, prefer_rss: bool = True) -> List[Dict]:
     """
     Convenience function to get crisis-related articles
     
     Args:
         hours_back: How many hours back to search
         use_cache: Whether to use cached data if available
+        prefer_rss: Whether to prefer RSS feeds over GDELT API
         
     Returns:
         List of crisis-related articles
@@ -269,11 +322,35 @@ def get_crisis_articles(hours_back: int = 24, use_cache: bool = True) -> List[Di
             logger.info("Using cached articles")
             return cached_articles
     
-    # Fetch fresh data
-    articles = ingester.fetch_recent_articles(hours_back=hours_back)
+    articles = []
     
-    # Cache the results
-    if articles:
-        ingester.save_articles_to_file(articles)
+    # Try RSS feeds first if available and preferred
+    if prefer_rss and RSS_AVAILABLE:
+        try:
+            logger.info("🌐 Attempting to fetch real crisis news from RSS feeds...")
+            articles = get_real_crisis_news(
+                max_articles=MAX_ARTICLES_TO_PROCESS, 
+                hours_back=hours_back
+            )
+            
+            if articles:
+                logger.info(f"✅ Successfully fetched {len(articles)} articles from RSS feeds")
+                # Cache the results
+                ingester.save_articles_to_file(articles)
+                return articles
+            else:
+                logger.warning("No articles found from RSS feeds, trying GDELT...")
+                
+        except Exception as e:
+            logger.warning(f"RSS fetch failed: {e}, trying GDELT...")
+    
+    # Fallback to GDELT API
+    if not articles:
+        logger.info("📡 Trying GDELT API...")
+        articles = ingester.fetch_recent_articles(hours_back=hours_back)
+        
+        # Cache the results if we got any
+        if articles:
+            ingester.save_articles_to_file(articles)
     
     return articles

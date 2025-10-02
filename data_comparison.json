@@ -1,0 +1,14 @@
+{
+  "timestamp": "2025-10-01 22:26:15.186984",
+  "real_articles_count": 1,
+  "demo_articles_count": 0,
+  "real_articles": [
+    {
+      "title": "Hundreds of millions at risk from Chinese shopping app malware",
+      "source": "CNN International",
+      "url": "https://cnn.it/40OSomK",
+      "type": "real"
+    }
+  ],
+  "demo_articles": []
+}

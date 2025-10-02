@@ -41,7 +41,8 @@ def run_crisis_monitor(hours_back: int = 24,
                       max_articles: int = 100,
                       confidence_threshold: float = 0.3,
                       use_cache: bool = True,
-                      output_file: str = None) -> str:
+                      output_file: str = None,
+                      prefer_rss: bool = True) -> str:
     """
     Run the complete ARGUS crisis monitoring pipeline
     
@@ -59,8 +60,9 @@ def run_crisis_monitor(hours_back: int = 24,
     
     try:
         # Step 1: Data Ingestion
-        logger.info("📰 Step 1: Fetching news articles from GDELT...")
-        articles = get_crisis_articles(hours_back=hours_back, use_cache=use_cache)
+        data_source = "RSS feeds and GDELT" if prefer_rss else "GDELT"
+        logger.info(f"📰 Step 1: Fetching news articles from {data_source}...")
+        articles = get_crisis_articles(hours_back=hours_back, use_cache=use_cache, prefer_rss=prefer_rss)
         
         if not articles:
             logger.error("No articles found. Exiting pipeline.")
@@ -322,7 +324,8 @@ Examples:
             max_articles=args.max_articles,
             confidence_threshold=args.confidence,
             use_cache=not args.no_cache,
-            output_file=args.output
+            output_file=args.output,
+            prefer_rss=True  # Default to preferring RSS for real data
         )
         
         if map_file:
