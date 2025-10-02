@@ -82,7 +82,8 @@ class CrisisMapper:
             confidence = crisis_item.get('confidence', 0.0)
             locations = article.get('locations', [])
             
-            # Add markers for each geocoded location in the article
+            # First try to add markers for perfectly geocoded locations
+            markers_added_for_article = 0
             for location in locations:
                 if location.get('geocoded', False):
                     lat = location.get('latitude')
@@ -97,6 +98,32 @@ class CrisisMapper:
                         group = feature_groups.get(category, feature_groups["Other"])
                         marker.add_to(group)
                         marker_count += 1
+                        markers_added_for_article += 1
+            
+            # If no perfect geocoding, use intelligent fallbacks
+            if markers_added_for_article == 0:
+                fallback_location = self._get_fallback_location(article, category)
+                if fallback_location:
+                    lat, lon, location_name = fallback_location
+                    
+                    # Create fallback location data
+                    fallback_loc_data = {
+                        'text': location_name,
+                        'found_name': location_name,
+                        'geocoded': True,  # Mark as geocoded for display
+                        'latitude': lat,
+                        'longitude': lon,
+                        'fallback': True  # Mark as fallback
+                    }
+                    
+                    marker = self._create_crisis_marker(
+                        lat, lon, article, category, confidence, fallback_loc_data
+                    )
+                    
+                    # Add to appropriate feature group
+                    group = feature_groups.get(category, feature_groups["Other"])
+                    marker.add_to(group)
+                    marker_count += 1
         
         # Add all feature groups to map
         for group in feature_groups.values():
@@ -107,6 +134,76 @@ class CrisisMapper:
         
         logger.info(f"Added {marker_count} crisis markers to map")
         return world_map
+    
+    def _get_fallback_location(self, article: Dict, category: str) -> Optional[Tuple[float, float, str]]:
+        """
+        Get fallback location for articles without perfect geocoding
+        
+        Args:
+            article: Article data
+            category: Crisis category
+            
+        Returns:
+            Tuple of (lat, lon, location_name) or None
+        """
+        title = article.get('title', '').lower()
+        content = article.get('content', '').lower()
+        source = article.get('source', '').lower()
+        text = f"{title} {content}".lower()
+        
+        # Geographic keyword mapping
+        location_keywords = {
+            'china': (39.9042, 116.4074, 'China'),
+            'chinese': (39.9042, 116.4074, 'China'),
+            'beijing': (39.9042, 116.4074, 'Beijing, China'),
+            'turkey': (39.9334, 32.8597, 'Turkey'),
+            'turkish': (39.9334, 32.8597, 'Turkey'),
+            'ankara': (39.9334, 32.8597, 'Ankara, Turkey'),
+            'istanbul': (41.0082, 28.9784, 'Istanbul, Turkey'),
+            'ukraine': (50.4501, 30.5234, 'Ukraine'),
+            'ukrainian': (50.4501, 30.5234, 'Ukraine'),
+            'russia': (55.7558, 37.6176, 'Russia'),
+            'russian': (55.7558, 37.6176, 'Russia'),
+            'israel': (31.7683, 35.2137, 'Israel'),
+            'gaza': (31.3547, 34.3088, 'Gaza'),
+            'palestine': (31.9522, 35.2332, 'Palestine'),
+            'syria': (33.5138, 36.2765, 'Syria'),
+            'lebanon': (33.8547, 35.8623, 'Lebanon'),
+            'iran': (35.6892, 51.3890, 'Iran'),
+            'iraq': (33.2232, 43.6793, 'Iraq'),
+            'afghanistan': (33.9391, 67.7100, 'Afghanistan'),
+            'pakistan': (30.3753, 69.3451, 'Pakistan'),
+            'india': (20.5937, 78.9629, 'India'),
+            'japan': (36.2048, 138.2529, 'Japan'),
+            'south korea': (35.9078, 127.7669, 'South Korea'),
+            'north korea': (40.3399, 127.5101, 'North Korea'),
+        }
+        
+        # Check for geographic keywords
+        for keyword, (lat, lon, name) in location_keywords.items():
+            if keyword in text:
+                return (lat, lon, name)
+        
+        # Category-based fallbacks
+        if 'cyber' in text or 'malware' in text or 'hack' in text:
+            return (37.7749, -122.4194, 'Global Cyber Threat')  # San Francisco (tech hub)
+        
+        if 'economic' in text or 'recession' in text or 'inflation' in text:
+            return (40.7128, -74.0060, 'Global Economic Impact')  # New York (financial hub)
+        
+        if 'climate' in text or 'environment' in text:
+            return (0, 0, 'Global Environmental Issue')  # Equator
+        
+        # Source-based fallbacks
+        if 'cnn' in source:
+            return (33.7490, -84.3880, 'CNN International Report')  # Atlanta
+        elif 'bbc' in source:
+            return (51.5074, -0.1278, 'BBC World Report')  # London
+        elif 'reuters' in source:
+            return (51.5074, -0.1278, 'Reuters Global Report')  # London
+        
+        # Default fallback for unlocated crises
+        return (20, 0, 'Global Crisis Event')
     
     def _create_crisis_marker(self, lat: float, lon: float, article: Dict,
                              category: str, confidence: float, location: Dict) -> folium.Marker:
@@ -159,10 +256,19 @@ class CrisisMapper:
             HTML string for popup
         """
         title = article.get('title', 'No title')
-        source = article.get('source', 'Unknown source')
+        source = article.get('source_name', article.get('source', 'Unknown source'))
         url = article.get('url', '#')
         published_date = article.get('published_date', 'Unknown date')
         location_name = location.get('found_name', location.get('text', 'Unknown location'))
+        
+        # Check if this is real data vs demo data
+        is_real_data = not url.startswith('https://example.com')
+        data_type = "✅ REAL DATA" if is_real_data else "⚠️ DEMO DATA"
+        data_color = "green" if is_real_data else "orange"
+        
+        # Check if using fallback location
+        is_fallback = location.get('fallback', False)
+        location_note = " (estimated)" if is_fallback else ""
         
         # Truncate content for popup
         content = article.get('content', '')
@@ -172,13 +278,16 @@ class CrisisMapper:
         # Create HTML popup
         popup_html = f"""
         <div style="width: 350px;">
+            <div style="background-color: {data_color}; color: white; padding: 5px; margin-bottom: 10px; text-align: center; font-weight: bold;">
+                {data_type}
+            </div>
             <h4 style="color: {self.crisis_colors.get(category, 'black')}; margin-bottom: 10px;">
                 {category}
             </h4>
             <h5 style="margin-bottom: 8px;">{title}</h5>
             
             <div style="margin-bottom: 8px;">
-                <strong>Location:</strong> {location_name}<br>
+                <strong>Location:</strong> {location_name}{location_note}<br>
                 <strong>Source:</strong> {source}<br>
                 <strong>Date:</strong> {published_date}<br>
                 <strong>Confidence:</strong> {confidence:.2f}
@@ -189,7 +298,7 @@ class CrisisMapper:
             </div>
             
             <a href="{url}" target="_blank" style="color: #007cba; text-decoration: none;">
-                📰 Read Full Article
+                📰 {'Read Real Article' if is_real_data else 'Sample Article (Demo)'}
             </a>
         </div>
         """

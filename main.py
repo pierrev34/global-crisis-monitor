@@ -104,20 +104,25 @@ def run_crisis_monitor(hours_back: int = 24,
             enhanced_crisis_result['article'] = enhanced_article
             enhanced_articles.append(enhanced_crisis_result)
         
-        # Filter to only articles with geocoded locations
+        # Filter to articles with geocoded locations, but be more flexible
         mappable_articles = [
             result for result in enhanced_articles
             if result['article'].get('geocoded_count', 0) > 0
         ]
         
+        # If no perfectly geocoded articles, use intelligent fallbacks
+        if not mappable_articles and enhanced_articles:
+            logger.info("No perfectly geocoded articles found. Using intelligent fallbacks...")
+            mappable_articles = enhanced_articles  # Use all articles with fallback logic
+        
         logger.info(f"✅ Processed geographic entities, "
-                   f"{len(mappable_articles)} articles have mappable locations")
+                   f"{len(mappable_articles)} articles available for mapping")
         
         # Step 4: Create Interactive Map
         logger.info("🗺️  Step 4: Creating interactive crisis map...")
         
         if not mappable_articles:
-            logger.warning("No articles with geocoded locations found. Cannot create map.")
+            logger.warning("No articles available for mapping. Cannot create map.")
             return None
         
         map_file = create_crisis_visualization(
