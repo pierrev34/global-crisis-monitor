@@ -22,24 +22,6 @@ In an era of information overload, distinguishing significant global events from
 - **Geospatial**: Geopy, Folium
 - **Data Sources**: Major RSS (CNN, etc.), USGS, GDACS, WHO Disease Outbreaks, ReliefWeb, and GDELT API
 
-## Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd global-crisis-monitor
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-3. Download spaCy language model:
-```bash
-python -m spacy download en_core_web_sm
-```
-
 ## Usage
 
 Run the main pipeline:
@@ -128,41 +110,3 @@ MAPBOX_TOKEN=pk_your_mapbox_token_here
 
 The `.env` is already gitignored in `.gitignore`. With a Mapbox token, geocoding becomes precise and avoids SSL issues to OSM.
 
-## Data Sources & Fetching
-
-- RSS fetching uses `requests` + `feedparser.parse(bytes)` with SSL fallback.
-- Crisis-native feeds: USGS Earthquakes, GDACS, WHO Disease Outbreaks, ReliefWeb.
-- Major news RSS: multiple CNN channels; other outlets may be added.
-- GDELT API is used as a supplement/fallback when RSS volume is low.
-
-## Tips
-
-- Want a busier map? Use a broader time window and/or a lower confidence:
-
-```bash
-python main.py --hours 96 --max-articles 200 --confidence 0.15 --no-cache
-```
-
-- Without a Mapbox token, the app still shows markers via intelligent fallbacks (country/region centroids). Add a token for exact city coordinates.
-
-## Key Features
-
-### 🤖 **Advanced AI Classification**
-- Zero-shot learning using state-of-the-art transformer models
-- No training data required - adapts to new crisis types automatically
-- Confidence scoring for reliability assessment
-
-### 🌍 **Intelligent Geographic Processing**
-- Named Entity Recognition (NER) for location extraction
-- Automatic geocoding to precise coordinates
-- Handles ambiguous and multi-word location names
-
-### 📊 **Rich Data Visualization**
-- Interactive world map with crisis markers
-- Real-time statistics and analytics
-- Customizable color schemes and styling
-- Mobile-responsive design
-
-### ⚡ **Production-Ready Pipeline**
-- Comprehensive error handling and logging
-- Modular architecture for easy customization
