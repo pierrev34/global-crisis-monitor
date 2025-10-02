@@ -50,14 +50,10 @@ def run_crisis_monitor(hours_back: int = 24,
         max_articles: Maximum number of articles to process
         confidence_threshold: Minimum confidence for crisis classification
         use_cache: Whether to use cached data if available
-        output_file: Output HTML file path for the map
-        
-    Returns:
-        Path to the generated crisis map
     """
     start_time = time.time()
     
-    logger.info("🚀 Starting ARGUS Global Crisis Monitor Pipeline")
+    logger.info("🚀 Starting Global Crisis Monitor Pipeline")
     logger.info(f"Configuration: hours_back={hours_back}, max_articles={max_articles}, "
                 f"confidence_threshold={confidence_threshold}")
     
@@ -236,7 +232,7 @@ def print_pipeline_summary(summary: dict):
     """Print a formatted summary to the console"""
     
     print("\n" + "="*60)
-    print("🌍 ARGUS GLOBAL CRISIS MONITOR - PIPELINE SUMMARY")
+    print("🌍 GLOBAL CRISIS MONITOR - PIPELINE SUMMARY")
     print("="*60)
     
     stats = summary['pipeline_stats']
@@ -272,7 +268,7 @@ def main():
     """Main entry point with command line argument parsing"""
     
     parser = argparse.ArgumentParser(
-        description="ARGUS - AI-Powered Global Crisis Monitor",
+        description="Global Crisis Monitor",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:

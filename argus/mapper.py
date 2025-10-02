@@ -384,7 +384,7 @@ class CrisisMapper:
                     background: rgba(255,255,255,0.9); padding: 10px; border-radius: 5px;
                     z-index: 1000; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
             <h2 style="margin: 0; color: #333; text-align: center;">
-                🌍 ARGUS - Global Crisis Monitor
+                🌍 Global Crisis Monitor
             </h2>
             <p style="margin: 5px 0 0 0; text-align: center; color: #666; font-size: 12px;">
                 Real-time AI-powered crisis mapping from global news sources

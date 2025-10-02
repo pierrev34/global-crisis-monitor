@@ -1,16 +1,14 @@
-# ARGUS - AI-Powered Global Crisis Monitor
+# Global Crisis Monitor
 
 **Tagline:** An automated pipeline that uses AI to identify, classify, and map global crises from real-time news data.
 
 ## Project Overview
 
-ARGUS is a data processing system that continuously monitors thousands of global news articles to provide a real-time, high-level view of emerging world events. The system automatically ingests news data, uses a sophisticated Natural Language Processing (NLP) model to understand the content, and classifies articles into distinct crisis categories such as Natural Disasters, Political Conflicts, and Humanitarian Crises. The result is an interactive world map where each classified event is plotted, providing a dynamic and insightful dashboard of global challenges.
+Global Crisis Monitor is a data processing system that continuously monitors thousands of global news articles to provide a real-time, high-level view of emerging world events. The system automatically ingests news data, uses a sophisticated Natural Language Processing (NLP) model to understand the content, and classifies articles into distinct crisis categories such as Natural Disasters, Political Conflicts, and Humanitarian Crises. The result is an interactive world map where each classified event is plotted, providing a dynamic and insightful dashboard of global challenges.
 
 ## Motivation & Purpose
 
 In an era of information overload, distinguishing significant global events from background noise is a persistent challenge. This project was inspired by the goal of applying advanced AI not for commercial purposes, but for social good. The motivation was to create a proof-of-concept for a "humanitarian dashboard"—a tool that could help journalists, policymakers, or aid organizations gain rapid, structured insight into where and what kind of crises are unfolding.
-
-## Key Features
 
 - **Automated Data Ingestion**: Sources data from the GDELT Project for real-time global news monitoring
 - **Zero-Shot AI Classification**: Uses Hugging Face transformers for flexible crisis categorization
@@ -123,6 +121,4 @@ The system generates several output files:
 
 ### ⚡ **Production-Ready Pipeline**
 - Comprehensive error handling and logging
-- Caching for improved performance
-- Rate limiting to respect API constraints
 - Modular architecture for easy customization

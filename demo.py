@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-ARGUS Demo Script
+Global Crisis Monitor Demo Script
 
-A comprehensive demonstration of the ARGUS Global Crisis Monitor system.
+A comprehensive demonstration of the Global Crisis Monitor system.
 This script shows the capabilities of each component and creates a sample
 crisis map for portfolio demonstration.
 """
@@ -272,11 +272,11 @@ def create_demo_summary(articles, classification_results, enhanced_articles, map
 
 
 def main():
-    """Run the complete ARGUS demonstration"""
-    print("🌍 ARGUS - AI-Powered Global Crisis Monitor")
+    """Run the complete Global Crisis Monitor demonstration"""
+    print("🌍 Global Crisis Monitor")
     print("🎯 COMPREHENSIVE SYSTEM DEMONSTRATION")
     print("="*60)
-    print("This demo showcases all components of the ARGUS system:")
+    print("This demo showcases all components of the Global Crisis Monitor system:")
     print("• Real-time data ingestion from GDELT")
     print("• AI-powered crisis classification")
     print("• Geographic entity extraction and geocoding")

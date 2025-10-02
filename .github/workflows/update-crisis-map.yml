@@ -1,4 +1,4 @@
-name: Update Crisis Map
+name: Update Global Crisis Monitor
 
 on:
   schedule:

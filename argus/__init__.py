@@ -1,5 +1,5 @@
 """
-ARGUS - AI-Powered Global Crisis Monitor
+Global Crisis Monitor
 
 A system for monitoring and mapping global crises using AI and real-time news data.
 """
