@@ -29,26 +29,23 @@ Run the main pipeline:
 python main.py
 ```
 
-This will:
 1. Fetch recent news articles from the hybrid sources (RSS + crisis feeds + GDELT fallback)
 2. Classify them into crisis categories
 3. Extract geographic entities
 4. Generate an interactive map saved as `crisis_map.html`
 
-CLI options (defaults chosen for a fuller map):
+    CLI options (defaults chosen for a fuller map):
 
 ```bash
-# Defaults: --hours 72, --confidence 0.2, --max-articles 100
-python main.py [--hours 72] [--max-articles 100] [--confidence 0.2] [--no-cache] [--output crisis_map.html]
-
-# Examples
+# Defaults: --hours 72, --confidence 0.5, --max-articles 100
+python main.py [--hours 72] [--max-articles 100] [--confidence 0.5] [--no-cache] [--output crisis_map.html]
 python main.py --no-cache                                  # Fresh fetch using defaults
 python main.py --hours 48 --max-articles 200               # Wider window and more items
 python main.py --confidence 0.15                           # Allow more lower-confidence items
 ```
 
 Notes:
-- The classification threshold now respects the `--confidence` flag (no hard-coded gate).
+- The classification threshold now respects the `--confidence` flag (default 0.5) and uses a heuristic crisis gate (hazard + impact/emergency cues; excludes soft-news).
 - If the map iframe looks stale, open `crisis_map.html` directly or add a cache-buster query param in `index.html`.
 
 ## Project Structure

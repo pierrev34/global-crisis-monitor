@@ -190,19 +190,23 @@ class RSSCrisisFetcher:
         if any(exclude_word in text_to_check for exclude_word in self.exclude_keywords):
             return False
         
-        # Check for crisis keywords
-        crisis_score = sum(1 for keyword in self.crisis_keywords if keyword in text_to_check)
-        
-        # Also check for general news keywords that might indicate crises
-        general_crisis_words = ['breaking', 'urgent', 'alert', 'warning', 'threat', 'danger', 
-                               'death', 'killed', 'injured', 'damage', 'destroy', 'collapse',
-                               'strike', 'attack', 'bomb', 'shoot', 'fire', 'burn', 'crash',
-                               'rescue', 'emergency', 'evacuate', 'missing', 'search', 'found dead']
-        
-        general_score = sum(1 for word in general_crisis_words if word in text_to_check)
-        
-        # More inclusive: 1 crisis keyword OR 1 general crisis word
-        return crisis_score >= 1 or general_score >= 1
+        # Define impact/emergency cues and soft-news noise terms
+        impact_terms = ['killed','deaths','dead','injured','wounded','missing','evacuate','evacuation',
+                        'displaced','emergency','state of emergency','rescue','aid','relief','destroyed',
+                        'collapsed','damage','casualties','fatalities','curfew','shutdown']
+        general_crisis_words = ['breaking','urgent','alert','warning','threat','danger','attack','bomb',
+                                'shoot','fire','burn','crash','rescue','emergency','evacuate','missing',
+                                'search','found dead']
+        soft_noise_terms = ['handwriting','prescription','policy','policies','guideline','guidelines',
+                            'opinion','editorial','interview','feature','awareness','tips','prevention',
+                            'advice','lifestyle']
+
+        hazard_hit = any(keyword in text_to_check for keyword in self.crisis_keywords)
+        impact_hit = any(word in text_to_check for word in (impact_terms + general_crisis_words))
+        soft_noise = any(term in text_to_check for term in soft_noise_terms)
+
+        # Stricter gate: require a hazard indicator and an impact/emergency cue, and not soft-news
+        return hazard_hit and impact_hit and not soft_noise
     
     def _process_rss_entry(self, entry: Dict, source_name: str) -> Optional[Dict]:
         """Process RSS entry into article format"""

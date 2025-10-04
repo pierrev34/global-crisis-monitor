@@ -50,6 +50,7 @@ Thumbs.db
 # crisis_summary.json
 articles_cache.json
 crisis_data.json
+classification_log.jsonl
 
 # Model cache
 .cache/

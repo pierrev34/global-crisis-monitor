@@ -45,7 +45,9 @@ def example_classification(articles):
         print("No articles to classify")
         return []
     
-    classifier = CrisisClassifier()
+    # Use singleton instance to avoid model reloading
+    from argus.classifier import get_classifier_instance
+    classifier = get_classifier_instance()
     
     # Classify first few articles
     sample_articles = articles[:3]
@@ -72,7 +74,9 @@ def example_geo_extraction(articles):
         print("No articles to process")
         return []
     
-    extractor = GeographicExtractor()
+    # Use singleton instance to avoid model reloading
+    from argus.geo_extractor import get_extractor_instance
+    extractor = get_extractor_instance()
     
     # Process first article
     sample_article = articles[0]

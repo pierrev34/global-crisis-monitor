@@ -372,6 +372,16 @@ class GeographicExtractor:
         return stats
 
 
+# Singleton instance for model reuse
+_extractor_instance = None
+
+def get_extractor_instance(spacy_model: str = None) -> GeographicExtractor:
+    """Get or create singleton extractor instance to avoid reloading spaCy model"""
+    global _extractor_instance
+    if _extractor_instance is None:
+        _extractor_instance = GeographicExtractor(spacy_model)
+    return _extractor_instance
+
 def extract_article_locations(articles: List[Dict]) -> List[Dict]:
     """
     Convenience function to extract locations from articles
@@ -382,5 +392,5 @@ def extract_article_locations(articles: List[Dict]) -> List[Dict]:
     Returns:
         List of articles enhanced with location data
     """
-    extractor = GeographicExtractor()
+    extractor = get_extractor_instance()
     return extractor.process_batch_locations(articles)

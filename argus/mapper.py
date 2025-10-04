@@ -101,7 +101,7 @@ class CrisisMapper:
                         markers_added_for_article += 1
             
             # If no perfect geocoding, use intelligent fallbacks
-            if markers_added_for_article == 0:
+            if markers_added_for_article == 0 and confidence >= 0.5:
                 fallback_location = self._get_fallback_location(article, category)
                 if fallback_location:
                     lat, lon, location_name = fallback_location

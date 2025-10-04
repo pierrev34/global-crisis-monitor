@@ -21,17 +21,16 @@ Open `crisis_map.html` in your web browser to see the interactive crisis map.
 ```bash
 python main.py [OPTIONS]
 ```
-
 ### Available Options
 
-| Option | Short | Description | Default |
-|--------|-------|-------------|---------|
-| `--hours` | `-h` | Hours back to search for articles | 24 |
-| `--max-articles` | `-m` | Maximum articles to process | 100 |
-| `--confidence` | `-c` | Minimum confidence threshold | 0.3 |
-| `--output` | `-o` | Output HTML file path | crisis_map.html |
-| `--no-cache` | | Force fresh data fetch | False |
-| `--verbose` | `-v` | Enable verbose logging | False |
+    | Option | Short | Description | Default |
+    |--------|-------|-------------|---------|
+    | `--hours` | `-h` | Hours back to search for articles | 72 |
+    | `--max-articles` | `-m` | Maximum articles to process | 100 |
+    | `--confidence` | `-c` | Minimum confidence threshold | 0.5 |
+    | `--output` | `-o` | Output HTML file path | crisis_map.html |
+    | `--no-cache` | | Force fresh data fetch | False |
+    | `--verbose` | `-v` | Enable verbose logging | False |
 
 ### Example Commands
 
@@ -95,7 +94,7 @@ print(f"Found {len(articles)} articles")
 from argus.classifier import classify_crisis_articles
 
 # Classify articles
-results = classify_crisis_articles(articles, confidence_threshold=0.3)
+results = classify_crisis_articles(articles, confidence_threshold=0.5)
 crisis_articles = [r for r in results if r['is_crisis']]
 ```
 

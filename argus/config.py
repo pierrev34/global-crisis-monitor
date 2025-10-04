@@ -18,7 +18,7 @@ CRISIS_CATEGORIES = [
 # GDELT API configuration
 GDELT_BASE_URL = "http://api.gdeltproject.org/api/v2/doc/doc"
 GDELT_PARAMS = {
-    "query": "(earthquake OR flood OR hurricane OR wildfire OR tsunami OR drought OR famine OR war OR conflict OR refugee OR humanitarian OR economic crisis OR recession OR pandemic OR outbreak) AND (news OR breaking OR alert OR emergency) -game -gaming -video -mod",
+    "query": "(earthquake OR flood OR hurricane OR wildfire OR tsunami OR drought OR famine OR war OR conflict OR refugee OR humanitarian OR \"economic crisis\" OR recession OR inflation OR pandemic OR outbreak OR \"state of emergency\") AND (emergency OR disaster OR crisis OR killed OR deaths OR injured OR evacuate OR evacuation OR casualties OR damage OR destroyed) -opinion -editorial -analysis -review -podcast -interview -sports -game -gaming -video -mod -feature -handwriting -prescription -guidelines -policy -policies",
     "mode": "artlist",
     "format": "json",
     "maxrecords": 250,

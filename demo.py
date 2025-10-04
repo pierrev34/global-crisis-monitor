@@ -21,11 +21,11 @@ logger = logging.getLogger(__name__)
 
 
 def create_sample_data():
-    """Create sample data for demonstration when GDELT is unavailable"""
+    """Create minimal sample data for demonstration when GDELT is unavailable"""
     return [
         {
-            'title': 'Earthquake Strikes Central Turkey, Magnitude 7.2',
-            'content': 'A powerful earthquake measuring 7.2 on the Richter scale struck central Turkey near Ankara early this morning. The earthquake caused significant damage to buildings and infrastructure across the region. Emergency services are responding to reports of casualties and people trapped in collapsed buildings. The Turkish government has declared a state of emergency and is coordinating rescue efforts with international aid organizations.',
+            'title': 'Earthquake Strikes Turkey, Magnitude 7.2',
+            'content': 'A powerful earthquake struck Turkey causing significant damage. Emergency services are responding with international aid.',
             'url': 'https://example.com/turkey-earthquake',
             'source': 'reuters.com',
             'published_date': '20241001120000',
@@ -33,40 +33,13 @@ def create_sample_data():
             'tone': -5.2
         },
         {
-            'title': 'Humanitarian Crisis Deepens in Sudan as Conflict Continues',
-            'content': 'The ongoing conflict in Sudan has created a severe humanitarian crisis, with over 2 million people displaced from their homes. The United Nations reports that food insecurity is reaching critical levels, particularly in the Darfur region. International aid organizations are struggling to deliver assistance due to security concerns and restricted access. The situation has been exacerbated by the destruction of key infrastructure including hospitals and schools.',
+            'title': 'Humanitarian Crisis in Sudan',
+            'content': 'The ongoing conflict in Sudan has created a severe humanitarian crisis with over 2 million displaced.',
             'url': 'https://example.com/sudan-crisis',
             'source': 'bbc.com',
             'published_date': '20241001100000',
             'language': 'en',
             'tone': -7.8
-        },
-        {
-            'title': 'Typhoon Approaches Philippines, Millions Evacuated',
-            'content': 'Super Typhoon Maria is approaching the Philippines with winds reaching 180 km/h. Authorities in Manila and surrounding provinces have ordered the evacuation of over 3 million residents from coastal and low-lying areas. The Philippine Atmospheric Administration warns of catastrophic flooding and landslides. Emergency shelters have been set up across Luzon island, and the military is on standby for rescue operations.',
-            'url': 'https://example.com/philippines-typhoon',
-            'source': 'cnn.com',
-            'published_date': '20241001080000',
-            'language': 'en',
-            'tone': -6.1
-        },
-        {
-            'title': 'Economic Crisis Hits Argentina as Inflation Soars',
-            'content': 'Argentina is facing a severe economic crisis as inflation rates have reached 150% annually. The peso has lost significant value against the dollar, making basic goods unaffordable for many citizens. Protests have erupted in Buenos Aires as people demand government action. The International Monetary Fund is in discussions with Argentine officials about potential emergency financial assistance.',
-            'url': 'https://example.com/argentina-economy',
-            'source': 'financial-times.com',
-            'published_date': '20241001060000',
-            'language': 'en',
-            'tone': -4.5
-        },
-        {
-            'title': 'Wildfire Emergency Declared in California',
-            'content': 'A massive wildfire in Northern California has burned over 50,000 acres and forced the evacuation of several communities near Sacramento. The fire, dubbed the "Golden Fire," is being fueled by strong winds and dry conditions. Firefighters from across the state are battling the blaze, but containment efforts are being hampered by difficult terrain and weather conditions. Air quality alerts have been issued for the entire Bay Area.',
-            'url': 'https://example.com/california-wildfire',
-            'source': 'latimes.com',
-            'published_date': '20241001040000',
-            'language': 'en',
-            'tone': -5.9
         }
     ]
 
@@ -109,7 +82,9 @@ def demo_classification(articles):
     print("="*60)
     
     try:
-        classifier = CrisisClassifier()
+        # Use singleton instance to avoid model reloading
+        from argus.classifier import get_classifier_instance
+        classifier = get_classifier_instance()
         print("✅ AI classification model loaded successfully")
         
         print("\nClassifying articles...")
@@ -145,7 +120,9 @@ def demo_geographic_extraction(articles):
     print("="*60)
     
     try:
-        extractor = GeographicExtractor()
+        # Use singleton instance to avoid model reloading
+        from argus.geo_extractor import get_extractor_instance
+        extractor = get_extractor_instance()
         print("✅ Geographic extraction model loaded successfully")
         
         print("\nExtracting locations from articles...")

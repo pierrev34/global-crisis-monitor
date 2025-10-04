@@ -39,10 +39,12 @@ logger = logging.getLogger(__name__)
 
 def run_crisis_monitor(hours_back: int = 72, 
                       max_articles: int = 100,
-                      confidence_threshold: float = 0.2,
+                      confidence_threshold: float = 0.5,
                       use_cache: bool = True,
                       output_file: str = None,
-                      prefer_rss: bool = True) -> str:
+                      prefer_rss: bool = True,
+                      log_classifications: bool = False,
+                      log_file: str = None) -> str:
     """
     Run the complete ARGUS crisis monitoring pipeline
     
@@ -82,6 +84,28 @@ def run_crisis_monitor(hours_back: int = 72,
             confidence_threshold=confidence_threshold
         )
         
+        # Optional: write classification log for triage
+        if log_classifications:
+            lf = log_file or 'classification_log.jsonl'
+            try:
+                with open(lf, 'a', encoding='utf-8') as jf:
+                    for r in classification_results:
+                        a = r.get('article', {})
+                        record = {
+                            'title': a.get('title'),
+                            'url': a.get('url'),
+                            'source': a.get('source_name', a.get('source')),
+                            'published_date': a.get('published_date'),
+                            'predicted_category': r.get('predicted_category'),
+                            'confidence': r.get('confidence'),
+                            'is_crisis': r.get('is_crisis'),
+                            'all_scores': r.get('all_scores', {})
+                        }
+                        jf.write(json.dumps(record, ensure_ascii=False) + "\n")
+                logger.info(f"Wrote classification log to {lf}")
+            except Exception as e:
+                logger.warning(f"Failed to write classification log: {e}")
+        
         # Filter to only crisis articles
         crisis_articles = [
             result for result in classification_results 
@@ -93,15 +117,16 @@ def run_crisis_monitor(hours_back: int = 72,
         
         # Step 3: Geographic Entity Extraction
         logger.info("🌍 Step 3: Extracting geographic entities...")
-        enhanced_articles = []
         
-        for crisis_result in crisis_articles:
-            article = crisis_result['article']
-            enhanced_article = extract_article_locations([article])[0]
-            
-            # Combine classification and location data
+        # Extract all articles at once for better batching efficiency
+        crisis_article_list = [result['article'] for result in crisis_articles]
+        enhanced_article_list = extract_article_locations(crisis_article_list)
+        
+        # Combine classification and location data
+        enhanced_articles = []
+        for i, crisis_result in enumerate(crisis_articles):
             enhanced_crisis_result = crisis_result.copy()
-            enhanced_crisis_result['article'] = enhanced_article
+            enhanced_crisis_result['article'] = enhanced_article_list[i]
             enhanced_articles.append(enhanced_crisis_result)
         
         # Filter to articles with geocoded locations, but be more flexible
@@ -297,8 +322,8 @@ Examples:
     )
     
     parser.add_argument(
-        '--confidence', '-c', type=float, default=0.2,
-        help='Minimum confidence threshold for crisis classification (default: 0.2)'
+        '--confidence', '-c', type=float, default=0.5,
+        help='Minimum confidence threshold for crisis classification (default: 0.5)'
     )
     
     parser.add_argument(
@@ -316,6 +341,16 @@ Examples:
         help='Enable verbose logging'
     )
     
+    parser.add_argument(
+        '--log-classifications', action='store_true',
+        help='Write all classification results to a JSONL file for triage'
+    )
+    
+    parser.add_argument(
+        '--log-file', type=str, default='classification_log.jsonl',
+        help='Path to JSONL file for classification logs (used with --log-classifications)'
+    )
+    
     args = parser.parse_args()
     
     # Set logging level
@@ -330,7 +365,9 @@ Examples:
             confidence_threshold=args.confidence,
             use_cache=not args.no_cache,
             output_file=args.output,
-            prefer_rss=True  # Default to preferring RSS for real data
+            prefer_rss=True,  # Default to preferring RSS for real data
+            log_classifications=args.log_classifications,
+            log_file=args.log_file
         )
         
         if map_file:

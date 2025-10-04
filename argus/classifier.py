@@ -79,6 +79,28 @@ class CrisisClassifier:
                 logger.warning("Empty text for classification")
                 return self._create_classification_result(article, "Unknown", 0.0, {})
             
+            lower_text = text.lower()
+            # Heuristic crisis gate: require hazard + (impact or emergency phrasing) and avoid soft-news
+            hazard_terms = [
+                'earthquake','flood','hurricane','typhoon','cyclone','storm','wildfire','fire','tsunami',
+                'drought','famine','landslide','eruption','volcano','war','conflict','attack','explosion',
+                'outbreak','pandemic','epidemic','cholera','ebola','measles','inflation','recession'
+            ]
+            impact_terms = [
+                'killed','deaths','dead','injured','wounded','missing','evacuate','evacuated','displaced',
+                'emergency','state of emergency','rescue','aid','relief','destroyed','collapsed','damage',
+                'shutdown','closed','curfew','casualties','fatalities','hospitalized','cases reported'
+            ]
+            soft_excludes = [
+                'handwriting','prescription','study','research','guideline','guidelines','policy','policies',
+                'opinion','editorial','commentary','interview','profile','feature story','lifestyle',
+                'scam alert','advertisement','sponsored'
+            ]
+            
+            hazard_hit = any(term in lower_text for term in hazard_terms)
+            impact_hit = any(term in lower_text for term in impact_terms)
+            soft_noise = any(term in lower_text for term in soft_excludes)
+            
             # Perform zero-shot classification
             result = self.classifier(text, self.categories)
             
@@ -89,8 +111,9 @@ class CrisisClassifier:
             # Create score dictionary for all categories
             all_scores = dict(zip(result['labels'], result['scores']))
             
-            # Check if confidence meets threshold
-            if top_score < confidence_threshold:
+            # Check if confidence and heuristic gate are satisfied
+            heuristic_ok = hazard_hit and (impact_hit or 'emergency' in lower_text or 'evacuat' in lower_text)
+            if top_score < confidence_threshold or not heuristic_ok or soft_noise:
                 top_label = "Unknown"
                 top_score = 0.0
 
@@ -225,6 +248,16 @@ class CrisisClassifier:
         return crisis_articles
 
 
+# Singleton instance for model reuse
+_classifier_instance = None
+
+def get_classifier_instance(model_name: str = None) -> CrisisClassifier:
+    """Get or create singleton classifier instance to avoid reloading model"""
+    global _classifier_instance
+    if _classifier_instance is None:
+        _classifier_instance = CrisisClassifier(model_name)
+    return _classifier_instance
+
 def classify_crisis_articles(articles: List[Dict], 
                            confidence_threshold: float = 0.3,
                            model_name: str = None) -> List[Dict]:
@@ -239,7 +272,7 @@ def classify_crisis_articles(articles: List[Dict],
     Returns:
         List of classification results
     """
-    classifier = CrisisClassifier(model_name)
+    classifier = get_classifier_instance(model_name)
     return classifier.classify_batch(articles, confidence_threshold)
 
 
@@ -253,5 +286,5 @@ def get_crisis_summary(classification_results: List[Dict]) -> Dict:
     Returns:
         Summary statistics
     """
-    classifier = CrisisClassifier()
+    classifier = get_classifier_instance()
     return classifier.get_category_statistics(classification_results)
