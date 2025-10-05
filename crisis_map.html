@@ -25,7 +25,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_12541415c8ea03ef228a92a48b8813f9 {
+                #map_2faaed485659a910a83b00fd60c6cfad {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -44,14 +44,14 @@
 <body>
     
     
-            <div class="folium-map" id="map_12541415c8ea03ef228a92a48b8813f9" ></div>
+            <div class="folium-map" id="map_2faaed485659a910a83b00fd60c6cfad" ></div>
         
 </body>
 <script>
     
     
-            var map_12541415c8ea03ef228a92a48b8813f9 = L.map(
-                "map_12541415c8ea03ef228a92a48b8813f9",
+            var map_2faaed485659a910a83b00fd60c6cfad = L.map(
+                "map_2faaed485659a910a83b00fd60c6cfad",
                 {
                     center: [20.0, 0.0],
                     crs: L.CRS.EPSG3857,
@@ -68,7 +68,7 @@
 
         
     
-            var tile_layer_9f8c97b9bdcd3ca24ac5ef5890963547 = L.tileLayer(
+            var tile_layer_27f482d51f2e56bf1317ddddbd982c0a = L.tileLayer(
                 "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {
   "minZoom": 0,
@@ -85,7 +85,7 @@
             );
         
     
-            tile_layer_9f8c97b9bdcd3ca24ac5ef5890963547.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            tile_layer_27f482d51f2e56bf1317ddddbd982c0a.addTo(map_2faaed485659a910a83b00fd60c6cfad);
         
     
             L.control.fullscreen(
@@ -95,10 +95,10 @@
   "titleCancel": "Exit Full Screen",
   "forceSeparateButton": false,
 }
-            ).addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            ).addTo(map_2faaed485659a910a83b00fd60c6cfad);
         
     
-            var measure_control_48503e390cbe636aed51249f0eda553a = new L.Control.Measure(
+            var measure_control_d07da6194e7abe4c7c0410ed59a331d5 = new L.Control.Measure(
                 {
   "position": "topright",
   "primaryLengthUnit": "meters",
@@ -106,7 +106,7 @@
   "primaryAreaUnit": "sqmeters",
   "secondaryAreaUnit": "acres",
 });
-            map_12541415c8ea03ef228a92a48b8813f9.addControl(measure_control_48503e390cbe636aed51249f0eda553a);
+            map_2faaed485659a910a83b00fd60c6cfad.addControl(measure_control_d07da6194e7abe4c7c0410ed59a331d5);
 
             // Workaround for using this plugin with Leaflet>=1.8.0
             // https://github.com/ljagis/leaflet-measure/issues/171
@@ -125,29 +125,77 @@
 
         
     
-            var feature_group_d225b56dc26990ec2f4c82a485d8f16c = L.featureGroup(
+            var feature_group_4510ef31d79f78326621717fc97358f0 = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_d225b56dc26990ec2f4c82a485d8f16c.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            var marker_d84d3280129fd64bcffdd768dc894181 = L.marker(
+                [42.6073975, 25.4856617],
+                {
+}
+            ).addTo(feature_group_4510ef31d79f78326621717fc97358f0);
         
     
-            var feature_group_8e20650fed60a7ba5d1a588b311b2f97 = L.featureGroup(
+            var icon_044b19c589f9b688515e732c6a057e3f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_53f5ba3236d2cf1d58a900dc44c82d17 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_3a76d2050ff33082c337ff1cad74b04a = $(`<div id="html_3a76d2050ff33082c337ff1cad74b04a" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: red; margin-bottom: 10px;">                 Natural Disasters             </h4>             <h5 style="margin-bottom: 8px;">Cars swept away in Bulgaria floods</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> България<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 18:13:21 GMT<br>                 <strong>Confidence:</strong> 0.44             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 At least three people, including two rescue workers, have been killed in the country's south-east             </div>                          <a href="https://www.bbc.com/news/videos/c4gwkr1r5d7o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_53f5ba3236d2cf1d58a900dc44c82d17.setContent(html_3a76d2050ff33082c337ff1cad74b04a);
+            
+        
+
+        marker_d84d3280129fd64bcffdd768dc894181.bindPopup(popup_53f5ba3236d2cf1d58a900dc44c82d17)
+        ;
+
+        
+    
+    
+            marker_d84d3280129fd64bcffdd768dc894181.bindTooltip(
+                `<div>
+                     Natural Disasters: Cars swept away in Bulgaria floods...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d84d3280129fd64bcffdd768dc894181.setIcon(icon_044b19c589f9b688515e732c6a057e3f);
+            
+    
+            feature_group_4510ef31d79f78326621717fc97358f0.addTo(map_2faaed485659a910a83b00fd60c6cfad);
+        
+    
+            var feature_group_5d2537c646097889d853e7e237b9820d = L.featureGroup(
                 {
 }
             );
         
     
-            var marker_d0e23543a129f25df0673e7f83dab77b = L.marker(
-                [-23.328398, 32.8066057],
+            var marker_7d919e76e75ea06e5af2614a16714714 = L.marker(
+                [40.7127281, -74.0060152],
                 {
 }
-            ).addTo(feature_group_8e20650fed60a7ba5d1a588b311b2f97);
+            ).addTo(feature_group_5d2537c646097889d853e7e237b9820d);
         
     
-            var icon_1f44ef6ca7fbd6b5a69748aa83a4da46 = L.AwesomeMarkers.icon(
+            var icon_d313d2994a200662704ae13fe163d824 = L.AwesomeMarkers.icon(
                 {
   "markerColor": "darkred",
   "iconColor": "white",
@@ -158,26 +206,26 @@
             );
         
     
-        var popup_2b25a2d491eca556ae981d5affd66a7a = L.popup({
+        var popup_384c88cdf74b222b76b1b8c51b21a228 = L.popup({
   "maxWidth": 400,
 });
 
         
             
-                var html_7929f31d3927a7deb24e1e68add1ead6 = $(`<div id="html_7929f31d3927a7deb24e1e68add1ead6" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Trump urges Hamas to 'move quickly' on Gaza peace plan - NPR</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Gaza, Zona Sul, Moçambique<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 19:14:11 GMT<br>                 <strong>Confidence:</strong> 0.64             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Trump urges Hamas to 'move quickly' on Gaza peace plan&nbsp;&nbsp;NPRHow a Missile Strike Unlocked a Deal for Peace in Gaza&nbsp;&nbsp;The Wall Street JournalTrump announces Israel agrees to Gaza 'ini...             </div>                          <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE9PWkRZM3Y2bHc4NDZwSkU1MUNpeEo4SmtUcjFEQlZMeTJpX2pvT3VoYTd1amlrTEZTT0dwcXFTamtyWWhqTGNXVWNEblA1MkpTQ1dENFVzN1hYZUs2Y1N6WkpFVGFZYVhfbjdCa2pfanRVYTJtTnRRUDZhclM?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
-                popup_2b25a2d491eca556ae981d5affd66a7a.setContent(html_7929f31d3927a7deb24e1e68add1ead6);
+                var html_18a7f0c1b6f9f920a00c4a3ac58d951e = $(`<div id="html_18a7f0c1b6f9f920a00c4a3ac58d951e" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More - The New York Times</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> City of New York, New York, United States<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Sun, 05 Oct 2025 17:40:10 GMT<br>                 <strong>Confidence:</strong> 0.66             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More&nbsp;&nbsp;The New York TimesLatest updates: Trump appeals judge’s order blocking Portland troop deployment&nbsp;&nbsp;KPTVTrump S...             </div>                          <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBBUkJMdWRYd1gxUkVtWVdKdVkxUVNsb3VBQ3lRZDZzb2szMGFpOXo4TllhdHg4dDlYSGFLUWdSV1pITWt1dkE5NzNFMVNaT2pxQWtPNk9HR3VzRDZzOV9YV0doYw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_384c88cdf74b222b76b1b8c51b21a228.setContent(html_18a7f0c1b6f9f920a00c4a3ac58d951e);
             
         
 
-        marker_d0e23543a129f25df0673e7f83dab77b.bindPopup(popup_2b25a2d491eca556ae981d5affd66a7a)
+        marker_7d919e76e75ea06e5af2614a16714714.bindPopup(popup_384c88cdf74b222b76b1b8c51b21a228)
         ;
 
         
     
     
-            marker_d0e23543a129f25df0673e7f83dab77b.bindTooltip(
+            marker_7d919e76e75ea06e5af2614a16714714.bindTooltip(
                 `<div>
-                     Political Conflicts: Trump urges Hamas to 'move quickly' on Gaza peace ...
+                     Political Conflicts: Trump Live Updates: Gaza Negotiations, Immigration...
                  </div>`,
                 {
   "sticky": true,
@@ -185,19 +233,220 @@
             );
         
     
-                marker_d0e23543a129f25df0673e7f83dab77b.setIcon(icon_1f44ef6ca7fbd6b5a69748aa83a4da46);
+                marker_7d919e76e75ea06e5af2614a16714714.setIcon(icon_d313d2994a200662704ae13fe163d824);
             
     
-            var marker_0ec072117c7599a5c27e034b0fcf0dbc = L.marker(
+            var marker_a248b98407374a099730698c0070a828 = L.marker(
+                [45.5202471, -122.674194],
+                {
+}
+            ).addTo(feature_group_5d2537c646097889d853e7e237b9820d);
+        
+    
+            var icon_586dbe542713613050de057ef21c563a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7445dbdc63651d806a91b03788be1900 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_9047f502fe7284b5443d4f71150c4f2b = $(`<div id="html_9047f502fe7284b5443d4f71150c4f2b" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More - The New York Times</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Portland, Multnomah County, Oregon, United States<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Sun, 05 Oct 2025 17:40:10 GMT<br>                 <strong>Confidence:</strong> 0.66             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More&nbsp;&nbsp;The New York TimesLatest updates: Trump appeals judge’s order blocking Portland troop deployment&nbsp;&nbsp;KPTVTrump S...             </div>                          <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBBUkJMdWRYd1gxUkVtWVdKdVkxUVNsb3VBQ3lRZDZzb2szMGFpOXo4TllhdHg4dDlYSGFLUWdSV1pITWt1dkE5NzNFMVNaT2pxQWtPNk9HR3VzRDZzOV9YV0doYw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_7445dbdc63651d806a91b03788be1900.setContent(html_9047f502fe7284b5443d4f71150c4f2b);
+            
+        
+
+        marker_a248b98407374a099730698c0070a828.bindPopup(popup_7445dbdc63651d806a91b03788be1900)
+        ;
+
+        
+    
+    
+            marker_a248b98407374a099730698c0070a828.bindTooltip(
+                `<div>
+                     Political Conflicts: Trump Live Updates: Gaza Negotiations, Immigration...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a248b98407374a099730698c0070a828.setIcon(icon_586dbe542713613050de057ef21c563a);
+            
+    
+            var marker_7099a619751fb9930246140cdafe34a0 = L.marker(
+                [43.9792797, -120.737257],
+                {
+}
+            ).addTo(feature_group_5d2537c646097889d853e7e237b9820d);
+        
+    
+            var icon_0a82f4abdc83c9d5fd882638eb8d22b5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e8a3564a70f237d9c0a75b0691bd6d99 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_f1697781d356ef619e7dcf55a92f996c = $(`<div id="html_f1697781d356ef619e7dcf55a92f996c" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More - The New York Times</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Oregon, United States<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Sun, 05 Oct 2025 17:40:10 GMT<br>                 <strong>Confidence:</strong> 0.66             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More&nbsp;&nbsp;The New York TimesLatest updates: Trump appeals judge’s order blocking Portland troop deployment&nbsp;&nbsp;KPTVTrump S...             </div>                          <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBBUkJMdWRYd1gxUkVtWVdKdVkxUVNsb3VBQ3lRZDZzb2szMGFpOXo4TllhdHg4dDlYSGFLUWdSV1pITWt1dkE5NzNFMVNaT2pxQWtPNk9HR3VzRDZzOV9YV0doYw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_e8a3564a70f237d9c0a75b0691bd6d99.setContent(html_f1697781d356ef619e7dcf55a92f996c);
+            
+        
+
+        marker_7099a619751fb9930246140cdafe34a0.bindPopup(popup_e8a3564a70f237d9c0a75b0691bd6d99)
+        ;
+
+        
+    
+    
+            marker_7099a619751fb9930246140cdafe34a0.bindTooltip(
+                `<div>
+                     Political Conflicts: Trump Live Updates: Gaza Negotiations, Immigration...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7099a619751fb9930246140cdafe34a0.setIcon(icon_0a82f4abdc83c9d5fd882638eb8d22b5);
+            
+    
+            var marker_0f9b7e9701a00f9a05f6988674f48f8a = L.marker(
+                [39.5143268, -74.6632883],
+                {
+}
+            ).addTo(feature_group_5d2537c646097889d853e7e237b9820d);
+        
+    
+            var icon_c3c67c5182402622acc8330bf2833e86 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c7010c962ddf25494d5e4f9b3164fc99 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_42054ba77c846e2adf9dd522fd14600d = $(`<div id="html_42054ba77c846e2adf9dd522fd14600d" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More - The New York Times</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Atlantic County, New Jersey, United States<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Sun, 05 Oct 2025 17:40:10 GMT<br>                 <strong>Confidence:</strong> 0.66             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Trump Live Updates: Gaza Negotiations, Immigration Crackdown and More&nbsp;&nbsp;The New York TimesLatest updates: Trump appeals judge’s order blocking Portland troop deployment&nbsp;&nbsp;KPTVTrump S...             </div>                          <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBBUkJMdWRYd1gxUkVtWVdKdVkxUVNsb3VBQ3lRZDZzb2szMGFpOXo4TllhdHg4dDlYSGFLUWdSV1pITWt1dkE5NzNFMVNaT2pxQWtPNk9HR3VzRDZzOV9YV0doYw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_c7010c962ddf25494d5e4f9b3164fc99.setContent(html_42054ba77c846e2adf9dd522fd14600d);
+            
+        
+
+        marker_0f9b7e9701a00f9a05f6988674f48f8a.bindPopup(popup_c7010c962ddf25494d5e4f9b3164fc99)
+        ;
+
+        
+    
+    
+            marker_0f9b7e9701a00f9a05f6988674f48f8a.bindTooltip(
+                `<div>
+                     Political Conflicts: Trump Live Updates: Gaza Negotiations, Immigration...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0f9b7e9701a00f9a05f6988674f48f8a.setIcon(icon_c3c67c5182402622acc8330bf2833e86);
+            
+    
+            var marker_5e5e89fd32b91713ce2f9499c5c0f9e6 = L.marker(
+                [39.7837304, -100.445882],
+                {
+}
+            ).addTo(feature_group_5d2537c646097889d853e7e237b9820d);
+        
+    
+            var icon_293e7b97792076ff4f562033ed4b610b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9a9bc4ff47742eea6a9a3ce9a44ef612 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_bc936e3dd4eec602bbabe3b02bcfce4b = $(`<div id="html_bc936e3dd4eec602bbabe3b02bcfce4b" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">The shutdown meant no jobs report. Here's what it would have said about the economy - CNBC</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> United States<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Fri, 03 Oct 2025 18:18:08 GMT<br>                 <strong>Confidence:</strong> 0.38             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 The shutdown meant no jobs report. Here's what it would have said about the economy&nbsp;&nbsp;CNBCElizabeth Warren calls for Trump to release the jobs report despite shutdown&nbsp;&nbsp;CNNWhite Hous...             </div>                          <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTFBPOEJCY090Y1lIa1gtSTZaNVpod1ExcUkyTktBbWVXbkRZTDhEYU05cHpXUmFDRXoxUmc5cGtCU20xR21NY2VvMmhwbkhjcnFIS2tBMmFMb1JaVXhFMktVVHpfMWJlRTUyeVg4UlZrVHRuQ3PSAXhBVV95cUxNNUdjS0RSVFh3U2RLNFVRVFRFb3JRRUhLQkQxU1N2QUJQYUR6ZVQ4SmZ3dTN2cmRKVU93R2JrVnkwVGpHWnYwczV5QkdvR0R4X2E4bXljMzZ6VUI0OFhnN3Y1dmk0clFiOFl6Q1hhc1oxSEptMlhFUGg?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_9a9bc4ff47742eea6a9a3ce9a44ef612.setContent(html_bc936e3dd4eec602bbabe3b02bcfce4b);
+            
+        
+
+        marker_5e5e89fd32b91713ce2f9499c5c0f9e6.bindPopup(popup_9a9bc4ff47742eea6a9a3ce9a44ef612)
+        ;
+
+        
+    
+    
+            marker_5e5e89fd32b91713ce2f9499c5c0f9e6.bindTooltip(
+                `<div>
+                     Political Conflicts: The shutdown meant no jobs report. Here's what it ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5e5e89fd32b91713ce2f9499c5c0f9e6.setIcon(icon_293e7b97792076ff4f562033ed4b610b);
+            
+    
+            feature_group_5d2537c646097889d853e7e237b9820d.addTo(map_2faaed485659a910a83b00fd60c6cfad);
+        
+    
+            var feature_group_cd7b6287bfa9d8119bb67ffca6088e04 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_3065cf57250d8d3a6bf80ce82228351f = L.marker(
                 [30.8124247, 34.8594762],
                 {
 }
-            ).addTo(feature_group_8e20650fed60a7ba5d1a588b311b2f97);
+            ).addTo(feature_group_cd7b6287bfa9d8119bb67ffca6088e04);
         
     
-            var icon_b069e7d3ad14be08abfea5f3a40b8209 = L.AwesomeMarkers.icon(
+            var icon_5506fd886aaac53bd0d0b976546da309 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "darkred",
+  "markerColor": "orange",
   "iconColor": "white",
   "icon": "exclamation-triangle",
   "prefix": "fa",
@@ -206,26 +455,26 @@
             );
         
     
-        var popup_75793e9ab903cc79ee915ba7f5be6c95 = L.popup({
+        var popup_14466e2c7f1f95db39f04bb934e985de = L.popup({
   "maxWidth": 400,
 });
 
         
             
-                var html_f45c95a47425bd6d0580342b56e6728a = $(`<div id="html_f45c95a47425bd6d0580342b56e6728a" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Trump urges Hamas to 'move quickly' on Gaza peace plan - NPR</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> ישראל<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 19:14:11 GMT<br>                 <strong>Confidence:</strong> 0.64             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Trump urges Hamas to 'move quickly' on Gaza peace plan&nbsp;&nbsp;NPRHow a Missile Strike Unlocked a Deal for Peace in Gaza&nbsp;&nbsp;The Wall Street JournalTrump announces Israel agrees to Gaza 'ini...             </div>                          <a href="https://news.google.com/rss/articles/CBMifEFVX3lxTE9PWkRZM3Y2bHc4NDZwSkU1MUNpeEo4SmtUcjFEQlZMeTJpX2pvT3VoYTd1amlrTEZTT0dwcXFTamtyWWhqTGNXVWNEblA1MkpTQ1dENFVzN1hYZUs2Y1N6WkpFVGFZYVhfbjdCa2pfanRVYTJtTnRRUDZhclM?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
-                popup_75793e9ab903cc79ee915ba7f5be6c95.setContent(html_f45c95a47425bd6d0580342b56e6728a);
+                var html_bddd1b83e8b8871930531e9ede715323 = $(`<div id="html_bddd1b83e8b8871930531e9ede715323" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Israel steps up deportations of flotilla activists</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> ישראל<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 14:12:23 GMT<br>                 <strong>Confidence:</strong> 0.54             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Another 137 people from 14 countries were deported after being detained while trying to deliver aid to Gaza.             </div>                          <a href="https://www.bbc.com/news/articles/c701y9de2dro?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_14466e2c7f1f95db39f04bb934e985de.setContent(html_bddd1b83e8b8871930531e9ede715323);
             
         
 
-        marker_0ec072117c7599a5c27e034b0fcf0dbc.bindPopup(popup_75793e9ab903cc79ee915ba7f5be6c95)
+        marker_3065cf57250d8d3a6bf80ce82228351f.bindPopup(popup_14466e2c7f1f95db39f04bb934e985de)
         ;
 
         
     
     
-            marker_0ec072117c7599a5c27e034b0fcf0dbc.bindTooltip(
+            marker_3065cf57250d8d3a6bf80ce82228351f.bindTooltip(
                 `<div>
-                     Political Conflicts: Trump urges Hamas to 'move quickly' on Gaza peace ...
+                     Humanitarian Crises: Israel steps up deportations of flotilla activists...
                  </div>`,
                 {
   "sticky": true,
@@ -233,19 +482,19 @@
             );
         
     
-                marker_0ec072117c7599a5c27e034b0fcf0dbc.setIcon(icon_b069e7d3ad14be08abfea5f3a40b8209);
+                marker_3065cf57250d8d3a6bf80ce82228351f.setIcon(icon_5506fd886aaac53bd0d0b976546da309);
             
     
-            var marker_30a306b220964786b9df036d61e27e29 = L.marker(
-                [38.8950368, -77.0365427],
+            var marker_720e5ba6eedc5e1399a0b7e66db9a83c = L.marker(
+                [31.3547, 34.3088],
                 {
 }
-            ).addTo(feature_group_8e20650fed60a7ba5d1a588b311b2f97);
+            ).addTo(feature_group_cd7b6287bfa9d8119bb67ffca6088e04);
         
     
-            var icon_e9cdcdea866af13b9e75c6e75bc5297e = L.AwesomeMarkers.icon(
+            var icon_1ced43ed26ce06ddb11f2fe54057e063 = L.AwesomeMarkers.icon(
                 {
-  "markerColor": "darkred",
+  "markerColor": "orange",
   "iconColor": "white",
   "icon": "exclamation-triangle",
   "prefix": "fa",
@@ -254,26 +503,26 @@
             );
         
     
-        var popup_df30b2ab22fc1f7db47af18b08e3a9fc = L.popup({
+        var popup_31fd17244c1e785ff68deeca817d36e2 = L.popup({
   "maxWidth": 400,
 });
 
         
             
-                var html_5e153eae72c981baaca28107a787a5bc = $(`<div id="html_5e153eae72c981baaca28107a787a5bc" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: darkred; margin-bottom: 10px;">                 Political Conflicts             </h4>             <h5 style="margin-bottom: 8px;">Democrats’ defiance on shutdown shows a new, tougher approach to Trump - The Washington Post</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Washington, District of Columbia, United States<br>                 <strong>Source:</strong> Google News<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 17:00:00 GMT<br>                 <strong>Confidence:</strong> 0.76             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Democrats’ defiance on shutdown shows a new, tougher approach to Trump&nbsp;&nbsp;The Washington PostLive updates: Lawmakers have left Washington with no end to government shutdown in sight | CNN Poli...             </div>                          <a href="https://news.google.com/rss/articles/CBMijwFBVV95cUxOeFlIal9SVEw0RzNQY0xUNWRGMW52VUQzNXZsQy1iZFZvclJ0UmxMYy1neVNfX3VTVVdObTNXNTJYX1VuWlRJTEcxaTFBT0ZYcjBYUmJNVWxkSkVmSExfQloxR0lxc0lLcjJuVld4T2Y2SkR6djB0WVJKU2NrWVgzRWgwWlZMaTMwZ2lmdUYwdw?oc=5" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
-                popup_df30b2ab22fc1f7db47af18b08e3a9fc.setContent(html_5e153eae72c981baaca28107a787a5bc);
+                var html_9e7220cc3c471c9a035808d2b1d80602 = $(`<div id="html_9e7220cc3c471c9a035808d2b1d80602" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Israel steps up deportations of flotilla activists</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Gaza Strip, Palestine<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 14:12:23 GMT<br>                 <strong>Confidence:</strong> 0.54             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Another 137 people from 14 countries were deported after being detained while trying to deliver aid to Gaza.             </div>                          <a href="https://www.bbc.com/news/articles/c701y9de2dro?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_31fd17244c1e785ff68deeca817d36e2.setContent(html_9e7220cc3c471c9a035808d2b1d80602);
             
         
 
-        marker_30a306b220964786b9df036d61e27e29.bindPopup(popup_df30b2ab22fc1f7db47af18b08e3a9fc)
+        marker_720e5ba6eedc5e1399a0b7e66db9a83c.bindPopup(popup_31fd17244c1e785ff68deeca817d36e2)
         ;
 
         
     
     
-            marker_30a306b220964786b9df036d61e27e29.bindTooltip(
+            marker_720e5ba6eedc5e1399a0b7e66db9a83c.bindTooltip(
                 `<div>
-                     Political Conflicts: Democrats’ defiance on shutdown shows a new, tough...
+                     Humanitarian Crises: Israel steps up deportations of flotilla activists...
                  </div>`,
                 {
   "sticky": true,
@@ -281,86 +530,173 @@
             );
         
     
-                marker_30a306b220964786b9df036d61e27e29.setIcon(icon_e9cdcdea866af13b9e75c6e75bc5297e);
+                marker_720e5ba6eedc5e1399a0b7e66db9a83c.setIcon(icon_1ced43ed26ce06ddb11f2fe54057e063);
             
     
-            feature_group_8e20650fed60a7ba5d1a588b311b2f97.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            var marker_b6baeca486f95d2d7ee4573b8207e8fa = L.marker(
+                [31.3547, 34.3088],
+                {
+}
+            ).addTo(feature_group_cd7b6287bfa9d8119bb67ffca6088e04);
         
     
-            var feature_group_88d67355cc06f47156385bb8cd69692c = L.featureGroup(
+            var icon_54600c7180b157a69defdbae41238c10 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fadf29a101134400cacfd1fe8af6b4e7 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_ac9a6d32606053d957d2e00bd68ea96d = $(`<div id="html_ac9a6d32606053d957d2e00bd68ea96d" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Hopes and fears in Gaza and Israel over potential ceasefire</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> Gaza Strip, Palestine<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 12:38:59 GMT<br>                 <strong>Confidence:</strong> 0.45             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Hopes are growing of an end to the Israel-Gaza war, but it remains to be seen if the two sides can agree a ceasefire.             </div>                          <a href="https://www.bbc.com/news/videos/c8exnwe00y3o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_fadf29a101134400cacfd1fe8af6b4e7.setContent(html_ac9a6d32606053d957d2e00bd68ea96d);
+            
+        
+
+        marker_b6baeca486f95d2d7ee4573b8207e8fa.bindPopup(popup_fadf29a101134400cacfd1fe8af6b4e7)
+        ;
+
+        
+    
+    
+            marker_b6baeca486f95d2d7ee4573b8207e8fa.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Hopes and fears in Gaza and Israel over potential ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b6baeca486f95d2d7ee4573b8207e8fa.setIcon(icon_54600c7180b157a69defdbae41238c10);
+            
+    
+            var marker_cc95d18de46b12f9834a98b18e7a7c74 = L.marker(
+                [30.8124247, 34.8594762],
+                {
+}
+            ).addTo(feature_group_cd7b6287bfa9d8119bb67ffca6088e04);
+        
+    
+            var icon_c6c4f6ad0346d3380acd132458ed6097 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "exclamation-triangle",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5387e5081fd7b557cf0d40d7033713a4 = L.popup({
+  "maxWidth": 400,
+});
+
+        
+            
+                var html_f47e0f7ac5f1fdfe54331e79c52a643a = $(`<div id="html_f47e0f7ac5f1fdfe54331e79c52a643a" style="width: 100.0%; height: 100.0%;">         <div style="width: 350px;">             <h4 style="color: orange; margin-bottom: 10px;">                 Humanitarian Crises             </h4>             <h5 style="margin-bottom: 8px;">Hopes and fears in Gaza and Israel over potential ceasefire</h5>                          <div style="margin-bottom: 8px;">                 <strong>Location:</strong> ישראל<br>                 <strong>Source:</strong> BBC World<br>                 <strong>Date:</strong> Sat, 04 Oct 2025 12:38:59 GMT<br>                 <strong>Confidence:</strong> 0.45             </div>                          <div style="margin-bottom: 10px; font-size: 12px; color: #666;">                 Hopes are growing of an end to the Israel-Gaza war, but it remains to be seen if the two sides can agree a ceasefire.             </div>                          <a href="https://www.bbc.com/news/videos/c8exnwe00y3o?at_medium=RSS&at_campaign=rss" target="_blank" style="color: #007cba; text-decoration: none;">                 📰 Read Article             </a>         </div>         </div>`)[0];
+                popup_5387e5081fd7b557cf0d40d7033713a4.setContent(html_f47e0f7ac5f1fdfe54331e79c52a643a);
+            
+        
+
+        marker_cc95d18de46b12f9834a98b18e7a7c74.bindPopup(popup_5387e5081fd7b557cf0d40d7033713a4)
+        ;
+
+        
+    
+    
+            marker_cc95d18de46b12f9834a98b18e7a7c74.bindTooltip(
+                `<div>
+                     Humanitarian Crises: Hopes and fears in Gaza and Israel over potential ...
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cc95d18de46b12f9834a98b18e7a7c74.setIcon(icon_c6c4f6ad0346d3380acd132458ed6097);
+            
+    
+            feature_group_cd7b6287bfa9d8119bb67ffca6088e04.addTo(map_2faaed485659a910a83b00fd60c6cfad);
+        
+    
+            var feature_group_60b5473a4284a971e949a3d4747a7ee8 = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_88d67355cc06f47156385bb8cd69692c.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            feature_group_60b5473a4284a971e949a3d4747a7ee8.addTo(map_2faaed485659a910a83b00fd60c6cfad);
         
     
-            var feature_group_b2259675574228df236d1a9c131da8ea = L.featureGroup(
+            var feature_group_134cfa40e8e1f7605bf0e47fe49002b8 = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_b2259675574228df236d1a9c131da8ea.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            feature_group_134cfa40e8e1f7605bf0e47fe49002b8.addTo(map_2faaed485659a910a83b00fd60c6cfad);
         
     
-            var feature_group_8a755af9eb201d6fcc9fccff35c993ee = L.featureGroup(
+            var feature_group_58b8cc64e4f229402028c156959f98ea = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_8a755af9eb201d6fcc9fccff35c993ee.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            feature_group_58b8cc64e4f229402028c156959f98ea.addTo(map_2faaed485659a910a83b00fd60c6cfad);
         
     
-            var feature_group_a5a0074ebfbe41a8802afd2c112d1084 = L.featureGroup(
+            var feature_group_a1f62d6623ff5f9f95c0d9a2df600deb = L.featureGroup(
                 {
 }
             );
         
     
-            feature_group_a5a0074ebfbe41a8802afd2c112d1084.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            feature_group_a1f62d6623ff5f9f95c0d9a2df600deb.addTo(map_2faaed485659a910a83b00fd60c6cfad);
         
     
-            var feature_group_aab10032ec51feef73fb9692ff2334ee = L.featureGroup(
-                {
-}
-            );
-        
-    
-            feature_group_aab10032ec51feef73fb9692ff2334ee.addTo(map_12541415c8ea03ef228a92a48b8813f9);
-        
-    
-            var layer_control_82a5c0f379868c14ab16830bd98a3e29_layers = {
+            var layer_control_380e2fd996b07f36956fae9def86d62b_layers = {
                 base_layers : {
-                    "openstreetmap" : tile_layer_9f8c97b9bdcd3ca24ac5ef5890963547,
+                    "openstreetmap" : tile_layer_27f482d51f2e56bf1317ddddbd982c0a,
                 },
                 overlays :  {
-                    "Natural Disasters" : feature_group_d225b56dc26990ec2f4c82a485d8f16c,
-                    "Political Conflicts" : feature_group_8e20650fed60a7ba5d1a588b311b2f97,
-                    "Humanitarian Crises" : feature_group_88d67355cc06f47156385bb8cd69692c,
-                    "Economic Crises" : feature_group_b2259675574228df236d1a9c131da8ea,
-                    "Health Emergencies" : feature_group_8a755af9eb201d6fcc9fccff35c993ee,
-                    "Environmental Issues" : feature_group_a5a0074ebfbe41a8802afd2c112d1084,
-                    "Other" : feature_group_aab10032ec51feef73fb9692ff2334ee,
-                    "Crisis Density Heatmap" : heat_map_d8fd6e50ec02645ef83e0c251420fdc1,
+                    "Natural Disasters" : feature_group_4510ef31d79f78326621717fc97358f0,
+                    "Political Conflicts" : feature_group_5d2537c646097889d853e7e237b9820d,
+                    "Humanitarian Crises" : feature_group_cd7b6287bfa9d8119bb67ffca6088e04,
+                    "Economic Crises" : feature_group_60b5473a4284a971e949a3d4747a7ee8,
+                    "Health Emergencies" : feature_group_134cfa40e8e1f7605bf0e47fe49002b8,
+                    "Environmental Issues" : feature_group_58b8cc64e4f229402028c156959f98ea,
+                    "Other" : feature_group_a1f62d6623ff5f9f95c0d9a2df600deb,
+                    "Crisis Density Heatmap" : heat_map_1889e9fa721bee420f1b1cc5aa7becf7,
                 },
             };
-            let layer_control_82a5c0f379868c14ab16830bd98a3e29 = L.control.layers(
-                layer_control_82a5c0f379868c14ab16830bd98a3e29_layers.base_layers,
-                layer_control_82a5c0f379868c14ab16830bd98a3e29_layers.overlays,
+            let layer_control_380e2fd996b07f36956fae9def86d62b = L.control.layers(
+                layer_control_380e2fd996b07f36956fae9def86d62b_layers.base_layers,
+                layer_control_380e2fd996b07f36956fae9def86d62b_layers.overlays,
                 {
   "position": "topright",
   "collapsed": true,
   "autoZIndex": true,
 }
-            ).addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            ).addTo(map_2faaed485659a910a83b00fd60c6cfad);
 
         
     
-            var heat_map_d8fd6e50ec02645ef83e0c251420fdc1 = L.heatLayer(
-                [[-23.328398, 32.8066057, 0.6397904753684998], [30.8124247, 34.8594762, 0.6397904753684998], [38.8950368, -77.0365427, 0.7596256136894226]],
+            var heat_map_1889e9fa721bee420f1b1cc5aa7becf7 = L.heatLayer(
+                [[40.7127281, -74.0060152, 0.6640434861183167], [45.5202471, -122.674194, 0.6640434861183167], [43.9792797, -120.737257, 0.6640434861183167], [39.5143268, -74.6632883, 0.6640434861183167], [42.6073975, 25.4856617, 0.43890953063964844], [30.8124247, 34.8594762, 0.5448450446128845], [31.3547, 34.3088, 0.5448450446128845], [31.3547, 34.3088, 0.4535035192966461], [30.8124247, 34.8594762, 0.4535035192966461], [39.7837304, -100.445882, 0.3770562410354614]],
                 {
   "minOpacity": 0.2,
   "maxZoom": 18,
@@ -377,7 +713,7 @@
             );
         
     
-            heat_map_d8fd6e50ec02645ef83e0c251420fdc1.addTo(map_12541415c8ea03ef228a92a48b8813f9);
+            heat_map_1889e9fa721bee420f1b1cc5aa7becf7.addTo(map_2faaed485659a910a83b00fd60c6cfad);
         
 </script>
 </html>

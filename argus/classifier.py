@@ -80,25 +80,33 @@ class CrisisClassifier:
                 return self._create_classification_result(article, "Unknown", 0.0, {})
             
             lower_text = text.lower()
-            # Heuristic crisis gate: require hazard + (impact or emergency phrasing) and avoid soft-news
+            # Heuristic crisis gate: filter out soft-news but allow ongoing crisis coverage
             hazard_terms = [
                 'earthquake','flood','hurricane','typhoon','cyclone','storm','wildfire','fire','tsunami',
                 'drought','famine','landslide','eruption','volcano','war','conflict','attack','explosion',
-                'outbreak','pandemic','epidemic','cholera','ebola','measles','inflation','recession'
+                'outbreak','pandemic','epidemic','cholera','ebola','measles','inflation','recession',
+                'bombing','airstrike','missile','rocket','siege','invasion'
             ]
             impact_terms = [
                 'killed','deaths','dead','injured','wounded','missing','evacuate','evacuated','displaced',
                 'emergency','state of emergency','rescue','aid','relief','destroyed','collapsed','damage',
-                'shutdown','closed','curfew','casualties','fatalities','hospitalized','cases reported'
+                'shutdown','closed','curfew','casualties','fatalities','hospitalized','cases reported',
+                'victims','suffering','humanitarian','crisis','critical','severe','devastat'
+            ]
+            # Known ongoing crisis zones get lighter filtering
+            crisis_zones = [
+                'gaza','palestine','israel','ukraine','russia','syria','yemen','afghanistan',
+                'sudan','somalia','haiti','lebanon','myanmar'
             ]
             soft_excludes = [
-                'handwriting','prescription','study','research','guideline','guidelines','policy','policies',
-                'opinion','editorial','commentary','interview','profile','feature story','lifestyle',
-                'scam alert','advertisement','sponsored'
+                'handwriting','prescription','study finds','research shows','guideline','guidelines',
+                'opinion:','editorial:','commentary:','lifestyle','recipe','fashion',
+                'scam alert','advertisement','sponsored','horoscope','astrology'
             ]
             
             hazard_hit = any(term in lower_text for term in hazard_terms)
             impact_hit = any(term in lower_text for term in impact_terms)
+            crisis_zone_mention = any(zone in lower_text for zone in crisis_zones)
             soft_noise = any(term in lower_text for term in soft_excludes)
             
             # Perform zero-shot classification
@@ -111,8 +119,13 @@ class CrisisClassifier:
             # Create score dictionary for all categories
             all_scores = dict(zip(result['labels'], result['scores']))
             
-            # Check if confidence and heuristic gate are satisfied
-            heuristic_ok = hazard_hit and (impact_hit or 'emergency' in lower_text or 'evacuat' in lower_text)
+            # Relaxed heuristic gate: allow articles about ongoing crises OR traditional hazard+impact
+            heuristic_ok = (
+                (hazard_hit and impact_hit) or  # Traditional crisis: hazard + impact
+                (crisis_zone_mention and (hazard_hit or impact_hit)) or  # Ongoing crisis zone with either
+                ('emergency' in lower_text and (hazard_hit or impact_hit))  # Emergency declaration
+            )
+            
             if top_score < confidence_threshold or not heuristic_ok or soft_noise:
                 top_label = "Unknown"
                 top_score = 0.0

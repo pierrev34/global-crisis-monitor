@@ -1,40 +1,63 @@
 {
-  "timestamp": "2025-10-04T21:30:33.976611",
+  "timestamp": "2025-10-05T11:37:17.339298",
   "pipeline_stats": {
-    "total_articles_fetched": 54,
-    "articles_classified": 54,
-    "crisis_articles_found": 2,
-    "mappable_crisis_articles": 2
+    "total_articles_fetched": 50,
+    "articles_classified": 50,
+    "crisis_articles_found": 5,
+    "mappable_crisis_articles": 5
   },
   "classification_stats": {
     "category_distribution": {
-      "Unknown": 52,
-      "Political Conflicts": 2
+      "Political Conflicts": 2,
+      "Unknown": 45,
+      "Natural Disasters": 1,
+      "Humanitarian Crises": 2
     },
-    "average_confidence": 0.025915112760331895
+    "average_confidence": 0.049567156434059144
   },
   "geographic_stats": {
-    "total_locations_extracted": 3,
-    "successfully_geocoded": 3,
+    "total_locations_extracted": 10,
+    "successfully_geocoded": 10,
     "geocoding_success_rate": 1.0,
-    "unique_countries_affected": 3,
+    "unique_countries_affected": 4,
     "countries_list": [
-      "Moçambique",
+      "Palestine",
       "United States",
+      "България",
       "ישראל"
     ]
   },
   "top_crisis_locations": [
     [
-      "Gaza, Zona Sul, Moçambique",
-      1
-    ],
-    [
       "ישראל",
+      2
+    ],
+    [
+      "Gaza Strip, Palestine",
+      2
+    ],
+    [
+      "City of New York, New York, United States",
       1
     ],
     [
-      "Washington, District of Columbia, United States",
+      "Portland, Multnomah County, Oregon, United States",
+      1
+    ],
+    [
+      "Oregon, United States",
+      1
+    ],
+    [
+      "Atlantic County, New Jersey, United States",
+      1
+    ],
+    [
+      "България",
+      1
+    ],
+    [
+      "United States",
       1
     ]
   ]

@@ -185,13 +185,43 @@ class GeographicExtractor:
         if cache_key in self.geocoding_cache:
             return self.geocoding_cache[cache_key]
         
+        # Known crisis zones that should override geocoding (to avoid ambiguous matches)
+        known_crisis_zones = {
+            'gaza': {'lat': 31.3547, 'lon': 34.3088, 'name': 'Gaza Strip, Palestine'},
+            'gaza strip': {'lat': 31.3547, 'lon': 34.3088, 'name': 'Gaza Strip, Palestine'},
+            'west bank': {'lat': 31.9522, 'lon': 35.2332, 'name': 'West Bank, Palestine'},
+            'palestine': {'lat': 31.9522, 'lon': 35.2332, 'name': 'Palestine'},
+            'syria': {'lat': 33.5138, 'lon': 36.2765, 'name': 'Syria'},
+            'yemen': {'lat': 15.5527, 'lon': 48.5164, 'name': 'Yemen'},
+            'afghanistan': {'lat': 33.9391, 'lon': 67.7100, 'name': 'Afghanistan'},
+            'ukraine': {'lat': 50.4501, 'lon': 30.5234, 'name': 'Ukraine'},
+            'sudan': {'lat': 15.5007, 'lon': 32.5599, 'name': 'Sudan'},
+            'south sudan': {'lat': 6.8770, 'lon': 31.3070, 'name': 'South Sudan'},
+            'somalia': {'lat': 5.1521, 'lon': 46.1996, 'name': 'Somalia'},
+        }
+        
+        # Check if this is a known crisis zone
+        location_lower = location_text.lower().strip()
+        if location_lower in known_crisis_zones:
+            zone = known_crisis_zones[location_lower]
+            result = {
+                'query': location_text,
+                'found_name': zone['name'],
+                'latitude': zone['lat'],
+                'longitude': zone['lon'],
+                'raw_data': {'source': 'known_crisis_zone'}
+            }
+            self.geocoding_cache[cache_key] = result
+            return result
+        
         try:
             # Add rate limiting to avoid overwhelming the geocoding service
             time.sleep(0.1)
 
-            # Primary: Nominatim (OSM)
+            # Primary: Nominatim (OSM) - add context to improve accuracy
             location = None
             try:
+                # Try with original text first
                 location = self.geocoder.geocode(location_text)
             except (GeocoderTimedOut, GeocoderServiceError) as e:
                 logger.warning(f"Geocoding service error for '{location_text}': {e}")

@@ -29,7 +29,7 @@ jobs:
         
     - name: Run ARGUS Crisis Monitor
       run: |
-        python main.py --hours 24 --max-articles 80 --confidence 0.5
+        python main.py --hours 168 --max-articles 150 --confidence 0.4
         
     - name: Commit and push updated map
       run: |
