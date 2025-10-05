@@ -16,6 +16,8 @@ import os
 from dotenv import load_dotenv
 import requests
 from urllib.parse import quote
+import ssl
+import certifi
 from .config import SPACY_MODEL, GEOCODING_TIMEOUT, MAX_LOCATIONS_PER_ARTICLE
 
 # Set up logging
@@ -35,7 +37,15 @@ class GeographicExtractor:
         """
         self.model_name = spacy_model or SPACY_MODEL
         self.nlp = None
-        self.geocoder = Nominatim(user_agent="argus-crisis-monitor", timeout=GEOCODING_TIMEOUT)
+        
+        # Create SSL context using certifi certificates
+        ctx = ssl.create_default_context(cafile=certifi.where())
+        self.geocoder = Nominatim(
+            user_agent="argus-crisis-monitor", 
+            timeout=GEOCODING_TIMEOUT,
+            ssl_context=ctx
+        )
+        
         # Load .env (if present) for API keys
         try:
             load_dotenv()

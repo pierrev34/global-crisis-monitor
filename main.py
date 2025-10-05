@@ -182,6 +182,8 @@ def run_crisis_monitor(hours_back: int = 72,
         
     except Exception as e:
         logger.error(f"❌ Pipeline failed with error: {e}")
+        import traceback
+        logger.error(f"Traceback:\n{traceback.format_exc()}")
         raise
 
 
@@ -231,7 +233,8 @@ def generate_pipeline_summary(articles: list,
                 geocoded_locations += 1
                 # Try to extract country from address
                 address = location.get('found_name', '')
-                if address:
+                # Ensure address is a string
+                if address and isinstance(address, str):
                     # Simple heuristic to extract country (last part of address)
                     parts = address.split(', ')
                     if parts:
@@ -252,6 +255,9 @@ def generate_pipeline_summary(articles: list,
         for location in article.get('locations', []):
             if location.get('geocoded', False):
                 name = location.get('found_name', location.get('text', 'Unknown'))
+                # Ensure name is a string
+                if not isinstance(name, str):
+                    name = str(name) if name is not None else 'Unknown'
                 location_counts[name] = location_counts.get(name, 0) + 1
     
     top_locations = sorted(location_counts.items(), key=lambda x: x[1], reverse=True)[:10]

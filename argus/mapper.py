@@ -278,6 +278,30 @@ class CrisisMapper:
         # Default fallback for unlocated crises
         return (20, 0, 'Global Crisis Event')
     
+    def _sanitize_dict(self, data: Dict) -> Dict:
+        """Remove non-JSON-serializable data from dictionaries"""
+        if not isinstance(data, dict):
+            return data
+        
+        sanitized = {}
+        for key, value in data.items():
+            # Ensure keys are strings
+            str_key = str(key) if not isinstance(key, str) else key
+            
+            # Skip raw_data to avoid complex nested structures
+            if str_key == 'raw_data':
+                continue
+                
+            # Handle nested dicts
+            if isinstance(value, dict):
+                sanitized[str_key] = self._sanitize_dict(value)
+            elif isinstance(value, (list, tuple)):
+                sanitized[str_key] = [self._sanitize_dict(v) if isinstance(v, dict) else v for v in value]
+            else:
+                sanitized[str_key] = value
+        
+        return sanitized
+    
     def _create_crisis_marker(self, lat: float, lon: float, article: Dict,
                              category: str, confidence: float, location: Dict) -> folium.Marker:
         """
@@ -297,16 +321,19 @@ class CrisisMapper:
         # Get color for crisis category
         color = self.crisis_colors.get(category, 'gray')
         
-        # Create popup content
-        popup_html = self._create_popup_content(article, category, confidence, location)
+        # Sanitize location data to avoid issues with Folium rendering
+        clean_location = self._sanitize_dict(location)
         
-        # Create marker with custom icon
+        # Create popup content
+        popup_html = self._create_popup_content(article, category, confidence, clean_location)
+        
+        # Create marker with custom icon (use only simple types to avoid Folium serialization issues)
         marker = folium.Marker(
-            location=[lat, lon],
+            location=[float(lat), float(lon)],
             popup=folium.Popup(popup_html, max_width=400),
-            tooltip=f"{category}: {article.get('title', 'No title')[:50]}...",
+            tooltip=str(f"{category}: {article.get('title', 'No title')[:50]}..."),
             icon=folium.Icon(
-                color=color,
+                color=str(color),
                 icon='exclamation-triangle',
                 prefix='fa'
             )
@@ -328,11 +355,17 @@ class CrisisMapper:
         Returns:
             HTML string for popup
         """
-        title = article.get('title', 'No title')
-        source = article.get('source_name', article.get('source', 'Unknown source'))
-        url = article.get('url', '#')
+        title = str(article.get('title', 'No title'))
+        source = str(article.get('source_name', article.get('source', 'Unknown source')))
+        url = str(article.get('url', '#'))
         published_date = article.get('published_date', 'Unknown date')
+        # Ensure published_date is a string
+        if not isinstance(published_date, str):
+            published_date = str(published_date) if published_date is not None else 'Unknown date'
         location_name = location.get('found_name', location.get('text', 'Unknown location'))
+        # Ensure location_name is a string
+        if not isinstance(location_name, str):
+            location_name = str(location_name) if location_name is not None else 'Unknown location'
         
         # Check if using fallback location
         is_fallback = location.get('fallback', False)
@@ -401,20 +434,21 @@ class CrisisMapper:
                         heat_data.append([lat, lon, weight])
         
         if heat_data:
-            # Create heatmap layer
+            # Create heatmap layer (ensure all values are native Python types)
+            clean_heat_data = [[float(lat), float(lon), float(weight)] for lat, lon, weight in heat_data]
             heatmap = plugins.HeatMap(
-                heat_data,
+                clean_heat_data,
                 name="Crisis Density Heatmap",
                 min_opacity=0.2,
                 max_zoom=18,
                 radius=15,
                 blur=10,
                 gradient={
-                    0.2: 'blue',
-                    0.4: 'lime', 
-                    0.6: 'orange',
-                    0.8: 'red',
-                    1.0: 'darkred'
+                    '0.2': 'blue',
+                    '0.4': 'lime', 
+                    '0.6': 'orange',
+                    '0.8': 'red',
+                    '1.0': 'darkred'
                 }
             )
             

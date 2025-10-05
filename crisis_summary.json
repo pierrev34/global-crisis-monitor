@@ -1,28 +1,41 @@
 {
-  "timestamp": "2025-10-02T00:01:15.616167",
+  "timestamp": "2025-10-04T21:30:33.976611",
   "pipeline_stats": {
-    "total_articles_fetched": 60,
-    "articles_classified": 60,
-    "crisis_articles_found": 60,
-    "mappable_crisis_articles": 60
+    "total_articles_fetched": 54,
+    "articles_classified": 54,
+    "crisis_articles_found": 2,
+    "mappable_crisis_articles": 2
   },
   "classification_stats": {
     "category_distribution": {
-      "Political Conflicts": 12,
-      "Natural Disasters": 8,
-      "Environmental Issues": 22,
-      "Economic Crises": 1,
-      "Humanitarian Crises": 11,
-      "Health Emergencies": 6
+      "Unknown": 52,
+      "Political Conflicts": 2
     },
-    "average_confidence": 0.42171487932403884
+    "average_confidence": 0.025915112760331895
   },
   "geographic_stats": {
-    "total_locations_extracted": 61,
-    "successfully_geocoded": 0,
-    "geocoding_success_rate": 0.0,
-    "unique_countries_affected": 0,
-    "countries_list": []
+    "total_locations_extracted": 3,
+    "successfully_geocoded": 3,
+    "geocoding_success_rate": 1.0,
+    "unique_countries_affected": 3,
+    "countries_list": [
+      "Moçambique",
+      "United States",
+      "ישראל"
+    ]
   },
-  "top_crisis_locations": []
+  "top_crisis_locations": [
+    [
+      "Gaza, Zona Sul, Moçambique",
+      1
+    ],
+    [
+      "ישראל",
+      1
+    ],
+    [
+      "Washington, District of Columbia, United States",
+      1
+    ]
+  ]
 }
