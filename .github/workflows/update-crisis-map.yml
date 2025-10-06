@@ -27,9 +27,9 @@ jobs:
         pip install -r requirements.txt
         python -m spacy download en_core_web_sm
         
-    - name: Run ARGUS Crisis Monitor
+    - name: Run Enhanced ARGUS Crisis Monitor v2.0
       run: |
-        python main.py --hours 168 --max-articles 150 --confidence 0.4
+        python main.py --hours 168 --max-articles 150 --confidence 0.15
         
     - name: Commit and push updated map
       run: |
