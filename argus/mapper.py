@@ -634,9 +634,10 @@ class CrisisMapper:
             }
             .filter-panel h3 {
                 margin: 0;
-                font-size: 14px;
+                font-size: 13px;
                 color: #333;
                 flex: 1;
+                font-weight: 600;
             }
             .filter-toggle {
                 background: none;
@@ -663,10 +664,11 @@ class CrisisMapper:
                 background: #f5f5f5;
             }
             .filter-checkbox {
-                width: 14px;
-                height: 14px;
+                width: 16px;
+                height: 16px;
                 margin-right: 8px;
                 cursor: pointer;
+                flex-shrink: 0;
             }
             .filter-label {
                 flex: 1;
@@ -714,7 +716,7 @@ class CrisisMapper:
         
         <div class="filter-panel" id="filterPanel">
             <div class="filter-header" onclick="toggleFilterPanel()">
-                <h3>🔍 Filter</h3>
+                <h3>Filter Crisis Types</h3>
                 <button class="filter-toggle" id="filterToggle">−</button>
             </div>
             <div class="filter-content">
@@ -754,60 +756,67 @@ class CrisisMapper:
                 const filterContainer = document.getElementById('filterItems');
                 filterContainer.innerHTML = ''; // Clear existing
                 
-                // Wait for Leaflet to fully load
-                setTimeout(() => {
+                // Wait for Leaflet layers to be available
+                let attempts = 0;
+                const maxAttempts = 10;
+                
+                const tryInit = setInterval(() => {
+                    attempts++;
                     const layers = document.querySelectorAll('.leaflet-control-layers-overlays label');
-                    const foundCategories = new Set();
                     
-                    layers.forEach(label => {
-                        const text = label.textContent.trim();
-                        Object.keys(categoryColors).forEach(category => {
-                            if (text.includes(category) && !foundCategories.has(category)) {
-                                foundCategories.add(category);
-                                categoryStates[category] = true;
-                                
-                                const filterItem = document.createElement('div');
-                                filterItem.className = 'filter-item';
-                                
-                                const checkbox = document.createElement('input');
-                                checkbox.type = 'checkbox';
-                                checkbox.className = 'filter-checkbox';
-                                checkbox.id = 'filter-' + category.replace(/\\s+/g, '-');
-                                checkbox.checked = true;
-                                checkbox.onchange = () => toggleCategory(category);
-                                
-                                const labelEl = document.createElement('label');
-                                labelEl.className = 'filter-label';
-                                labelEl.htmlFor = checkbox.id;
-                                labelEl.onclick = (e) => {
-                                    if (e.target === labelEl || e.target.tagName === 'SPAN') {
-                                        checkbox.checked = !checkbox.checked;
+                    if (layers.length > 0 || attempts >= maxAttempts) {
+                        clearInterval(tryInit);
+                        
+                        const foundCategories = new Set();
+                        
+                        layers.forEach(label => {
+                            const text = label.textContent.trim();
+                            Object.keys(categoryColors).forEach(category => {
+                                if (text === category && !foundCategories.has(category)) {
+                                    foundCategories.add(category);
+                                    categoryStates[category] = true;
+                                    
+                                    const filterItem = document.createElement('div');
+                                    filterItem.className = 'filter-item';
+                                    
+                                    const checkbox = document.createElement('input');
+                                    checkbox.type = 'checkbox';
+                                    checkbox.className = 'filter-checkbox';
+                                    checkbox.id = 'filter-' + category.replace(/\\s+/g, '-');
+                                    checkbox.checked = true;
+                                    checkbox.addEventListener('change', function() {
                                         toggleCategory(category);
-                                    }
-                                };
-                                
-                                const colorSpan = document.createElement('span');
-                                colorSpan.className = 'filter-color';
-                                colorSpan.style.background = categoryColors[category];
-                                
-                                const nameSpan = document.createElement('span');
-                                nameSpan.textContent = category.length > 20 ? category.substring(0, 18) + '...' : category;
-                                nameSpan.title = category;
-                                
-                                labelEl.appendChild(colorSpan);
-                                labelEl.appendChild(nameSpan);
-                                
-                                filterItem.appendChild(checkbox);
-                                filterItem.appendChild(labelEl);
-                                filterContainer.appendChild(filterItem);
-                            }
+                                    });
+                                    
+                                    const labelEl = document.createElement('label');
+                                    labelEl.className = 'filter-label';
+                                    labelEl.htmlFor = checkbox.id;
+                                    
+                                    const colorSpan = document.createElement('span');
+                                    colorSpan.className = 'filter-color';
+                                    colorSpan.style.background = categoryColors[category];
+                                    
+                                    const nameSpan = document.createElement('span');
+                                    const shortName = category.replace('Violations', 'Viol.').replace('Emergencies', 'Emerg.');
+                                    nameSpan.textContent = shortName.length > 18 ? shortName.substring(0, 16) + '...' : shortName;
+                                    nameSpan.title = category;
+                                    nameSpan.style.fontSize = '11px';
+                                    
+                                    labelEl.appendChild(colorSpan);
+                                    labelEl.appendChild(nameSpan);
+                                    
+                                    filterItem.appendChild(checkbox);
+                                    filterItem.appendChild(labelEl);
+                                    filterContainer.appendChild(filterItem);
+                                }
+                            });
                         });
-                    });
-                    
-                    if (foundCategories.size === 0) {
-                        filterContainer.innerHTML = '<div style="font-size:11px;color:#888;">No categories found</div>';
+                        
+                        if (foundCategories.size === 0) {
+                            filterContainer.innerHTML = '<div style="font-size:10px;color:#999;padding:5px;">Loading categories...</div>';
+                        }
                     }
-                }, 1000);
+                }, 200);
             }
             
             function toggleCategory(category) {
