@@ -231,17 +231,18 @@
         <div class="about-section">
             <h2>System Overview</h2>
             <p>
-                This system continuously monitors global news sources, applies machine learning 
-                classification to identify crisis events, extracts geographic entities using 
-                natural language processing, and generates interactive maps for humanitarian analysis.
+                This system monitors 15+ crisis sources including NGOs, human rights organizations, and 
+                disaster monitoring agencies. It uses rule-based classification to categorize events, 
+                extracts geographic entities using natural language processing, and generates interactive 
+                maps for humanitarian analysis.
             </p>
             <p>
-                The pipeline processes articles from the GDELT Project, uses transformer models 
-                for zero-shot crisis classification, and employs spaCy for named entity recognition 
-                and geocoding.
+                The pipeline aggregates from Human Rights Watch, Amnesty International, UN OCHA, ReliefWeb, 
+                Radio Free Asia, GDACS, and regional outlets. It employs spaCy for named entity recognition 
+                and Nominatim for geocoding with crisis zone overrides.
             </p>
             <div class="tech-list">
-                Technology stack: Python, Transformers, spaCy, GDELT API, Folium, GitHub Actions
+                Technology stack: Python, spaCy NER, Geopy, Folium, NGO RSS feeds, GitHub Actions
             </div>
         </div>
         
