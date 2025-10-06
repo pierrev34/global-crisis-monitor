@@ -57,7 +57,7 @@ class CrisisMapper:
     def add_crisis_markers(self, world_map: folium.Map, 
                           crisis_data: List[Dict]) -> folium.Map:
         """
-        Add crisis markers to the map
+        Add crisis markers to the map with clustering to reduce visual clutter
         
         Args:
             world_map: Base Folium map
@@ -68,13 +68,17 @@ class CrisisMapper:
         """
         marker_count = 0
         
-        # Create feature groups for different crisis types
-        feature_groups = {}
+        # Create marker clusters for different crisis types
+        clusters = {}
         for category in self.crisis_colors.keys():
-            feature_groups[category] = folium.FeatureGroup(name=category)
+            clusters[category] = plugins.MarkerCluster(
+                name=category,
+                show=True,
+                control=True
+            )
         
-        # Add "Other" category for unclassified items
-        feature_groups["Other"] = folium.FeatureGroup(name="Other")
+        # Add "Other" category cluster
+        clusters["Other"] = plugins.MarkerCluster(name="Other", show=False, control=True)
         
         for crisis_item in crisis_data:
             article = crisis_item.get('article', {})
@@ -94,9 +98,9 @@ class CrisisMapper:
                             lat, lon, article, category, confidence, location
                         )
                         
-                        # Add to appropriate feature group
-                        group = feature_groups.get(category, feature_groups["Other"])
-                        marker.add_to(group)
+                        # Add to appropriate cluster
+                        cluster = clusters.get(category, clusters["Other"])
+                        marker.add_to(cluster)
                         marker_count += 1
                         markers_added_for_article += 1
             
@@ -120,17 +124,17 @@ class CrisisMapper:
                         lat, lon, article, category, confidence, fallback_loc_data
                     )
                     
-                    # Add to appropriate feature group
-                    group = feature_groups.get(category, feature_groups["Other"])
-                    marker.add_to(group)
+                    # Add to appropriate cluster
+                    cluster = clusters.get(category, clusters["Other"])
+                    marker.add_to(cluster)
                     marker_count += 1
         
-        # Add all feature groups to map
-        for group in feature_groups.values():
-            group.add_to(world_map)
+        # Add all clusters to map
+        for cluster in clusters.values():
+            cluster.add_to(world_map)
         
-        # Add layer control
-        folium.LayerControl().add_to(world_map)
+        # Add layer control for toggling categories
+        folium.LayerControl(collapsed=False).add_to(world_map)
         
         logger.info(f"Added {marker_count} crisis markers to map")
         return world_map

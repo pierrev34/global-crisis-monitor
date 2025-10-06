@@ -109,15 +109,33 @@ class SimpleCrisisClassifier:
             Classification result with category and confidence
         """
         text = f"{article.get('title', '')} {article.get('content', '')}".lower()
+        title = article.get('title', '').lower()
         source_category = article.get('source_category', 'Mixed')
         priority = article.get('priority', 'medium')
+        
+        # Exclude entertainment/celebrity/sports news
+        exclusions = [
+            'singer', 'musician', 'artist', 'band', 'album', 'concert', 'tour',
+            'celebrity', 'actor', 'actress', 'movie', 'film', 'hollywood',
+            'sports', 'game', 'match', 'player', 'team', 'championship',
+            'fashion', 'runway', 'designer',
+            'cancels tour', 'cancels show', 'postpones tour',
+            'book tour', 'music tour', 'concert tour'
+        ]
+        
+        # If entertainment/sports indicators without clear crisis impact
+        if any(term in text for term in exclusions):
+            # Only allow if there's clear crisis impact
+            crisis_impact_terms = ['killed', 'died', 'deaths', 'injured', 'attack', 'bombing', 'war']
+            if not any(term in text for term in crisis_impact_terms):
+                return self._create_result(article, 'Unknown', 0.0, 'excluded_entertainment')
         
         # Step 1: If source already categorized it (NGO/specialized feed)
         if source_category != 'Mixed':
             confidence = 0.9 if priority == 'high' else 0.7
             return self._create_result(article, source_category, confidence, 'source_trust')
         
-        # Step 2: Check for specific crisis zones
+        # Step 2: Check for specific crisis zones (only for real crises)
         for zone, category in self.crisis_zone_mapping.items():
             if zone in text:
                 return self._create_result(article, category, 0.85, 'crisis_zone')

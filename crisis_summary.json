@@ -1,27 +1,27 @@
 {
-  "timestamp": "2025-10-06T15:00:02.742019",
+  "timestamp": "2025-10-06T15:12:48.363418",
   "pipeline_stats": {
     "total_articles_fetched": 117,
     "unique_sources": 13,
     "articles_classified": 117,
-    "crisis_articles_found": 111,
-    "mappable_crisis_articles": 102
+    "crisis_articles_found": 106,
+    "mappable_crisis_articles": 95
   },
   "classification_stats": {
     "category_distribution": {
-      "Human Rights Violations": 37,
-      "Humanitarian Crises": 25,
+      "Human Rights Violations": 35,
+      "Humanitarian Crises": 23,
       "Natural Disasters": 18,
-      "Political Conflicts": 31,
-      "Unknown": 6
+      "Political Conflicts": 30,
+      "Unknown": 11
     },
-    "average_confidence": 0.8093725115464251
+    "average_confidence": 0.7726203747942881
   },
   "geographic_stats": {
-    "total_locations_extracted": 424,
-    "successfully_geocoded": 406,
-    "geocoding_success_rate": 0.9575471698113207,
-    "unique_countries_affected": 91,
+    "total_locations_extracted": 388,
+    "successfully_geocoded": 372,
+    "geocoding_success_rate": 0.9587628865979382,
+    "unique_countries_affected": 89,
     "countries_list": [
       "Afghanistan",
       "Africa",
@@ -37,7 +37,6 @@
       "Cameroun",
       "Canada",
       "Cuba",
-      "Danmark",
       "Deutschland",
       "Eesti",
       "España",
@@ -108,7 +107,6 @@
       "مصر",
       "پاکستان",
       "नेपाल",
-      "ประเทศไทย",
       "འབྲུག་ཡུལ།",
       "မြန်မာ",
       "中国",
@@ -118,28 +116,20 @@
   },
   "top_crisis_locations": [
     [
-      "United States",
-      27
+      "Gaza Strip, Palestine",
+      25
     ],
     [
-      "Gaza Strip, Palestine",
-      26
+      "United States",
+      23
     ],
     [
       "ישראל",
-      21
+      20
     ],
     [
       "Sudan",
-      8
-    ],
-    [
-      "Australia",
       7
-    ],
-    [
-      "Tchad تشاد",
-      6
     ],
     [
       "مصر",
@@ -150,12 +140,20 @@
       5
     ],
     [
+      "Australia",
+      5
+    ],
+    [
       "עזה, עיר תחתית, רובע העיר התחתית, חיפה, נפת חיפה, מחוז חיפה, 3303333, ישראל",
       5
     ],
     [
       "City of New York, New York, United States",
       5
+    ],
+    [
+      "Tchad تشاد",
+      4
     ]
   ]
 }

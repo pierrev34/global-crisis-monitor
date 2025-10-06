@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 
 def run_crisis_monitor(hours_back: int = 168, 
                       max_articles: int = 150,
-                      confidence_threshold: float = 0.15,
+                      confidence_threshold: float = 0.3,
                       output_file: str = None) -> str:
     """
     Run the enhanced ARGUS crisis monitoring pipeline (v2.0)
@@ -312,8 +312,8 @@ Examples:
     )
     
     parser.add_argument(
-        '--confidence', '-c', type=float, default=0.15,
-        help='Minimum confidence threshold for crisis classification (default: 0.15)'
+        '--confidence', '-c', type=float, default=0.3,
+        help='Minimum confidence threshold for crisis classification (default: 0.3)'
     )
     
     parser.add_argument(
