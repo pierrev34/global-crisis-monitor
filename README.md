@@ -1,82 +1,80 @@
 # Global Crisis Monitor
 
-**Tagline:** An automated pipeline that uses AI to identify, classify, and map global crises from real-time news data (RSS + crisis-native feeds + GDELT), with intelligent geocoding and interactive visualization.
+Automated pipeline that aggregates crisis reports from NGOs, human rights organizations, and disaster monitoring systems, then geocodes and maps them for humanitarian analysis.
 
-## Project Overview
+## Overview
 
-Global Crisis Monitor is a data processing system that continuously monitors thousands of global news articles to provide a real-time, high-level view of emerging world events. The system automatically ingests news data, uses a sophisticated Natural Language Processing (NLP) model to understand the content, and classifies articles into distinct crisis categories such as Natural Disasters, Political Conflicts, and Humanitarian Crises. The result is an interactive world map where each classified event is plotted, providing a dynamic and insightful dashboard of global challenges.
+This system monitors diverse crisis sources globally, categorizes events using rule-based classification, extracts geographic entities, and generates an interactive world map showing current crises. It prioritizes underreported situations by sourcing from human rights organizations and regional outlets rather than relying solely on mainstream Western media.
 
-## Motivation & Purpose
+## Key Features
 
-In an era of information overload, distinguishing significant global events from background noise is a persistent challenge. This project was inspired by the goal of applying advanced AI not for commercial purposes, but for social good. The motivation was to create a proof-of-concept for a "humanitarian dashboard"—a tool that could help journalists, policymakers, or aid organizations gain rapid, structured insight into where and what kind of crises are unfolding.
-
-- **Automated Data Ingestion**: Hybrid pipeline that ingests from major RSS feeds (e.g., CNN), crisis-native feeds (USGS Earthquakes, GDACS, WHO Disease Outbreaks, ReliefWeb), and falls back to the GDELT Project API for coverage.
-- **Zero-Shot AI Classification**: Uses Hugging Face transformers for flexible crisis categorization
-- **Geographic Entity Extraction**: Employs spaCy NER to identify and geocode locations
-- **Interactive Mapping**: Creates dynamic world maps with Folium for crisis visualization
+- **Diverse Crisis Sources**: Aggregates from 15+ sources including Human Rights Watch, Amnesty International, UN OCHA, ReliefWeb, UNHCR, Radio Free Asia, Middle East Eye, GDACS, and USGS
+- **Rule-Based Classification**: Fast categorization using source trust and keyword matching (no LLM overhead)
+- **Geographic Processing**: spaCy NER for location extraction, Nominatim geocoding with known crisis zone overrides
+- **Interactive Mapping**: Folium-based world map with 400+ crisis markers, category filtering, and heatmap overlay
+- **Underreported Crisis Coverage**: Captures systemic issues (Uyghur situation, El Salvador mass incarceration, etc.) often missed by mainstream outlets
+- **Daily Automated Updates**: GitHub Actions workflow runs daily at midnight UTC
 
 ## Tech Stack
 
-- **Core**: Python, Pandas
-- **AI & NLP**: Hugging Face Transformers, spaCy
-- **Geospatial**: Geopy, Folium
-- **Data Sources**: Major RSS (CNN, etc.), USGS, GDACS, WHO Disease Outbreaks, ReliefWeb, and GDELT API
+- **Language**: Python 3.9+
+- **Data Processing**: Pandas, Feedparser, BeautifulSoup
+- **NLP**: spaCy (named entity recognition for locations)
+- **Geospatial**: Geopy/Nominatim geocoding, Folium map generation
+- **Data Sources**: NGO RSS feeds (HRW, Amnesty, UN), disaster monitoring (GDACS, USGS), regional media (Radio Free Asia, Middle East Eye, Al Jazeera)
+- **Deployment**: GitHub Actions, GitHub Pages
 
 ## Usage
 
-Run the main pipeline:
+Run the pipeline:
 ```bash
 python main.py
 ```
 
-1. Fetch recent news articles from the hybrid sources (RSS + crisis feeds + GDELT fallback)
-2. Classify them into crisis categories
-3. Extract geographic entities
-4. Generate an interactive map saved as `crisis_map.html`
+Pipeline steps:
+1. Fetch articles from 15+ NGO, human rights, and disaster monitoring sources
+2. Classify using rule-based categorization (source trust + keywords)
+3. Extract and geocode locations using spaCy NER
+4. Generate interactive map saved as `crisis_map.html`
 
-    CLI options (defaults chosen for a fuller map):
-
+CLI options:
 ```bash
-# Defaults: --hours 72, --confidence 0.5, --max-articles 100
-python main.py [--hours 72] [--max-articles 100] [--confidence 0.5] [--no-cache] [--output crisis_map.html]
-python main.py --no-cache                                  # Fresh fetch using defaults
-python main.py --hours 48 --max-articles 200               # Wider window and more items
-python main.py --confidence 0.15                           # Allow more lower-confidence items
+# Defaults: 7 days lookback, 150 articles max, 0.15 confidence threshold
+python main.py --hours 168 --max-articles 150 --confidence 0.15
+
+# Increase coverage
+python main.py --hours 336 --max-articles 200
+
+# Stricter filtering
+python main.py --confidence 0.3
 ```
 
-Notes:
-- The classification threshold now respects the `--confidence` flag (default 0.5) and uses a heuristic crisis gate (hazard + impact/emergency cues; excludes soft-news).
-- If the map iframe looks stale, open `crisis_map.html` directly or add a cache-buster query param in `index.html`.
+The system runs automatically via GitHub Actions daily at midnight UTC.
 
 ## Project Structure
 
 ```
 global-crisis-monitor/
-├── argus/                    # Main package
-│   ├── __init__.py          # Package initialization
-│   ├── config.py            # Configuration settings
-│   ├── data_ingestion.py    # GDELT data fetching
-│   ├── classifier.py        # AI-powered crisis classification
-│   ├── geo_extractor.py     # Geographic entity extraction
-│   └── mapper.py           # Interactive map generation
-├── main.py                  # Main pipeline orchestrator
-├── setup.py                # Environment setup script
-├── example.py              # Usage examples and demos
-├── requirements.txt        # Python dependencies
-├── README.md               # This file
-├── USAGE.md               # Detailed usage guide
-├── API.md                 # API reference documentation
-├── CONTRIBUTING.md        # Development and contribution guide
-└── .gitignore            # Git ignore patterns
+├── argus/
+│   ├── rss_fetcher_v2.py      # NGO/human rights source aggregation
+│   ├── simple_classifier.py   # Rule-based crisis categorization
+│   ├── geo_extractor.py       # spaCy NER + geocoding
+│   ├── mapper.py              # Folium map generation
+│   └── config.py              # Configuration
+├── main.py                     # Pipeline orchestrator
+├── test_new_system.py          # System validation
+├── requirements.txt            # Dependencies
+└── .github/workflows/          # Daily auto-update via GitHub Actions
 ```
 
 ## Crisis Categories
 
-- Natural Disasters
+- Human Rights Violations
 - Political Conflicts
 - Humanitarian Crises
-- Economic Crises
+- Natural Disasters
 - Health Emergencies
+- Economic Crises
 - Environmental Issues
 
 ## Output
