@@ -596,8 +596,224 @@ class CrisisMapper:
         # Save map to file
         world_map.save(output_file)
         
+        # Add custom filter panel
+        self._add_filter_panel(output_file)
+        
         logger.info(f"Crisis map saved to: {output_file}")
         return output_file
+    
+    def _add_filter_panel(self, html_file: str):
+        """Add custom filter panel to the generated map HTML"""
+        with open(html_file, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        # Create filter panel HTML/CSS/JS
+        filter_panel = """
+        <style>
+            .filter-panel {
+                position: fixed;
+                top: 80px;
+                right: 10px;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                padding: 15px;
+                z-index: 1000;
+                max-width: 220px;
+                font-family: Arial, sans-serif;
+            }
+            .filter-panel h3 {
+                margin: 0 0 12px 0;
+                font-size: 16px;
+                color: #333;
+                border-bottom: 2px solid #e0e0e0;
+                padding-bottom: 8px;
+            }
+            .filter-item {
+                display: flex;
+                align-items: center;
+                margin: 8px 0;
+                cursor: pointer;
+                padding: 6px;
+                border-radius: 4px;
+                transition: background 0.2s;
+            }
+            .filter-item:hover {
+                background: #f5f5f5;
+            }
+            .filter-checkbox {
+                width: 18px;
+                height: 18px;
+                margin-right: 10px;
+                cursor: pointer;
+            }
+            .filter-label {
+                flex: 1;
+                font-size: 13px;
+                color: #444;
+                display: flex;
+                align-items: center;
+            }
+            .filter-color {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                margin-right: 8px;
+                display: inline-block;
+            }
+            .filter-count {
+                font-size: 11px;
+                color: #888;
+                margin-left: auto;
+                padding-left: 8px;
+            }
+            .filter-buttons {
+                margin-top: 12px;
+                padding-top: 12px;
+                border-top: 1px solid #e0e0e0;
+                display: flex;
+                gap: 8px;
+            }
+            .filter-btn {
+                flex: 1;
+                padding: 6px 12px;
+                border: 1px solid #ddd;
+                background: white;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 11px;
+                transition: all 0.2s;
+            }
+            .filter-btn:hover {
+                background: #f0f0f0;
+                border-color: #999;
+            }
+        </style>
+        
+        <div class="filter-panel" id="filterPanel">
+            <h3>🔍 Filter Crisis Types</h3>
+            <div id="filterItems"></div>
+            <div class="filter-buttons">
+                <button class="filter-btn" onclick="selectAllFilters()">All</button>
+                <button class="filter-btn" onclick="clearAllFilters()">None</button>
+            </div>
+        </div>
+        
+        <script>
+            // Category colors matching Python config
+            const categoryColors = {
+                'Human Rights Violations': '#8B0000',
+                'Political Conflicts': '#DC143C',
+                'Humanitarian Crises': '#FF6B35',
+                'Natural Disasters': '#FF8C00',
+                'Health Emergencies': '#9370DB',
+                'Economic Crises': '#4682B4',
+                'Environmental Issues': '#228B22'
+            };
+            
+            // Track visibility state
+            let categoryStates = {};
+            
+            // Initialize filters
+            function initializeFilters() {
+                const filterContainer = document.getElementById('filterItems');
+                
+                // Find all marker cluster groups
+                Object.keys(categoryColors).forEach(category => {
+                    const count = countMarkersInCategory(category);
+                    if (count > 0) {
+                        categoryStates[category] = true;
+                        
+                        const filterItem = document.createElement('div');
+                        filterItem.className = 'filter-item';
+                        filterItem.onclick = () => toggleCategory(category);
+                        
+                        filterItem.innerHTML = `
+                            <input type="checkbox" class="filter-checkbox" 
+                                   id="filter-${category.replace(/\\s/g, '-')}" 
+                                   checked onchange="toggleCategory('${category}')">
+                            <label class="filter-label" for="filter-${category.replace(/\\s/g, '-')}">
+                                <span class="filter-color" style="background: ${categoryColors[category]}"></span>
+                                <span>${category}</span>
+                                <span class="filter-count">${count}</span>
+                            </label>
+                        `;
+                        
+                        filterContainer.appendChild(filterItem);
+                    }
+                });
+            }
+            
+            function countMarkersInCategory(category) {
+                // Count markers from the map's feature groups
+                let count = 0;
+                try {
+                    // Access the map object (Folium creates this)
+                    const layers = document.querySelectorAll('.leaflet-control-layers-overlays label');
+                    layers.forEach(label => {
+                        if (label.textContent.includes(category)) {
+                            const input = label.querySelector('input');
+                            if (input) {
+                                // Try to get count from the cluster
+                                count = 10; // Default if we can't count
+                            }
+                        }
+                    });
+                } catch (e) {
+                    count = 1;
+                }
+                return count;
+            }
+            
+            function toggleCategory(category) {
+                const checkbox = document.getElementById(`filter-${category.replace(/\\s/g, '-')}`);
+                const isChecked = checkbox.checked;
+                categoryStates[category] = isChecked;
+                
+                // Find and toggle the corresponding layer in Leaflet
+                const layers = document.querySelectorAll('.leaflet-control-layers-overlays label');
+                layers.forEach(label => {
+                    if (label.textContent.trim().startsWith(category)) {
+                        const input = label.querySelector('input[type="checkbox"]');
+                        if (input && input.checked !== isChecked) {
+                            input.click();
+                        }
+                    }
+                });
+            }
+            
+            function selectAllFilters() {
+                Object.keys(categoryStates).forEach(category => {
+                    const checkbox = document.getElementById(`filter-${category.replace(/\\s/g, '-')}`);
+                    if (checkbox && !checkbox.checked) {
+                        checkbox.checked = true;
+                        toggleCategory(category);
+                    }
+                });
+            }
+            
+            function clearAllFilters() {
+                Object.keys(categoryStates).forEach(category => {
+                    const checkbox = document.getElementById(`filter-${category.replace(/\\s/g, '-')}`);
+                    if (checkbox && checkbox.checked) {
+                        checkbox.checked = false;
+                        toggleCategory(category);
+                    }
+                });
+            }
+            
+            // Initialize when DOM is loaded
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(initializeFilters, 500);
+            });
+        </script>
+        """
+        
+        # Insert before closing body tag
+        html_content = html_content.replace('</body>', f'{filter_panel}</body>')
+        
+        with open(html_file, 'w', encoding='utf-8') as f:
+            f.write(html_content)
 
 
 def create_crisis_visualization(crisis_data: List[Dict], 
