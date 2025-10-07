@@ -1,27 +1,27 @@
 {
-  "timestamp": "2025-10-06T21:05:11.882799",
+  "timestamp": "2025-10-06T22:53:47.961535",
   "pipeline_stats": {
-    "total_articles_fetched": 114,
+    "total_articles_fetched": 120,
     "unique_sources": 13,
-    "articles_classified": 114,
-    "crisis_articles_found": 104,
-    "mappable_crisis_articles": 97
+    "articles_classified": 120,
+    "crisis_articles_found": 107,
+    "mappable_crisis_articles": 100
   },
   "classification_stats": {
     "category_distribution": {
-      "Humanitarian Crises": 24,
-      "Political Conflicts": 27,
+      "Humanitarian Crises": 23,
+      "Unknown": 13,
+      "Political Conflicts": 31,
       "Human Rights Violations": 35,
-      "Natural Disasters": 18,
-      "Unknown": 10
+      "Natural Disasters": 18
     },
-    "average_confidence": 0.7824261741309798
+    "average_confidence": 0.7591381987577642
   },
   "geographic_stats": {
-    "total_locations_extracted": 380,
-    "successfully_geocoded": 365,
-    "geocoding_success_rate": 0.9605263157894737,
-    "unique_countries_affected": 77,
+    "total_locations_extracted": 386,
+    "successfully_geocoded": 370,
+    "geocoding_success_rate": 0.9585492227979274,
+    "unique_countries_affected": 79,
     "countries_list": [
       "Afghanistan",
       "Africa",
@@ -50,7 +50,6 @@
       "Namibia",
       "Nederland",
       "New Zealand / Aotearoa",
-      "Nigeria",
       "Norge",
       "North America",
       "Palestine",
@@ -61,6 +60,8 @@
       "Schweiz/Suisse/Svizzera/Svizra",
       "Sierra Leone",
       "Singapore",
+      "Somalia",
+      "Soomaaliya الصومال",
       "South Sudan جنوب السودان",
       "Sri Lanka",
       "Sudan",
@@ -79,6 +80,7 @@
       "Κύπρος - Kıbrıs",
       "Кыргызстан",
       "Россия",
+      "Україна",
       "ישראל",
       "افغانستان",
       "الأراضي الفلسطينية",
@@ -105,42 +107,42 @@
   "top_crisis_locations": [
     [
       "Gaza Strip, Palestine",
-      28
-    ],
-    [
-      "ישראל",
-      21
+      32
     ],
     [
       "United States",
-      20
+      24
+    ],
+    [
+      "ישראל",
+      23
+    ],
+    [
+      "مصر",
+      9
     ],
     [
       "Sudan",
       7
     ],
     [
-      "مصر",
+      "עזה, עיר תחתית, רובע העיר התחתית, חיפה, נפת חיפה, מחוז חיפה, 3303333, ישראל",
       7
     ],
     [
-      "Ayiti",
+      "ایران",
       6
     ],
     [
-      "City of New York, New York, United States",
-      5
-    ],
-    [
-      "ایران",
-      5
-    ],
-    [
       "Australia",
+      6
+    ],
+    [
+      "Ayiti",
       5
     ],
     [
-      "עזה, עיר תחתית, רובע העיר התחתית, חיפה, נפת חיפה, מחוז חיפה, 3303333, ישראל",
+      "لبنان",
       5
     ]
   ]
