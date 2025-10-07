@@ -1,27 +1,27 @@
 {
-  "timestamp": "2025-10-06T20:10:14.796128",
+  "timestamp": "2025-10-06T20:57:09.062278",
   "pipeline_stats": {
-    "total_articles_fetched": 116,
+    "total_articles_fetched": 114,
     "unique_sources": 13,
-    "articles_classified": 116,
-    "crisis_articles_found": 107,
-    "mappable_crisis_articles": 99
+    "articles_classified": 114,
+    "crisis_articles_found": 105,
+    "mappable_crisis_articles": 98
   },
   "classification_stats": {
     "category_distribution": {
       "Humanitarian Crises": 25,
-      "Political Conflicts": 29,
+      "Political Conflicts": 27,
       "Human Rights Violations": 35,
       "Natural Disasters": 18,
       "Unknown": 9
     },
-    "average_confidence": 0.7887636538873424
+    "average_confidence": 0.7903209109730852
   },
   "geographic_stats": {
-    "total_locations_extracted": 377,
-    "successfully_geocoded": 363,
-    "geocoding_success_rate": 0.9628647214854111,
-    "unique_countries_affected": 78,
+    "total_locations_extracted": 381,
+    "successfully_geocoded": 366,
+    "geocoding_success_rate": 0.9606299212598425,
+    "unique_countries_affected": 77,
     "countries_list": [
       "Afghanistan",
       "Africa",
@@ -79,7 +79,6 @@
       "Κύπρος - Kıbrıs",
       "Кыргызстан",
       "Россия",
-      "Україна",
       "ישראל",
       "افغانستان",
       "الأراضي الفلسطينية",
@@ -106,7 +105,7 @@
   "top_crisis_locations": [
     [
       "Gaza Strip, Palestine",
-      27
+      28
     ],
     [
       "ישראל",
@@ -125,16 +124,12 @@
       7
     ],
     [
-      "City of New York, New York, United States",
+      "Ayiti",
       6
     ],
     [
-      "Ayiti",
-      5
-    ],
-    [
-      "لبنان",
-      5
+      "City of New York, New York, United States",
+      6
     ],
     [
       "ایران",
@@ -142,6 +137,10 @@
     ],
     [
       "Australia",
+      5
+    ],
+    [
+      "עזה, עיר תחתית, רובע העיר התחתית, חיפה, נפת חיפה, מחוז חיפה, 3303333, ישראל",
       5
     ]
   ]
