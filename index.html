@@ -255,11 +255,12 @@
             .then(data => {
                 // Update simplified statistics
                 document.getElementById('crisis-count').textContent = 
-                    data.pipeline_stats?.crisis_articles_found || '3';
-                document.getElementById('source-count').textContent = '2'; // CNN sources
+                    data.pipeline_stats?.crisis_articles_found || '0';
+                document.getElementById('source-count').textContent = 
+                    data.pipeline_stats?.unique_sources || '0';
                 
                 // Update timestamp
-                const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : '2025-10-01 23:03';
+                const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : new Date().toLocaleDateString();
                 document.getElementById('last-update').textContent = `Updated: ${timestamp.split(',')[0]}`;
             })
             .catch(error => {
