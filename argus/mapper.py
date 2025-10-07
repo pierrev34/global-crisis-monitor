@@ -627,12 +627,13 @@ class CrisisMapper:
                 top: 80px;
                 right: 10px;
                 background: white;
-                border-radius: 6px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-                padding: 10px 12px;
+                border-radius: 4px;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+                padding: 12px 14px;
                 z-index: 1000;
-                max-width: 200px;
-                font-family: Arial, sans-serif;
+                min-width: 240px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+                border: 0.5px solid #ddd;
             }}
             .filter-panel.collapsed .filter-content {{
                 display: none;
@@ -646,10 +647,10 @@ class CrisisMapper:
             }}
             .filter-panel h3 {{
                 margin: 0;
-                font-size: 13px;
+                font-size: 14px;
                 color: #333;
                 flex: 1;
-                font-weight: 600;
+                font-weight: bold;
             }}
             .filter-toggle {{
                 background: none;
@@ -684,11 +685,12 @@ class CrisisMapper:
             }}
             .filter-label {{
                 flex: 1;
-                font-size: 12px;
-                color: #444;
+                font-size: 13px;
+                color: #333;
                 display: flex;
                 align-items: center;
                 cursor: pointer;
+                line-height: 1.4;
             }}
             .filter-color {{
                 width: 10px;
@@ -712,12 +714,13 @@ class CrisisMapper:
             }}
             .filter-btn {{
                 flex: 1;
-                padding: 4px 8px;
-                border: 1px solid #ddd;
+                padding: 6px 10px;
+                border: 0.5px solid #333;
                 background: white;
-                border-radius: 3px;
+                border-radius: 2px;
                 cursor: pointer;
-                font-size: 10px;
+                font-size: 12px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
                 transition: all 0.2s;
             }}
             .filter-btn:hover {{
@@ -798,10 +801,8 @@ class CrisisMapper:
                         colorSpan.style.background = categoryColors[category];
                         
                         const nameSpan = document.createElement('span');
-                        const shortName = category.replace('Violations', 'Viol.').replace('Emergencies', 'Emerg.');
-                        nameSpan.textContent = shortName.length > 18 ? shortName.substring(0, 16) + '...' : shortName;
-                        nameSpan.title = category;
-                        nameSpan.style.fontSize = '11px';
+                        nameSpan.textContent = category;
+                        nameSpan.style.fontSize = '13px';
                         
                         labelEl.appendChild(colorSpan);
                         labelEl.appendChild(nameSpan);
@@ -819,19 +820,25 @@ class CrisisMapper:
             
             function toggleCategory(category) {{
                 const checkbox = document.getElementById('filter-' + category.replace(/\\s+/g, '-'));
+                if (!checkbox) return;
+                
                 const isChecked = checkbox.checked;
                 categoryStates[category] = isChecked;
                 
-                // Find and toggle the corresponding layer in Leaflet
-                const layers = document.querySelectorAll('.leaflet-control-layers-overlays label');
-                layers.forEach(label => {{
-                    if (label.textContent.trim().startsWith(category)) {{
-                        const input = label.querySelector('input[type="checkbox"]');
-                        if (input && input.checked !== isChecked) {{
-                            input.click();
+                // Find and toggle the corresponding layer in Leaflet layer control
+                setTimeout(() => {{
+                    const layers = document.querySelectorAll('.leaflet-control-layers-overlays label');
+                    layers.forEach(label => {{
+                        const labelText = label.textContent.trim();
+                        // Match exact category name (spans can be present)
+                        if (labelText === category || labelText.includes(category)) {{
+                            const input = label.querySelector('input[type="checkbox"]');
+                            if (input && input.checked !== isChecked) {{
+                                input.click();
+                            }}
                         }}
-                    }}
-                }});
+                    }});
+                }}, 100);
             }}
             
             function selectAllFilters() {{
