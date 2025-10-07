@@ -627,13 +627,15 @@ class CrisisMapper:
                 top: 80px;
                 right: 10px;
                 background: white;
-                border-radius: 4px;
-                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-                padding: 12px 14px;
+                border-radius: 2px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+                padding: 8px 10px;
                 z-index: 1000;
-                min-width: 240px;
+                min-width: 180px;
+                max-width: 200px;
                 font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                border: 0.5px solid #ddd;
+                border: 0.5px solid #333;
+                font-size: 11px;
             }}
             .filter-panel.collapsed .filter-content {{
                 display: none;
@@ -643,95 +645,98 @@ class CrisisMapper:
                 align-items: center;
                 justify-content: space-between;
                 cursor: pointer;
-                margin-bottom: 10px;
+                margin-bottom: 6px;
+                padding-bottom: 4px;
+                border-bottom: 0.5px solid #ddd;
             }}
             .filter-panel h3 {{
                 margin: 0;
-                font-size: 14px;
+                font-size: 11px;
                 color: #333;
                 flex: 1;
                 font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
             }}
             .filter-toggle {{
                 background: none;
                 border: none;
-                font-size: 18px;
+                font-size: 14px;
                 cursor: pointer;
                 padding: 0;
-                width: 20px;
-                height: 20px;
+                width: 16px;
+                height: 16px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                color: #666;
             }}
             .filter-item {{
                 display: flex;
                 align-items: center;
-                margin: 4px 0;
+                margin: 3px 0;
                 cursor: pointer;
-                padding: 4px;
-                border-radius: 3px;
-                transition: background 0.2s;
+                padding: 2px;
+                border-radius: 2px;
             }}
             .filter-item:hover {{
-                background: #f5f5f5;
+                background: #f9f9f9;
             }}
             .filter-checkbox {{
-                width: 16px;
-                height: 16px;
-                margin-right: 8px;
+                width: 13px;
+                height: 13px;
+                margin-right: 6px;
                 cursor: pointer;
                 flex-shrink: 0;
             }}
             .filter-label {{
                 flex: 1;
-                font-size: 13px;
+                font-size: 11px;
                 color: #333;
                 display: flex;
                 align-items: center;
                 cursor: pointer;
-                line-height: 1.4;
+                line-height: 1.3;
             }}
             .filter-color {{
-                width: 10px;
-                height: 10px;
+                width: 8px;
+                height: 8px;
                 border-radius: 50%;
-                margin-right: 6px;
+                margin-right: 5px;
                 display: inline-block;
             }}
             .filter-count {{
-                font-size: 10px;
-                color: #888;
+                font-size: 9px;
+                color: #999;
                 margin-left: auto;
-                padding-left: 6px;
+                padding-left: 4px;
             }}
             .filter-buttons {{
-                margin-top: 8px;
-                padding-top: 8px;
-                border-top: 1px solid #e0e0e0;
+                margin-top: 6px;
+                padding-top: 6px;
+                border-top: 0.5px solid #ddd;
                 display: flex;
-                gap: 6px;
+                gap: 4px;
             }}
             .filter-btn {{
                 flex: 1;
-                padding: 6px 10px;
-                border: 0.5px solid #333;
+                padding: 3px 6px;
+                border: 0.5px solid #666;
                 background: white;
-                border-radius: 2px;
+                border-radius: 1px;
                 cursor: pointer;
-                font-size: 12px;
+                font-size: 10px;
                 font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                transition: all 0.2s;
+                transition: all 0.15s;
             }}
             .filter-btn:hover {{
-                background: #f0f0f0;
-                border-color: #999;
+                background: #f5f5f5;
             }}
         </style>
         
         <div class="filter-panel" id="filterPanel">
             <div class="filter-header" onclick="toggleFilterPanel()">
-                <h3>Filter Crisis Types</h3>
+                <h3>Filter</h3>
                 <button class="filter-toggle" id="filterToggle">−</button>
             </div>
             <div class="filter-content">
@@ -802,7 +807,10 @@ class CrisisMapper:
                         
                         const nameSpan = document.createElement('span');
                         nameSpan.textContent = category;
-                        nameSpan.style.fontSize = '13px';
+                        nameSpan.style.fontSize = '11px';
+                        nameSpan.style.whiteSpace = 'nowrap';
+                        nameSpan.style.overflow = 'hidden';
+                        nameSpan.style.textOverflow = 'ellipsis';
                         
                         labelEl.appendChild(colorSpan);
                         labelEl.appendChild(nameSpan);

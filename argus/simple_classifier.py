@@ -113,22 +113,29 @@ class SimpleCrisisClassifier:
         source_category = article.get('source_category', 'Mixed')
         priority = article.get('priority', 'medium')
         
-        # Exclude entertainment/celebrity/sports news
+        # Exclude entertainment/celebrity/sports news and non-crisis content
         exclusions = [
             'singer', 'musician', 'artist', 'band', 'album', 'concert', 'tour',
             'celebrity', 'actor', 'actress', 'movie', 'film', 'hollywood',
             'sports', 'game', 'match', 'player', 'team', 'championship',
             'fashion', 'runway', 'designer',
             'cancels tour', 'cancels show', 'postpones tour',
-            'book tour', 'music tour', 'concert tour'
+            'book tour', 'music tour', 'concert tour',
+            'newsletter', 'edition', 'manifesto', 'humanifesto',
+            'webinar', 'podcast', 'event announcement', 'upcoming event',
+            'publication launch', 'new report available', 'press release about report'
         ]
+        
+        # Exclude generic publications/newsletters
+        if any(term in title for term in ['edition', 'newsletter', 'manifesto', 'podcast', 'webinar']):
+            return self._create_result(article, 'Unknown', 0.0, 'excluded_publication')
         
         # If entertainment/sports indicators without clear crisis impact
         if any(term in text for term in exclusions):
             # Only allow if there's clear crisis impact
             crisis_impact_terms = ['killed', 'died', 'deaths', 'injured', 'attack', 'bombing', 'war']
             if not any(term in text for term in crisis_impact_terms):
-                return self._create_result(article, 'Unknown', 0.0, 'excluded_entertainment')
+                return self._create_result(article, 'Unknown', 0.0, 'excluded_non_crisis')
         
         # Step 1: If source already categorized it (NGO/specialized feed)
         if source_category != 'Mixed':
