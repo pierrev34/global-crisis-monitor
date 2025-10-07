@@ -833,20 +833,41 @@ class CrisisMapper:
                 const isChecked = checkbox.checked;
                 categoryStates[category] = isChecked;
                 
-                // Find and toggle the corresponding layer in Leaflet layer control
-                setTimeout(() => {{
-                    const layers = document.querySelectorAll('.leaflet-control-layers-overlays label');
-                    layers.forEach(label => {{
-                        const labelText = label.textContent.trim();
-                        // Match exact category name (spans can be present)
-                        if (labelText === category || labelText.includes(category)) {{
-                            const input = label.querySelector('input[type="checkbox"]');
-                            if (input && input.checked !== isChecked) {{
-                                input.click();
-                            }}
+                console.log(`Toggling ${{category}} to ${{isChecked}}`);
+                
+                // Method 1: Try clicking the layer control checkbox
+                const layerInputs = document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]');
+                let found = false;
+                
+                layerInputs.forEach(input => {{
+                    const label = input.parentElement;
+                    const labelText = label ? label.textContent.trim() : '';
+                    
+                    if (labelText === category || labelText.startsWith(category)) {{
+                        found = true;
+                        console.log(`Found layer control for ${{category}}, current state: ${{input.checked}}, target: ${{isChecked}}`);
+                        if (input.checked !== isChecked) {{
+                            input.click();
+                            console.log(`Clicked layer control for ${{category}}`);
                         }}
-                    }});
-                }}, 100);
+                    }}
+                }});
+                
+                if (!found) {{
+                    console.warn(`Layer control not found for category: ${{category}}`);
+                    // Method 2: Try to find and hide/show cluster layers directly
+                    setTimeout(() => {{
+                        const layerInputs2 = document.querySelectorAll('.leaflet-control-layers-overlays input');
+                        layerInputs2.forEach(inp => {{
+                            const lbl = inp.parentElement;
+                            if (lbl && lbl.textContent.includes(category)) {{
+                                if (inp.checked !== isChecked) {{
+                                    inp.click();
+                                }}
+                            }}
+                        }});
+                    }}, 300);
+                }}
             }}
             
             function selectAllFilters() {{
@@ -869,9 +890,23 @@ class CrisisMapper:
                 }});
             }}
             
+            // Debug helper
+            function debugLayers() {{
+                console.log('Available layer controls:');
+                const inputs = document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]');
+                inputs.forEach(input => {{
+                    const label = input.parentElement;
+                    console.log('- ' + (label ? label.textContent.trim() : 'no label') + ': ' + input.checked);
+                }});
+            }}
+            
             // Initialize when DOM is loaded
             document.addEventListener('DOMContentLoaded', function() {{
-                setTimeout(initializeFilters, 500);
+                setTimeout(() => {{
+                    initializeFilters();
+                    // Debug: log available layers after a delay
+                    setTimeout(debugLayers, 1000);
+                }}, 500);
             }});
         </script>
         """
