@@ -54,10 +54,141 @@ class CrisisMapper:
         
         return world_map
     
+    def aggregate_crises(self, crisis_data: List[Dict]) -> List[Dict]:
+        """
+        Aggregate multiple articles about the same crisis into single markers
+        
+        Groups articles by:
+        - Location (rounded coordinates)
+        - Category (crisis type)
+        
+        Args:
+            crisis_data: List of individual crisis articles
+            
+        Returns:
+            List of aggregated crisis objects with multiple articles per location
+        """
+        from collections import defaultdict
+        
+        # Group articles by location + category
+        crisis_groups = defaultdict(list)
+        
+        for crisis_item in crisis_data:
+            article = crisis_item.get('article', {})
+            category = crisis_item.get('predicted_category', 'Other')
+            locations = article.get('locations', [])
+            
+            # Get first valid geocoded location
+            for loc in locations:
+                if loc.get('geocoded') and 'lat' in loc and 'lon' in loc:
+                    lat = loc['lat']
+                    lon = loc['lon']
+                    
+                    # Round coordinates to group nearby locations (0.5 degree ~= 55km)
+                    lat_rounded = round(lat * 2) / 2  # Round to nearest 0.5
+                    lon_rounded = round(lon * 2) / 2
+                    
+                    # Create unique key for this crisis location
+                    key = (lat_rounded, lon_rounded, category)
+                    crisis_groups[key].append({
+                        'article': article,
+                        'crisis_item': crisis_item,
+                        'exact_lat': lat,
+                        'exact_lon': lon,
+                        'location_name': loc.get('display_name', 'Unknown Location')
+                    })
+                    break  # Only use first location per article
+        
+        # Convert groups to aggregated crisis objects
+        aggregated_crises = []
+        for (lat, lon, category), articles in crisis_groups.items():
+            if len(articles) == 0:
+                continue
+                
+            # Use average of exact coordinates
+            avg_lat = sum(a['exact_lat'] for a in articles) / len(articles)
+            avg_lon = sum(a['exact_lon'] for a in articles) / len(articles)
+            
+            # Use most common location name
+            location_names = [a['location_name'] for a in articles]
+            primary_location = max(set(location_names), key=location_names.count)
+            
+            aggregated_crises.append({
+                'lat': avg_lat,
+                'lon': avg_lon,
+                'category': category,
+                'location_name': primary_location,
+                'article_count': len(articles),
+                'articles': articles,
+                'dates': [a['article'].get('publish_date') for a in articles if a['article'].get('publish_date')]
+            })
+        
+        logger.info(f"Aggregated {len(crisis_data)} articles into {len(aggregated_crises)} crisis locations")
+        return aggregated_crises
+    
+    def generate_crisis_summary(self, aggregated_crisis: Dict) -> str:
+        """
+        Generate a concise summary of an aggregated crisis
+        
+        Uses article titles and content to create a brief description
+        without requiring external LLM API
+        
+        Args:
+            aggregated_crisis: Aggregated crisis object with multiple articles
+            
+        Returns:
+            HTML string with crisis summary
+        """
+        category = aggregated_crisis['category']
+        location = aggregated_crisis['location_name']
+        article_count = aggregated_crisis['article_count']
+        articles = aggregated_crisis['articles']
+        
+        # Extract key information from articles
+        titles = []
+        sources = set()
+        dates = []
+        
+        for article_data in articles[:5]:  # Use top 5 articles
+            article = article_data['article']
+            title = article.get('title', '')
+            source = article.get('source', 'Unknown')
+            date = article.get('publish_date', '')
+            
+            if title:
+                titles.append(title)
+            sources.add(source)
+            if date:
+                dates.append(date)
+        
+        # Get most recent date
+        recent_date = max(dates) if dates else 'Recent'
+        if recent_date and recent_date != 'Recent':
+            try:
+                date_obj = datetime.fromisoformat(recent_date.replace('Z', '+00:00'))
+                recent_date = date_obj.strftime('%B %d, %Y')
+            except:
+                recent_date = 'Recent'
+        
+        # Create summary from common words in titles
+        all_titles_text = ' '.join(titles).lower()
+        
+        # Simple extractive summary: use the most informative title
+        summary_title = titles[0] if titles else f"{category} in {location}"
+        
+        return {
+            'summary_title': summary_title,
+            'category': category,
+            'location': location,
+            'article_count': article_count,
+            'sources': list(sources),
+            'recent_date': recent_date
+        }
+    
     def add_crisis_markers(self, world_map: folium.Map, 
                           crisis_data: List[Dict]) -> folium.Map:
         """
-        Add crisis markers to the map with clustering to reduce visual clutter
+        Add aggregated crisis markers to the map
         
         Args:
             world_map: Base Folium map
@@ -66,78 +197,148 @@ class CrisisMapper:
         Returns:
             Map with crisis markers added
         """
-        marker_count = 0
+        # Step 1: Aggregate articles into crisis locations
+        aggregated_crises = self.aggregate_crises(crisis_data)
         
-        # Create marker clusters for different crisis types
-        clusters = {}
+        # Create feature groups for each category (not clusters, for cleaner control)
+        category_groups = {}
         for category in self.crisis_colors.keys():
-            clusters[category] = plugins.MarkerCluster(
-                name=category,
-                show=True,
-                control=True
+            category_groups[category] = folium.FeatureGroup(name=category, show=True)
+        category_groups["Other"] = folium.FeatureGroup(name="Other", show=False)
+        
+        # Step 2: Create one marker per aggregated crisis
+        for crisis in aggregated_crises:
+            category = crisis['category']
+            lat = crisis['lat']
+            lon = crisis['lon']
+            
+            # Generate summary
+            summary_data = self.generate_crisis_summary(crisis)
+            
+            # Create popup HTML
+            popup_html = self._create_aggregated_popup(crisis, summary_data)
+            
+            # Create marker
+            color = self.crisis_colors.get(category, '#666666')
+            marker = folium.Marker(
+                location=[lat, lon],
+                popup=folium.Popup(popup_html, max_width=400),
+                tooltip=f"{category}: {summary_data['summary_title'][:60]}...",
+                icon=folium.Icon(
+                    color=self._get_folium_color(color),
+                    icon='exclamation-triangle',
+                    prefix='fa'
+                )
             )
-        
-        # Add "Other" category cluster
-        clusters["Other"] = plugins.MarkerCluster(name="Other", show=False, control=True)
-        
-        for crisis_item in crisis_data:
-            article = crisis_item.get('article', {})
-            category = crisis_item.get('predicted_category', 'Other')
-            confidence = crisis_item.get('confidence', 0.0)
-            locations = article.get('locations', [])
             
-            # First try to add markers for perfectly geocoded locations
-            markers_added_for_article = 0
-            for location in locations:
-                if location.get('geocoded', False):
-                    lat = location.get('latitude')
-                    lon = location.get('longitude')
-                    
-                    if lat is not None and lon is not None:
-                        marker = self._create_crisis_marker(
-                            lat, lon, article, category, confidence, location
-                        )
-                        
-                        # Add to appropriate cluster
-                        cluster = clusters.get(category, clusters["Other"])
-                        marker.add_to(cluster)
-                        marker_count += 1
-                        markers_added_for_article += 1
-            
-            # If no perfect geocoding, use intelligent fallbacks
-            if markers_added_for_article == 0 and confidence >= 0.5:
-                fallback_location = self._get_fallback_location(article, category)
-                if fallback_location:
-                    lat, lon, location_name = fallback_location
-                    
-                    # Create fallback location data
-                    fallback_loc_data = {
-                        'text': location_name,
-                        'found_name': location_name,
-                        'geocoded': True,  # Mark as geocoded for display
-                        'latitude': lat,
-                        'longitude': lon,
-                        'fallback': True  # Mark as fallback
-                    }
-                    
-                    marker = self._create_crisis_marker(
-                        lat, lon, article, category, confidence, fallback_loc_data
-                    )
-                    
-                    # Add to appropriate cluster
-                    cluster = clusters.get(category, clusters["Other"])
-                    marker.add_to(cluster)
-                    marker_count += 1
+            # Add to appropriate group
+            group = category_groups.get(category, category_groups["Other"])
+            marker.add_to(group)
         
-        # Add all clusters to map
-        for cluster in clusters.values():
-            cluster.add_to(world_map)
+        # Add all groups to map
+        for group in category_groups.values():
+            group.add_to(world_map)
         
         # Add layer control for toggling categories
         folium.LayerControl(collapsed=False).add_to(world_map)
         
-        logger.info(f"Added {marker_count} crisis markers to map")
+        logger.info(f"Added {len(aggregated_crises)} aggregated crisis markers to map")
         return world_map
+    
+    def _create_aggregated_popup(self, crisis: Dict, summary_data: Dict) -> str:
+        """
+        Create rich HTML popup for aggregated crisis marker
+        
+        Args:
+            crisis: Aggregated crisis object
+            summary_data: Summary data generated for this crisis
+            
+        Returns:
+            HTML string for popup
+        """
+        category = summary_data['category']
+        location = summary_data['location']
+        article_count = summary_data['article_count']
+        sources = summary_data['sources']
+        recent_date = summary_data['recent_date']
+        summary_title = summary_data['summary_title']
+        
+        # Build article links (show up to 5)
+        article_links = []
+        for i, article_data in enumerate(crisis['articles'][:5]):
+            article = article_data['article']
+            title = article.get('title', 'Untitled')
+            url = article.get('url', '#')
+            source = article.get('source', 'Unknown')
+            
+            article_links.append(f"""
+                <div style="margin: 5px 0; padding: 5px; background: #f9f9f9; border-left: 2px solid #ddd;">
+                    <a href="{url}" target="_blank" style="color: #0066cc; text-decoration: none; font-size: 11px;">
+                        {title[:80]}{"..." if len(title) > 80 else ""}
+                    </a>
+                    <div style="font-size: 9px; color: #666; margin-top: 2px;">{source}</div>
+                </div>
+            """)
+        
+        more_articles = ""
+        if article_count > 5:
+            more_articles = f"<div style='font-size: 10px; color: #888; margin-top: 5px;'>+ {article_count - 5} more articles</div>"
+        
+        popup_html = f"""
+        <div style="font-family: 'Computer Modern Serif', Georgia, serif; min-width: 300px;">
+            <div style="background: {self.crisis_colors.get(category, '#666')}; color: white; padding: 8px; margin: -10px -10px 10px -10px;">
+                <div style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.9;">
+                    {category}
+                </div>
+                <div style="font-size: 13px; font-weight: bold; margin-top: 3px;">
+                    {location}
+                </div>
+            </div>
+            
+            <div style="margin: 10px 0; padding: 8px; background: #f5f5f5; border-left: 3px solid {self.crisis_colors.get(category, '#666')};">
+                <div style="font-size: 12px; line-height: 1.4; color: #333;">
+                    {summary_title}
+                </div>
+            </div>
+            
+            <div style="margin: 10px 0; font-size: 10px; color: #666;">
+                <strong>{article_count}</strong> reports from <strong>{len(sources)}</strong> sources
+                <br>Last updated: {recent_date}
+            </div>
+            
+            <div style="border-top: 0.5px solid #ddd; padding-top: 8px; margin-top: 8px;">
+                <div style="font-size: 11px; font-weight: bold; margin-bottom: 5px; color: #333;">
+                    Related Articles:
+                </div>
+                {"".join(article_links)}
+                {more_articles}
+            </div>
+        </div>
+        """
+        
+        return popup_html
+    
+    def _get_folium_color(self, hex_color: str) -> str:
+        """
+        Convert hex color to Folium color name
+        
+        Args:
+            hex_color: Hex color code
+            
+        Returns:
+            Folium color name (red, blue, green, etc.)
+        """
+        # Map hex colors to Folium's limited color set
+        color_map = {
+            '#8B0000': 'darkred',
+            '#DC143C': 'red',
+            '#FF6B35': 'orange',
+            '#FF8C00': 'orange',
+            '#9370DB': 'purple',
+            '#4682B4': 'blue',
+            '#228B22': 'green'
+        }
+        return color_map.get(hex_color, 'gray')
     
     def _get_fallback_location(self, article: Dict, category: str) -> Optional[Tuple[float, float, str]]:
         """
