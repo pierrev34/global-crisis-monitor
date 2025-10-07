@@ -80,9 +80,9 @@ class CrisisMapper:
             
             # Get first valid geocoded location
             for loc in locations:
-                if loc.get('geocoded') and 'lat' in loc and 'lon' in loc:
-                    lat = loc['lat']
-                    lon = loc['lon']
+                if loc.get('geocoded') and 'latitude' in loc and 'longitude' in loc:
+                    lat = loc['latitude']
+                    lon = loc['longitude']
                     
                     # Round coordinates to group nearby locations (0.5 degree ~= 55km)
                     lat_rounded = round(lat * 2) / 2  # Round to nearest 0.5
