@@ -1,26 +1,26 @@
 {
-  "timestamp": "2025-10-06T20:57:09.062278",
+  "timestamp": "2025-10-06T21:05:11.882799",
   "pipeline_stats": {
     "total_articles_fetched": 114,
     "unique_sources": 13,
     "articles_classified": 114,
-    "crisis_articles_found": 105,
-    "mappable_crisis_articles": 98
+    "crisis_articles_found": 104,
+    "mappable_crisis_articles": 97
   },
   "classification_stats": {
     "category_distribution": {
-      "Humanitarian Crises": 25,
+      "Humanitarian Crises": 24,
       "Political Conflicts": 27,
       "Human Rights Violations": 35,
       "Natural Disasters": 18,
-      "Unknown": 9
+      "Unknown": 10
     },
-    "average_confidence": 0.7903209109730852
+    "average_confidence": 0.7824261741309798
   },
   "geographic_stats": {
-    "total_locations_extracted": 381,
-    "successfully_geocoded": 366,
-    "geocoding_success_rate": 0.9606299212598425,
+    "total_locations_extracted": 380,
+    "successfully_geocoded": 365,
+    "geocoding_success_rate": 0.9605263157894737,
     "unique_countries_affected": 77,
     "countries_list": [
       "Afghanistan",
@@ -129,7 +129,7 @@
     ],
     [
       "City of New York, New York, United States",
-      6
+      5
     ],
     [
       "ایران",
