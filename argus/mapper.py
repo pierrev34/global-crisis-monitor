@@ -816,16 +816,25 @@ class CrisisMapper:
         return output_file
     
     def _add_filter_panel(self, html_file: str, crisis_data: List[Dict] = None):
-        """Add custom search + filter panel to the generated map HTML"""
+        """
+        Add unified left sidebar with three tabs:
+        - Chat: Conversational queries (keyword fallback, optional RAG)
+        - Search: Real-time location/category filtering
+        - Filter: Visual category toggles
+        """
         with open(html_file, 'r', encoding='utf-8') as f:
             html_content = f.read()
         
         # Count categories from crisis data and build searchable index
         category_counts = {}
         search_index = []
+        total_events = 0
+        unique_sources = set()
         
         if crisis_data:
             aggregated = self.aggregate_crises(crisis_data)
+            total_events = len(aggregated)
+            
             for crisis in aggregated:
                 category = crisis.get('category', 'Other')
                 if category in self.crisis_colors:
@@ -840,6 +849,13 @@ class CrisisMapper:
                     'lon': crisis.get('lon'),
                     'count': crisis.get('article_count', 1)
                 })
+                
+                # Count unique sources
+                for article_data in crisis.get('articles', []):
+                    source = article_data['article'].get('source_name', 
+                                                        article_data['article'].get('source', ''))
+                    if source:
+                        unique_sources.add(source)
         
         # Convert Folium colors to hex for display
         folium_to_hex = {
@@ -868,206 +884,387 @@ class CrisisMapper:
         colors_js = json.dumps(category_colors_hex)
         search_index_js = json.dumps(search_index)
         
-        # Create search + filter panel HTML/CSS/JS
-        filter_panel = f"""
+        # Generate suggested questions for chat
+        suggested_questions = [
+            "What are the most urgent crises right now?",
+            "Which organizations are responding?",
+            "How can I help with these crises?",
+            "Show me crises in the Middle East",
+            "What natural disasters are happening?"
+        ]
+        suggestions_js = json.dumps(suggested_questions)
+        
+        # Create unified sidebar UI
+        sidebar_ui = f"""
         <style>
-            .search-panel {{
-                position: fixed;
-                top: 10px;
-                right: 10px;
-                background: white;
-                border-radius: 2px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-                padding: 10px;
-                z-index: 1000;
-                min-width: 240px;
-                max-width: 280px;
-                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                border: 0.5px solid #333;
-                font-size: 11px;
+            /* Reset and base styles */
+            * {{
+                box-sizing: border-box;
             }}
-            .search-input {{
-                width: 100%;
-                padding: 6px 8px;
+            
+            /* Sidebar container */
+            .crisis-sidebar {{
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 320px;
+                background: white;
+                border-right: 1px solid #ddd;
+                display: flex;
+                flex-direction: column;
+                z-index: 1000;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+            }}
+            
+            /* Header */
+            .sidebar-header {{
+                padding: 12px 16px;
+                border-bottom: 1px solid #ddd;
+                background: #f8f9fa;
+            }}
+            
+            .sidebar-title {{
+                font-size: 13px;
+                font-weight: bold;
+                color: #333;
+                margin: 0 0 4px 0;
+                letter-spacing: 0.3px;
+            }}
+            
+            .sidebar-stats {{
+                font-size: 10px;
+                color: #666;
+                margin: 0;
+            }}
+            
+            /* Tabs */
+            .sidebar-tabs {{
+                display: flex;
+                border-bottom: 1px solid #ddd;
+                background: white;
+            }}
+            
+            .tab-btn {{
+                flex: 1;
+                padding: 10px 12px;
+                border: none;
+                background: white;
+                cursor: pointer;
+                font-size: 11px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+                color: #666;
+                border-bottom: 2px solid transparent;
+                transition: all 0.2s;
+            }}
+            
+            .tab-btn:hover {{
+                background: #f8f9fa;
+                color: #333;
+            }}
+            
+            .tab-btn.active {{
+                color: #333;
+                font-weight: bold;
+                border-bottom-color: #333;
+                background: white;
+            }}
+            
+            /* Tab content */
+            .sidebar-content {{
+                flex: 1;
+                overflow-y: auto;
+                padding: 16px;
+            }}
+            
+            .tab-pane {{
+                display: none;
+            }}
+            
+            .tab-pane.active {{
+                display: block;
+            }}
+            
+            /* Chat interface */
+            .chat-messages {{
+                height: calc(100vh - 300px);
+                overflow-y: auto;
+                margin-bottom: 12px;
+                padding: 8px;
+                background: #f8f9fa;
+                border-radius: 2px;
+                border: 0.5px solid #ddd;
+            }}
+            
+            .chat-message {{
+                margin-bottom: 12px;
+                padding: 8px 10px;
+                border-radius: 4px;
+                font-size: 11px;
+                line-height: 1.5;
+            }}
+            
+            .chat-message.user {{
+                background: #e3f2fd;
+                color: #1565c0;
+                margin-left: 20px;
+            }}
+            
+            .chat-message.bot {{
+                background: white;
+                border: 0.5px solid #ddd;
+                color: #333;
+                margin-right: 20px;
+            }}
+            
+            .chat-message.bot .sources {{
+                margin-top: 8px;
+                padding-top: 8px;
+                border-top: 0.5px solid #ddd;
+                font-size: 9px;
+                color: #666;
+            }}
+            
+            .chat-input-container {{
+                display: flex;
+                gap: 8px;
+            }}
+            
+            .chat-input {{
+                flex: 1;
+                padding: 8px;
                 border: 0.5px solid #666;
                 border-radius: 2px;
                 font-size: 11px;
                 font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                box-sizing: border-box;
             }}
-            .search-input:focus {{
+            
+            .chat-send-btn {{
+                padding: 8px 16px;
+                background: #333;
+                color: white;
+                border: none;
+                border-radius: 2px;
+                cursor: pointer;
+                font-size: 11px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+                transition: background 0.2s;
+            }}
+            
+            .chat-send-btn:hover {{
+                background: #000;
+            }}
+            
+            .chat-send-btn:disabled {{
+                background: #ccc;
+                cursor: not-allowed;
+            }}
+            
+            .suggested-questions {{
+                margin-bottom: 12px;
+            }}
+            
+            .suggested-question {{
+                display: block;
+                width: 100%;
+                text-align: left;
+                padding: 6px 8px;
+                margin-bottom: 4px;
+                background: white;
+                border: 0.5px solid #ddd;
+                border-radius: 2px;
+                font-size: 10px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+                color: #0066cc;
+                cursor: pointer;
+                transition: all 0.2s;
+            }}
+            
+            .suggested-question:hover {{
+                background: #f0f8ff;
+                border-color: #0066cc;
+            }}
+            
+            /* Search tab - simple input */
+            #searchTab .search-box {{
+                width: 100%;
+                padding: 8px;
+                border: 0.5px solid #666;
+                border-radius: 2px;
+                font-size: 11px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+                margin-bottom: 12px;
+            }}
+            
+            #searchTab .search-box:focus {{
                 outline: none;
                 border-color: #333;
             }}
-            .search-results {{
-                max-height: 200px;
+            
+            .search-results-list {{
+                max-height: calc(100vh - 250px);
                 overflow-y: auto;
-                margin-top: 8px;
-                display: none;
             }}
-            .search-results.active {{
-                display: block;
-            }}
-            .search-result-item {{
-                padding: 5px 8px;
-                cursor: pointer;
-                border-bottom: 0.5px solid #eee;
-                font-size: 10px;
-            }}
-            .search-result-item:hover {{
-                background: #f5f5f5;
-            }}
-            .search-result-location {{
-                font-weight: bold;
-                color: #333;
-            }}
-            .search-result-category {{
-                font-size: 9px;
-                color: #666;
-                margin-top: 2px;
-            }}
-            .search-stats {{
-                font-size: 9px;
-                color: #999;
-                margin-top: 5px;
-                padding-top: 5px;
-                border-top: 0.5px solid #eee;
-            }}
-            .filter-panel {{
-                position: fixed;
-                top: 265px;
-                right: 10px;
-                background: white;
-                border-radius: 2px;
-                box-shadow: 0 1px 3px rgba(0,0,0,0.12);
-                padding: 8px 10px;
-                z-index: 1000;
-                min-width: 240px;
-                max-width: 280px;
-                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                border: 0.5px solid #333;
-                font-size: 11px;
-            }}
-            .filter-panel.collapsed .filter-content {{
-                display: none;
-            }}
-            .filter-header {{
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                cursor: pointer;
+            
+            .search-result {{
+                padding: 8px;
                 margin-bottom: 6px;
-                padding-bottom: 4px;
-                border-bottom: 0.5px solid #ddd;
-            }}
-            .filter-panel h3 {{
-                margin: 0;
-                font-size: 11px;
-                color: #333;
-                flex: 1;
-                font-weight: bold;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }}
-            .filter-toggle {{
-                background: none;
-                border: none;
-                font-size: 14px;
+                background: white;
+                border: 0.5px solid #ddd;
+                border-radius: 2px;
                 cursor: pointer;
-                padding: 0;
-                width: 16px;
-                height: 16px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                transition: all 0.2s;
+            }}
+            
+            .search-result:hover {{
+                background: #f0f8ff;
+                border-color: #0066cc;
+            }}
+            
+            .search-result-title {{
+                font-size: 11px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 4px;
+            }}
+            
+            .search-result-meta {{
+                font-size: 9px;
                 color: #666;
             }}
+            
+            .color-dot {{
+                display: inline-block;
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                margin-right: 4px;
+            }}
+            
+            /* Filter tab */
             .filter-item {{
                 display: flex;
                 align-items: center;
-                margin: 3px 0;
-                cursor: pointer;
-                padding: 2px;
+                margin-bottom: 8px;
+                padding: 6px 8px;
+                background: white;
+                border: 0.5px solid #ddd;
                 border-radius: 2px;
-            }}
-            .filter-item:hover {{
-                background: #f9f9f9;
-            }}
-            .filter-checkbox {{
-                width: 13px;
-                height: 13px;
-                margin-right: 6px;
                 cursor: pointer;
-                flex-shrink: 0;
+                transition: all 0.2s;
             }}
+            
+            .filter-item:hover {{
+                background: #f8f9fa;
+            }}
+            
+            .filter-checkbox {{
+                margin-right: 8px;
+                cursor: pointer;
+            }}
+            
             .filter-label {{
                 flex: 1;
                 font-size: 11px;
                 color: #333;
+                cursor: pointer;
                 display: flex;
                 align-items: center;
-                cursor: pointer;
-                line-height: 1.3;
             }}
-            .filter-color {{
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                margin-right: 5px;
-                display: inline-block;
-            }}
-            .filter-count {{
-                font-size: 9px;
-                color: #999;
-                margin-left: auto;
-                padding-left: 4px;
-            }}
+            
             .filter-buttons {{
-                margin-top: 6px;
-                padding-top: 6px;
-                border-top: 0.5px solid #ddd;
                 display: flex;
-                gap: 4px;
+                gap: 8px;
+                margin-top: 12px;
+                padding-top: 12px;
+                border-top: 0.5px solid #ddd;
             }}
+            
             .filter-btn {{
                 flex: 1;
-                padding: 3px 6px;
-                border: 0.5px solid #666;
+                padding: 6px;
                 background: white;
-                border-radius: 1px;
+                border: 0.5px solid #666;
+                border-radius: 2px;
                 cursor: pointer;
-                font-size: 10px;
+                font-size: 11px;
                 font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                transition: all 0.15s;
+                transition: all 0.2s;
             }}
+            
             .filter-btn:hover {{
-                background: #f5f5f5;
+                background: #333;
+                color: white;
+            }}
+            
+            /* Adjust map to make room for sidebar */
+            .folium-map {{
+                margin-left: 320px !important;
             }}
         </style>
         
-        <!-- Search Panel -->
-        <div class="search-panel" id="searchPanel">
-            <input 
-                type="text" 
-                class="search-input" 
-                id="searchInput" 
-                placeholder="Search location or crisis type..."
-                autocomplete="off"
-            />
-            <div class="search-results" id="searchResults"></div>
-        </div>
-        
-        <!-- Filter Panel -->
-        <div class="filter-panel" id="filterPanel">
-            <div class="filter-header" onclick="toggleFilterPanel()">
-                <h3>Filter</h3>
-                <button class="filter-toggle" id="filterToggle">−</button>
+        <!-- Unified Sidebar -->
+        <div class="crisis-sidebar">
+            <!-- Header -->
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">CRISIS MONITOR</h1>
+                <p class="sidebar-stats">{total_events} events • {len(unique_sources)} sources</p>
             </div>
-            <div class="filter-content">
-                <div id="filterItems"></div>
-                <div class="filter-buttons">
-                    <button class="filter-btn" onclick="selectAllFilters()">All</button>
-                    <button class="filter-btn" onclick="clearAllFilters()">None</button>
+            
+            <!-- Tabs -->
+            <div class="sidebar-tabs">
+                <button class="tab-btn active" onclick="switchTab('chat')">💬 Chat</button>
+                <button class="tab-btn" onclick="switchTab('search')">🔍 Search</button>
+                <button class="tab-btn" onclick="switchTab('filter')">🎛️ Filter</button>
+            </div>
+            
+            <!-- Tab Content -->
+            <div class="sidebar-content">
+                <!-- Chat Tab -->
+                <div id="chatTab" class="tab-pane active">
+                    <div class="suggested-questions">
+                        <button class="suggested-question" onclick="askQuestion(this.textContent)">What are the most urgent crises?</button>
+                        <button class="suggested-question" onclick="askQuestion(this.textContent)">Which organizations are responding?</button>
+                        <button class="suggested-question" onclick="askQuestion(this.textContent)">How can I help?</button>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message bot">
+                            <div>👋 Ask me about global crises. I can help you find information, understand patterns, and connect with humanitarian organizations.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <input 
+                            type="text" 
+                            class="chat-input" 
+                            id="chatInput" 
+                            placeholder="Ask about crises..."
+                            onkeypress="if(event.key==='Enter') sendMessage()"
+                        />
+                        <button class="chat-send-btn" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+                
+                <!-- Search Tab -->
+                <div id="searchTab" class="tab-pane">
+                    <input 
+                        type="text" 
+                        class="search-box" 
+                        id="searchBox" 
+                        placeholder="Search location or crisis type..."
+                        oninput="performSearch(this.value)"
+                    />
+                    <div class="search-results-list" id="searchResultsList"></div>
+                </div>
+                
+                <!-- Filter Tab -->
+                <div id="filterTab" class="tab-pane">
+                    <div id="filterItems"></div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn" onclick="selectAllFilters()">All</button>
+                        <button class="filter-btn" onclick="clearAllFilters()">None</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1077,6 +1274,7 @@ class CrisisMapper:
             const categoryCounts = {categories_js};
             const categoryColors = {colors_js};
             const searchIndex = {search_index_js};
+            const suggestedQuestions = {suggestions_js};
             
             // Get reference to Leaflet map
             let mapInstance = null;
@@ -1089,216 +1287,217 @@ class CrisisMapper:
                 }}
             }}, 1000);
             
-            // Search functionality
-            const searchInput = document.getElementById('searchInput');
-            const searchResults = document.getElementById('searchResults');
+            // Tab switching
+            function switchTab(tabName) {{
+                // Update tab buttons
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+                
+                // Update tab panes
+                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+                document.getElementById(tabName + 'Tab').classList.add('active');
+            }}
             
-            searchInput.addEventListener('input', function(e) {{
-                const query = e.target.value.toLowerCase().trim();
+            // Chat functionality
+            function sendMessage() {{
+                const input = document.getElementById('chatInput');
+                const message = input.value.trim();
+                if (!message) return;
+                
+                askQuestion(message);
+                input.value = '';
+            }}
+            
+            function askQuestion(question) {{
+                const messagesDiv = document.getElementById('chatMessages');
+                
+                // Add user message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'chat-message user';
+                userMsg.textContent = question;
+                messagesDiv.appendChild(userMsg);
+                
+                // Scroll to bottom
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                
+                // Simple keyword-based responses (fallback)
+                let answer = generateAnswer(question);
+                
+                // Add bot response after delay
+                setTimeout(() => {{
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'chat-message bot';
+                    botMsg.innerHTML = answer;
+                    messagesDiv.appendChild(botMsg);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }}, 500);
+            }}
+            
+            function generateAnswer(question) {{
+                const q = question.toLowerCase();
+                
+                // Count total crises
+                const total = searchIndex.length;
+                const categories = Object.keys(categoryCounts);
+                
+                if (q.includes('urgent') || q.includes('worst') || q.includes('most')) {{
+                    const maxCat = Object.entries(categoryCounts).sort((a,b) => b[1] - a[1])[0];
+                    return `The most reported crisis type is <strong>${{maxCat[0]}}</strong> with ${{maxCat[1]}} incidents. Other active categories: ${{categories.filter(c => c !== maxCat[0]).join(', ')}}.`;
+                }}
+                
+                if (q.includes('how can i help') || q.includes('donate') || q.includes('volunteer')) {{
+                    return `Organizations responding to these crises:<br>• <strong>UNHCR</strong> (refugees)<br>• <strong>Doctors Without Borders</strong> (medical)<br>• <strong>ICRC</strong> (Red Cross)<br>• <strong>Amnesty International</strong> (human rights)<br><br>Visit their websites to donate or volunteer.`;
+                }}
+                
+                if (q.includes('organizations') || q.includes('who') || q.includes('responding')) {{
+                    return `Current data sources include: Human Rights Watch, Amnesty International, UN OCHA, ReliefWeb, International Crisis Group, GDACS, Al Jazeera, BBC, and Radio Free Asia.`;
+                }}
+                
+                if (q.includes('how many') || q.includes('count')) {{
+                    return `There are <strong>${{total}} crisis locations</strong> with incidents across ${{categories.length}} categories: ${{categories.join(', ')}}.`;
+                }}
+                
+                // Location-specific
+                for (const item of searchIndex) {{
+                    if (q.includes(item.location.toLowerCase().split(',')[0].toLowerCase())) {{
+                        return `In <strong>${{item.location}}</strong>: ${{item.count}} ${{item.category}} incident${{item.count > 1 ? 's' : ''}} reported. Click the Search tab to see on map.`;
+                    }}
+                }}
+                
+                return `I found ${{total}} crisis incidents. Try asking: "What are the most urgent crises?" or "How can I help?" or use the Search tab to find specific locations.`;
+            }}
+            
+            // Search functionality
+            function performSearch(query) {{
+                const resultsList = document.getElementById('searchResultsList');
                 
                 if (query.length < 2) {{
-                    searchResults.classList.remove('active');
-                    searchResults.innerHTML = '';
+                    resultsList.innerHTML = '';
                     return;
                 }}
                 
-                // Search through index
-                const matches = searchIndex.filter(item => 
-                    item.location.toLowerCase().includes(query) ||
-                    item.category.toLowerCase().includes(query)
-                ).slice(0, 10); // Limit to 10 results
+                const matches = searchIndex.filter(item =>
+                    item.location.toLowerCase().includes(query.toLowerCase()) ||
+                    item.category.toLowerCase().includes(query.toLowerCase())
+                ).slice(0, 15);
                 
                 if (matches.length === 0) {{
-                    searchResults.innerHTML = '<div class="search-result-item" style="color:#999;">No results found</div>';
-                    searchResults.classList.add('active');
+                    resultsList.innerHTML = '<div style="padding:8px;color:#999;font-size:10px;">No results found</div>';
                     return;
                 }}
                 
-                // Display results
                 let html = '';
                 matches.forEach(match => {{
-                    const colorDot = `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${{categoryColors[match.category] || '#999'}};margin-right:4px;"></span>`;
+                    const colorDot = `<span class="color-dot" style="background:${{categoryColors[match.category] || '#999'}}"></span>`;
                     html += `
-                        <div class="search-result-item" onclick="zoomToLocation(${{match.lat}}, ${{match.lon}}, '${{match.location.replace(/'/g, "\\\\'")}}')" data-lat="${{match.lat}}" data-lon="${{match.lon}}">
-                            <div class="search-result-location">${{colorDot}}${{match.location}}</div>
-                            <div class="search-result-category">${{match.category}} • ${{match.count}} incident${{match.count > 1 ? 's' : ''}}</div>
+                        <div class="search-result" onclick="zoomToLocation(${{match.lat}}, ${{match.lon}})">
+                            <div class="search-result-title">${{colorDot}}${{match.location}}</div>
+                            <div class="search-result-meta">${{match.category}} • ${{match.count}} incident${{match.count > 1 ? 's' : ''}}</div>
                         </div>
                     `;
                 }});
-                html += `<div class="search-stats">${{matches.length}} result${{matches.length > 1 ? 's' : ''}} found</div>`;
                 
-                searchResults.innerHTML = html;
-                searchResults.classList.add('active');
-            }});
+                resultsList.innerHTML = html;
+            }}
             
-            // Close search results when clicking outside
-            document.addEventListener('click', function(e) {{
-                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {{
-                    searchResults.classList.remove('active');
-                }}
-            }});
-            
-            // Zoom to location function
-            function zoomToLocation(lat, lon, name) {{
+            function zoomToLocation(lat, lon) {{
                 if (mapInstance) {{
                     mapInstance.setView([lat, lon], 8);
-                    searchResults.classList.remove('active');
-                    searchInput.value = name;
-                }} else {{
-                    console.error('Map instance not found');
                 }}
             }}
             
-            // Track visibility state
+            // Filter functionality
             let categoryStates = {{}};
             
-            // Toggle filter panel
-            function toggleFilterPanel() {{
-                const panel = document.getElementById('filterPanel');
-                const toggle = document.getElementById('filterToggle');
-                panel.classList.toggle('collapsed');
-                toggle.textContent = panel.classList.contains('collapsed') ? '+' : '−';
-            }}
-            
-            // Initialize filters from pre-computed data
             function initializeFilters() {{
                 const filterContainer = document.getElementById('filterItems');
-                filterContainer.innerHTML = ''; // Clear existing
+                filterContainer.innerHTML = '';
                 
-                // Use pre-computed category counts
                 Object.keys(categoryCounts).forEach(category => {{
-                    const count = categoryCounts[category];
-                    if (count > 0 && categoryColors[category]) {{
+                    if (categoryCounts[category] > 0 && categoryColors[category]) {{
                         categoryStates[category] = true;
                         
-                        const filterItem = document.createElement('div');
-                        filterItem.className = 'filter-item';
+                        const item = document.createElement('div');
+                        item.className = 'filter-item';
+                        item.onclick = function() {{ toggleFilter(category); }};
                         
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
                         checkbox.className = 'filter-checkbox';
-                        checkbox.id = 'filter-' + category.replace(/\\s+/g, '-');
+                        checkbox.id = `filter-${{category.replace(/\\s+/g, '-')}}`;
                         checkbox.checked = true;
-                        checkbox.addEventListener('change', function() {{
-                            toggleCategory(category);
-                        }});
+                        checkbox.onclick = function(e) {{ e.stopPropagation(); toggleFilter(category); }};
                         
-                        const labelEl = document.createElement('label');
-                        labelEl.className = 'filter-label';
-                        labelEl.htmlFor = checkbox.id;
+                        const label = document.createElement('label');
+                        label.className = 'filter-label';
+                        label.htmlFor = checkbox.id;
                         
-                        const colorSpan = document.createElement('span');
-                        colorSpan.className = 'filter-color';
-                        colorSpan.style.background = categoryColors[category];
+                        const dot = document.createElement('span');
+                        dot.className = 'color-dot';
+                        dot.style.background = categoryColors[category];
                         
-                        const nameSpan = document.createElement('span');
-                        nameSpan.textContent = category;
-                        nameSpan.style.fontSize = '11px';
-                        nameSpan.style.whiteSpace = 'nowrap';
-                        nameSpan.style.overflow = 'hidden';
-                        nameSpan.style.textOverflow = 'ellipsis';
+                        label.appendChild(dot);
+                        label.appendChild(document.createTextNode(category));
                         
-                        labelEl.appendChild(colorSpan);
-                        labelEl.appendChild(nameSpan);
-                        
-                        filterItem.appendChild(checkbox);
-                        filterItem.appendChild(labelEl);
-                        filterContainer.appendChild(filterItem);
+                        item.appendChild(checkbox);
+                        item.appendChild(label);
+                        filterContainer.appendChild(item);
                     }}
                 }});
-                
-                if (Object.keys(categoryCounts).length === 0) {{
-                    filterContainer.innerHTML = '<div style="font-size:10px;color:#999;padding:5px;">No categories found</div>';
+            }}
+            
+            function toggleFilter(category) {{
+                const checkbox = document.getElementById(`filter-${{category.replace(/\\s+/g, '-')}}`);
+                if (checkbox) {{
+                    checkbox.checked = !checkbox.checked;
+                    toggleCategoryLayer(category, checkbox.checked);
                 }}
             }}
             
-            function toggleCategory(category) {{
-                const checkbox = document.getElementById('filter-' + category.replace(/\\s+/g, '-'));
-                if (!checkbox) return;
-                
-                const isChecked = checkbox.checked;
-                categoryStates[category] = isChecked;
-                
-                console.log(`Toggling ${{category}} to ${{isChecked}}`);
-                
-                // Method 1: Try clicking the layer control checkbox
+            function toggleCategoryLayer(category, show) {{
+                categoryStates[category] = show;
                 const layerInputs = document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]');
-                let found = false;
                 
                 layerInputs.forEach(input => {{
                     const label = input.parentElement;
                     const labelText = label ? label.textContent.trim() : '';
-                    
                     if (labelText === category || labelText.startsWith(category)) {{
-                        found = true;
-                        console.log(`Found layer control for ${{category}}, current state: ${{input.checked}}, target: ${{isChecked}}`);
-                        if (input.checked !== isChecked) {{
+                        if (input.checked !== show) {{
                             input.click();
-                            console.log(`Clicked layer control for ${{category}}`);
                         }}
                     }}
                 }});
-                
-                if (!found) {{
-                    console.warn(`Layer control not found for category: ${{category}}`);
-                    // Method 2: Try to find and hide/show cluster layers directly
-                    setTimeout(() => {{
-                        const layerInputs2 = document.querySelectorAll('.leaflet-control-layers-overlays input');
-                        layerInputs2.forEach(inp => {{
-                            const lbl = inp.parentElement;
-                            if (lbl && lbl.textContent.includes(category)) {{
-                                if (inp.checked !== isChecked) {{
-                                    inp.click();
-                                }}
-                            }}
-                        }});
-                    }}, 300);
-                }}
             }}
             
             function selectAllFilters() {{
                 Object.keys(categoryStates).forEach(category => {{
-                    const checkbox = document.getElementById('filter-' + category.replace(/\\s+/g, '-'));
-                    if (checkbox && !checkbox.checked) {{
+                    const checkbox = document.getElementById(`filter-${{category.replace(/\\s+/g, '-')}}`);
+                    if (checkbox) {{
                         checkbox.checked = true;
-                        toggleCategory(category);
+                        toggleCategoryLayer(category, true);
                     }}
                 }});
             }}
             
             function clearAllFilters() {{
                 Object.keys(categoryStates).forEach(category => {{
-                    const checkbox = document.getElementById('filter-' + category.replace(/\\s+/g, '-'));
-                    if (checkbox && checkbox.checked) {{
+                    const checkbox = document.getElementById(`filter-${{category.replace(/\\s+/g, '-')}}`);
+                    if (checkbox) {{
                         checkbox.checked = false;
-                        toggleCategory(category);
+                        toggleCategoryLayer(category, false);
                     }}
                 }});
             }}
             
-            // Debug helper
-            function debugLayers() {{
-                console.log('Available layer controls:');
-                const inputs = document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]');
-                inputs.forEach(input => {{
-                    const label = input.parentElement;
-                    console.log('- ' + (label ? label.textContent.trim() : 'no label') + ': ' + input.checked);
-                }});
-            }}
-            
-            // Initialize when DOM is loaded
+            // Initialize on page load
             document.addEventListener('DOMContentLoaded', function() {{
-                setTimeout(() => {{
-                    initializeFilters();
-                    // Debug: log available layers after a delay
-                    setTimeout(debugLayers, 1000);
-                }}, 500);
+                setTimeout(initializeFilters, 500);
             }});
         </script>
         """
         
         # Insert before closing body tag
-        html_content = html_content.replace('</body>', f'{filter_panel}</body>')
+        html_content = html_content.replace('</body>', f'{sidebar_ui}</body>')
         
         with open(html_file, 'w', encoding='utf-8') as f:
             f.write(html_content)
