@@ -82,16 +82,15 @@ global-crisis-monitor/
 The system generates several output files:
 
 ### Interactive Crisis Map (`crisis_map.html`)
-- **Unified sidebar** with three tabs:
-  - Chat: Conversational crisis queries (keyword fallback mode, optional RAG with Ollama)
-  - Search: Real-time location and category filtering
-  - Filter: Visual category toggles with color indicators
-- **Color-coded markers** for different crisis types (7 distinct colors including new cadet blue for human rights)
+- **Conversational chat interface** for querying crisis data:
+  - Natural language search: "show me gaza", "humanitarian crises", "how many events"
+  - Location queries: Automatically zooms to locations and shows details
+  - Category filtering: "show me conflicts", "hide natural disasters"
+  - Statistics: "how many total", "list all crises"
+- **Color-coded markers** for different crisis types (7 distinct colors including cadet blue for human rights)
 - **Interactive popups** with article details and source links  
 - **Optional heatmap overlay** showing crisis density
 - **Fullscreen mode** and measurement tools
-
-RAG chatbot requires Ollama locally. Install with: `ollama pull llama3.2:3b` then add langchain/chromadb dependencies. System auto-detects Ollama availability and falls back to keyword matching.
 
 ### Additional Files
 - `crisis_summary.json` - Detailed statistics and analysis

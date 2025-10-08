@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-08T16:07:58.011408",
+  "timestamp": "2025-10-08T16:21:16.778845",
   "pipeline_stats": {
     "total_articles_fetched": 125,
     "unique_sources": 12,
@@ -9,19 +9,19 @@
   },
   "classification_stats": {
     "category_distribution": {
+      "Natural Disasters": 18,
       "Human Rights Violations": 40,
       "Humanitarian Crises": 20,
       "Unknown": 18,
-      "Natural Disasters": 18,
       "Political Conflicts": 29
     },
     "average_confidence": 0.7340869565217395
   },
   "geographic_stats": {
-    "total_locations_extracted": 304,
-    "successfully_geocoded": 295,
-    "geocoding_success_rate": 0.9703947368421053,
-    "unique_countries_affected": 75,
+    "total_locations_extracted": 311,
+    "successfully_geocoded": 302,
+    "geocoding_success_rate": 0.9710610932475884,
+    "unique_countries_affected": 76,
     "countries_list": [
       "Afghanistan",
       "Anguilla",
@@ -89,6 +89,7 @@
       "ایران",
       "تونس",
       "سوريا",
+      "قطر",
       "لبنان",
       "مصر",
       "नेपाल",
@@ -107,11 +108,11 @@
     ],
     [
       "ישראל",
-      19
+      20
     ],
     [
       "United States",
-      15
+      17
     ],
     [
       "Ukraine",

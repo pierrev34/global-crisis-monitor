@@ -938,51 +938,13 @@ class CrisisMapper:
                 margin: 0;
             }}
             
-            /* Tabs */
-            .sidebar-tabs {{
-                display: flex;
-                border-bottom: 1px solid #ddd;
-                background: white;
-            }}
-            
-            .tab-btn {{
-                flex: 1;
-                padding: 10px 12px;
-                border: none;
-                background: white;
-                cursor: pointer;
-                font-size: 11px;
-                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                color: #666;
-                border-bottom: 2px solid transparent;
-                transition: all 0.2s;
-            }}
-            
-            .tab-btn:hover {{
-                background: #f8f9fa;
-                color: #333;
-            }}
-            
-            .tab-btn.active {{
-                color: #333;
-                font-weight: bold;
-                border-bottom-color: #333;
-                background: white;
-            }}
-            
-            /* Tab content */
+            /* Content area */
             .sidebar-content {{
                 flex: 1;
                 overflow-y: auto;
                 padding: 16px;
-            }}
-            
-            .tab-pane {{
-                display: none;
-            }}
-            
-            .tab-pane.active {{
-                display: block;
+                display: flex;
+                flex-direction: column;
             }}
             
             /* Chat interface */
@@ -1060,142 +1022,6 @@ class CrisisMapper:
                 cursor: not-allowed;
             }}
             
-            .suggested-questions {{
-                margin-bottom: 12px;
-            }}
-            
-            .suggested-question {{
-                display: block;
-                width: 100%;
-                text-align: left;
-                padding: 6px 8px;
-                margin-bottom: 4px;
-                background: white;
-                border: 0.5px solid #ddd;
-                border-radius: 2px;
-                font-size: 10px;
-                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                color: #0066cc;
-                cursor: pointer;
-                transition: all 0.2s;
-            }}
-            
-            .suggested-question:hover {{
-                background: #f0f8ff;
-                border-color: #0066cc;
-            }}
-            
-            /* Search tab - simple input */
-            #searchTab .search-box {{
-                width: 100%;
-                padding: 8px;
-                border: 0.5px solid #666;
-                border-radius: 2px;
-                font-size: 11px;
-                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                margin-bottom: 12px;
-            }}
-            
-            #searchTab .search-box:focus {{
-                outline: none;
-                border-color: #333;
-            }}
-            
-            .search-results-list {{
-                max-height: calc(100vh - 250px);
-                overflow-y: auto;
-            }}
-            
-            .search-result {{
-                padding: 8px;
-                margin-bottom: 6px;
-                background: white;
-                border: 0.5px solid #ddd;
-                border-radius: 2px;
-                cursor: pointer;
-                transition: all 0.2s;
-            }}
-            
-            .search-result:hover {{
-                background: #f0f8ff;
-                border-color: #0066cc;
-            }}
-            
-            .search-result-title {{
-                font-size: 11px;
-                font-weight: bold;
-                color: #333;
-                margin-bottom: 4px;
-            }}
-            
-            .search-result-meta {{
-                font-size: 9px;
-                color: #666;
-            }}
-            
-            .color-dot {{
-                display: inline-block;
-                width: 6px;
-                height: 6px;
-                border-radius: 50%;
-                margin-right: 4px;
-            }}
-            
-            /* Filter tab */
-            .filter-item {{
-                display: flex;
-                align-items: center;
-                margin-bottom: 8px;
-                padding: 6px 8px;
-                background: white;
-                border: 0.5px solid #ddd;
-                border-radius: 2px;
-                cursor: pointer;
-                transition: all 0.2s;
-            }}
-            
-            .filter-item:hover {{
-                background: #f8f9fa;
-            }}
-            
-            .filter-checkbox {{
-                margin-right: 8px;
-                cursor: pointer;
-            }}
-            
-            .filter-label {{
-                flex: 1;
-                font-size: 11px;
-                color: #333;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-            }}
-            
-            .filter-buttons {{
-                display: flex;
-                gap: 8px;
-                margin-top: 12px;
-                padding-top: 12px;
-                border-top: 0.5px solid #ddd;
-            }}
-            
-            .filter-btn {{
-                flex: 1;
-                padding: 6px;
-                background: white;
-                border: 0.5px solid #666;
-                border-radius: 2px;
-                cursor: pointer;
-                font-size: 11px;
-                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
-                transition: all 0.2s;
-            }}
-            
-            .filter-btn:hover {{
-                background: #333;
-                color: white;
-            }}
             
             /* Adjust map to make room for sidebar */
             .folium-map {{
@@ -1211,60 +1037,23 @@ class CrisisMapper:
                 <p class="sidebar-stats">{total_events} events • {len(unique_sources)} sources</p>
             </div>
             
-            <!-- Tabs -->
-            <div class="sidebar-tabs">
-                <button class="tab-btn active" onclick="switchTab('chat')">💬 Chat</button>
-                <button class="tab-btn" onclick="switchTab('search')">🔍 Search</button>
-                <button class="tab-btn" onclick="switchTab('filter')">🎛️ Filter</button>
-            </div>
-            
-            <!-- Tab Content -->
+            <!-- Chat Interface -->
             <div class="sidebar-content">
-                <!-- Chat Tab -->
-                <div id="chatTab" class="tab-pane active">
-                    <div class="suggested-questions">
-                        <button class="suggested-question" onclick="askQuestion(this.textContent)">What are the most urgent crises?</button>
-                        <button class="suggested-question" onclick="askQuestion(this.textContent)">Which organizations are responding?</button>
-                        <button class="suggested-question" onclick="askQuestion(this.textContent)">How can I help?</button>
-                    </div>
-                    
-                    <div class="chat-messages" id="chatMessages">
-                        <div class="chat-message bot">
-                            <div>👋 Ask me about global crises. I can help you find information, understand patterns, and connect with humanitarian organizations.</div>
-                        </div>
-                    </div>
-                    
-                    <div class="chat-input-container">
-                        <input 
-                            type="text" 
-                            class="chat-input" 
-                            id="chatInput" 
-                            placeholder="Ask about crises..."
-                            onkeypress="if(event.key==='Enter') sendMessage()"
-                        />
-                        <button class="chat-send-btn" onclick="sendMessage()">Send</button>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="chat-message bot">
+                        <div>Ask me about crises worldwide. Try "show me conflicts" or "what's happening in gaza"</div>
                     </div>
                 </div>
                 
-                <!-- Search Tab -->
-                <div id="searchTab" class="tab-pane">
+                <div class="chat-input-container">
                     <input 
                         type="text" 
-                        class="search-box" 
-                        id="searchBox" 
-                        placeholder="Search location or crisis type..."
-                        oninput="performSearch(this.value)"
+                        class="chat-input" 
+                        id="chatInput" 
+                        placeholder="Ask about crises..."
+                        onkeypress="if(event.key==='Enter') sendMessage()"
                     />
-                    <div class="search-results-list" id="searchResultsList"></div>
-                </div>
-                
-                <!-- Filter Tab -->
-                <div id="filterTab" class="tab-pane">
-                    <div id="filterItems"></div>
-                    <div class="filter-buttons">
-                        <button class="filter-btn" onclick="selectAllFilters()">All</button>
-                        <button class="filter-btn" onclick="clearAllFilters()">None</button>
-                    </div>
+                    <button class="chat-send-btn" onclick="sendMessage()">Send</button>
                 </div>
             </div>
         </div>
@@ -1287,177 +1076,102 @@ class CrisisMapper:
                 }}
             }}, 1000);
             
-            // Tab switching
-            function switchTab(tabName) {{
-                // Update tab buttons
-                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-                event.target.classList.add('active');
-                
-                // Update tab panes
-                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-                document.getElementById(tabName + 'Tab').classList.add('active');
-            }}
-            
             // Chat functionality
             function sendMessage() {{
                 const input = document.getElementById('chatInput');
                 const message = input.value.trim();
                 if (!message) return;
                 
-                askQuestion(message);
-                input.value = '';
-            }}
-            
-            function askQuestion(question) {{
                 const messagesDiv = document.getElementById('chatMessages');
                 
                 // Add user message
                 const userMsg = document.createElement('div');
                 userMsg.className = 'chat-message user';
-                userMsg.textContent = question;
+                userMsg.textContent = message;
                 messagesDiv.appendChild(userMsg);
-                
-                // Scroll to bottom
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
                 
-                // Simple keyword-based responses (fallback)
-                let answer = generateAnswer(question);
+                // Process query and respond
+                const answer = processQuery(message);
                 
-                // Add bot response after delay
                 setTimeout(() => {{
                     const botMsg = document.createElement('div');
                     botMsg.className = 'chat-message bot';
                     botMsg.innerHTML = answer;
                     messagesDiv.appendChild(botMsg);
                     messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                }}, 500);
+                }}, 300);
+                
+                input.value = '';
             }}
             
-            function generateAnswer(question) {{
-                const q = question.toLowerCase();
+            function processQuery(query) {{
+                const q = query.toLowerCase();
                 
-                // Count total crises
-                const total = searchIndex.length;
-                const categories = Object.keys(categoryCounts);
+                // Search for location
+                const locationMatches = searchIndex.filter(item =>
+                    item.location.toLowerCase().includes(q)
+                );
                 
-                if (q.includes('urgent') || q.includes('worst') || q.includes('most')) {{
-                    const maxCat = Object.entries(categoryCounts).sort((a,b) => b[1] - a[1])[0];
-                    return `The most reported crisis type is <strong>${{maxCat[0]}}</strong> with ${{maxCat[1]}} incidents. Other active categories: ${{categories.filter(c => c !== maxCat[0]).join(', ')}}.`;
-                }}
+                // Search for category
+                const categoryMatches = searchIndex.filter(item =>
+                    item.category.toLowerCase().includes(q)
+                );
                 
-                if (q.includes('how can i help') || q.includes('donate') || q.includes('volunteer')) {{
-                    return `Organizations responding to these crises:<br>• <strong>UNHCR</strong> (refugees)<br>• <strong>Doctors Without Borders</strong> (medical)<br>• <strong>ICRC</strong> (Red Cross)<br>• <strong>Amnesty International</strong> (human rights)<br><br>Visit their websites to donate or volunteer.`;
-                }}
-                
-                if (q.includes('organizations') || q.includes('who') || q.includes('responding')) {{
-                    return `Current data sources include: Human Rights Watch, Amnesty International, UN OCHA, ReliefWeb, International Crisis Group, GDACS, Al Jazeera, BBC, and Radio Free Asia.`;
-                }}
-                
-                if (q.includes('how many') || q.includes('count')) {{
-                    return `There are <strong>${{total}} crisis locations</strong> with incidents across ${{categories.length}} categories: ${{categories.join(', ')}}.`;
-                }}
-                
-                // Location-specific
-                for (const item of searchIndex) {{
-                    if (q.includes(item.location.toLowerCase().split(',')[0].toLowerCase())) {{
-                        return `In <strong>${{item.location}}</strong>: ${{item.count}} ${{item.category}} incident${{item.count > 1 ? 's' : ''}} reported. Click the Search tab to see on map.`;
+                // Show me X / filter by category
+                if (q.includes('show') || q.includes('filter') || q.includes('hide')) {{
+                    for (const [cat, count] of Object.entries(categoryCounts)) {{
+                        if (q.includes(cat.toLowerCase()) || q.includes(cat.split(' ')[0].toLowerCase())) {{
+                            filterByCategory(cat, !q.includes('hide'));
+                            return `${{q.includes('hide') ? 'Hiding' : 'Showing'}} <strong>${{cat}}</strong> (${{count}} locations). Map updated.`;
+                        }}
                     }}
                 }}
                 
-                return `I found ${{total}} crisis incidents. Try asking: "What are the most urgent crises?" or "How can I help?" or use the Search tab to find specific locations.`;
-            }}
-            
-            // Search functionality
-            function performSearch(query) {{
-                const resultsList = document.getElementById('searchResultsList');
-                
-                if (query.length < 2) {{
-                    resultsList.innerHTML = '';
-                    return;
-                }}
-                
-                const matches = searchIndex.filter(item =>
-                    item.location.toLowerCase().includes(query.toLowerCase()) ||
-                    item.category.toLowerCase().includes(query.toLowerCase())
-                ).slice(0, 15);
-                
-                if (matches.length === 0) {{
-                    resultsList.innerHTML = '<div style="padding:8px;color:#999;font-size:10px;">No results found</div>';
-                    return;
-                }}
-                
-                let html = '';
-                matches.forEach(match => {{
-                    const colorDot = `<span class="color-dot" style="background:${{categoryColors[match.category] || '#999'}}"></span>`;
-                    html += `
-                        <div class="search-result" onclick="zoomToLocation(${{match.lat}}, ${{match.lon}})">
-                            <div class="search-result-title">${{colorDot}}${{match.location}}</div>
-                            <div class="search-result-meta">${{match.category}} • ${{match.count}} incident${{match.count > 1 ? 's' : ''}}</div>
-                        </div>
-                    `;
-                }});
-                
-                resultsList.innerHTML = html;
-            }}
-            
-            function zoomToLocation(lat, lon) {{
-                if (mapInstance) {{
-                    mapInstance.setView([lat, lon], 8);
-                }}
-            }}
-            
-            // Filter functionality
-            let categoryStates = {{}};
-            
-            function initializeFilters() {{
-                const filterContainer = document.getElementById('filterItems');
-                filterContainer.innerHTML = '';
-                
-                Object.keys(categoryCounts).forEach(category => {{
-                    if (categoryCounts[category] > 0 && categoryColors[category]) {{
-                        categoryStates[category] = true;
-                        
-                        const item = document.createElement('div');
-                        item.className = 'filter-item';
-                        item.onclick = function() {{ toggleFilter(category); }};
-                        
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.className = 'filter-checkbox';
-                        checkbox.id = `filter-${{category.replace(/\\s+/g, '-')}}`;
-                        checkbox.checked = true;
-                        checkbox.onclick = function(e) {{ e.stopPropagation(); toggleFilter(category); }};
-                        
-                        const label = document.createElement('label');
-                        label.className = 'filter-label';
-                        label.htmlFor = checkbox.id;
-                        
-                        const dot = document.createElement('span');
-                        dot.className = 'color-dot';
-                        dot.style.background = categoryColors[category];
-                        
-                        label.appendChild(dot);
-                        label.appendChild(document.createTextNode(category));
-                        
-                        item.appendChild(checkbox);
-                        item.appendChild(label);
-                        filterContainer.appendChild(item);
+                // Location query
+                if (locationMatches.length > 0) {{
+                    const loc = locationMatches[0];
+                    if (mapInstance) {{
+                        mapInstance.setView([loc.lat, loc.lon], 8);
                     }}
-                }});
-            }}
-            
-            function toggleFilter(category) {{
-                const checkbox = document.getElementById(`filter-${{category.replace(/\\s+/g, '-')}}`);
-                if (checkbox) {{
-                    checkbox.checked = !checkbox.checked;
-                    toggleCategoryLayer(category, checkbox.checked);
+                    return `Found <strong>${{loc.location}}</strong>: ${{loc.count}} ${{loc.category}} incident${{loc.count > 1 ? 's' : ''}}. Map zoomed to location.`;
                 }}
+                
+                // Category query
+                if (categoryMatches.length > 0) {{
+                    let html = `Found <strong>${{categoryMatches.length}}</strong> locations with ${{categoryMatches[0].category}}:<br>`;
+                    categoryMatches.slice(0, 5).forEach(item => {{
+                        html += `• ${{item.location}} (${{item.count}} incident${{item.count > 1 ? 's' : ''}})<br>`;
+                    }});
+                    if (categoryMatches.length > 5) {{
+                        html += `<em>+ ${{categoryMatches.length - 5}} more</em>`;
+                    }}
+                    return html;
+                }}
+                
+                // Statistics
+                if (q.includes('how many') || q.includes('total') || q.includes('count')) {{
+                    let stats = `<strong>${{searchIndex.length}} total crisis locations</strong>:<br>`;
+                    Object.entries(categoryCounts).forEach(([cat, count]) => {{
+                        stats += `• ${{cat}}: ${{count}}<br>`;
+                    }});
+                    return stats;
+                }}
+                
+                // List all
+                if (q.includes('list') || q.includes('all')) {{
+                    let html = 'Top crisis locations:<br>';
+                    searchIndex.slice(0, 10).forEach((item, i) => {{
+                        html += `${{i+1}}. ${{item.location}} (${{item.category}}, ${{item.count}} incidents)<br>`;
+                    }});
+                    return html;
+                }}
+                
+                return `No results for "${{query}}". Try: "show me gaza", "humanitarian crises", "how many events", or "list all"`;
             }}
             
-            function toggleCategoryLayer(category, show) {{
-                categoryStates[category] = show;
+            function filterByCategory(category, show) {{
                 const layerInputs = document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]');
-                
                 layerInputs.forEach(input => {{
                     const label = input.parentElement;
                     const labelText = label ? label.textContent.trim() : '';
@@ -1469,30 +1183,11 @@ class CrisisMapper:
                 }});
             }}
             
-            function selectAllFilters() {{
-                Object.keys(categoryStates).forEach(category => {{
-                    const checkbox = document.getElementById(`filter-${{category.replace(/\\s+/g, '-')}}`);
-                    if (checkbox) {{
-                        checkbox.checked = true;
-                        toggleCategoryLayer(category, true);
-                    }}
-                }});
+            function zoomToLocation(lat, lon) {{
+                if (mapInstance) {{
+                    mapInstance.setView([lat, lon], 8);
+                }}
             }}
-            
-            function clearAllFilters() {{
-                Object.keys(categoryStates).forEach(category => {{
-                    const checkbox = document.getElementById(`filter-${{category.replace(/\\s+/g, '-')}}`);
-                    if (checkbox) {{
-                        checkbox.checked = false;
-                        toggleCategoryLayer(category, false);
-                    }}
-                }});
-            }}
-            
-            // Initialize on page load
-            document.addEventListener('DOMContentLoaded', function() {{
-                setTimeout(initializeFilters, 500);
-            }});
         </script>
         """
         
