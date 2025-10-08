@@ -1,104 +1,100 @@
 {
-  "timestamp": "2025-10-06T22:53:47.961535",
+  "timestamp": "2025-10-08T15:44:31.041152",
   "pipeline_stats": {
-    "total_articles_fetched": 120,
-    "unique_sources": 13,
-    "articles_classified": 120,
-    "crisis_articles_found": 107,
-    "mappable_crisis_articles": 100
+    "total_articles_fetched": 123,
+    "unique_sources": 12,
+    "articles_classified": 123,
+    "crisis_articles_found": 105,
+    "mappable_crisis_articles": 95
   },
   "classification_stats": {
     "category_distribution": {
-      "Humanitarian Crises": 23,
-      "Unknown": 13,
-      "Political Conflicts": 31,
-      "Human Rights Violations": 35,
-      "Natural Disasters": 18
+      "Human Rights Violations": 40,
+      "Humanitarian Crises": 20,
+      "Unknown": 18,
+      "Natural Disasters": 18,
+      "Political Conflicts": 27
     },
-    "average_confidence": 0.7591381987577642
+    "average_confidence": 0.7346412159773774
   },
   "geographic_stats": {
-    "total_locations_extracted": 386,
-    "successfully_geocoded": 370,
-    "geocoding_success_rate": 0.9585492227979274,
-    "unique_countries_affected": 79,
+    "total_locations_extracted": 298,
+    "successfully_geocoded": 289,
+    "geocoding_success_rate": 0.9697986577181208,
+    "unique_countries_affected": 75,
     "countries_list": [
       "Afghanistan",
-      "Africa",
-      "Algérie ⵍⵣⵣⴰⵢⴻⵔ الجزائر",
       "Anguilla",
+      "Asia",
       "Australia",
       "Ayiti",
+      "België / Belgique / Belgien",
+      "Bolivia",
       "Botswana",
-      "Brasil",
-      "Burkina Faso",
-      "Cameroun",
+      "Bénin",
       "Canada",
-      "Danmark",
+      "Civitas Vaticana - Città del Vaticano",
+      "Colombia",
+      "Cuba",
       "Deutschland",
-      "Eesti",
+      "Ecuador",
       "España",
-      "Europe",
       "France",
-      "India",
       "Italia",
       "Ködörösêse tî Bêafrîka / République centrafricaine",
-      "Madagasikara / Madagascar",
       "Malaysia",
       "Maroc ⵍⵎⵖⵔⵉⴱ المغرب",
       "México",
-      "Namibia",
       "Nederland",
       "New Zealand / Aotearoa",
+      "Nigeria",
       "Norge",
-      "North America",
       "Palestine",
+      "Panamá",
       "Papua Niugini",
       "Philippines",
-      "Portugal",
+      "Polska",
       "République démocratique du Congo",
       "Schweiz/Suisse/Svizzera/Svizra",
-      "Sierra Leone",
       "Singapore",
-      "Somalia",
-      "Soomaaliya الصومال",
-      "South Sudan جنوب السودان",
+      "South Africa",
       "Sri Lanka",
       "Sudan",
       "Syria",
+      "Tanzania",
       "Tchad تشاد",
       "Türkiye",
-      "Uganda",
       "Ukraine",
       "United Kingdom",
       "United States",
-      "Venezuela",
+      "Vanuatu",
+      "Việt Nam",
       "Yemen",
       "Zambia",
-      "Zimbabwe",
-      "Österreich",
+      "Ελλάς",
       "Κύπρος - Kıbrıs",
       "Кыргызстан",
+      "Монгол улс ᠮᠤᠩᠭᠤᠯ ᠤᠯᠤᠰ",
       "Россия",
       "Україна",
+      "Қазақстан",
       "ישראל",
-      "افغانستان",
       "الأراضي الفلسطينية",
       "الأردن",
       "البحرين",
+      "السعودية",
       "السودان",
       "العراق",
       "اليمن",
       "ایران",
+      "تونس",
       "سوريا",
-      "قطر",
       "لبنان",
       "مصر",
-      "پاکستان",
       "नेपाल",
+      "ປະເທດລາວ",
       "འབྲུག་ཡུལ།",
       "မြန်မာ",
-      "ኢትዮጵያ إثيوبيا",
       "中国",
       "日本",
       "조선민주주의인민공화국"
@@ -107,26 +103,22 @@
   "top_crisis_locations": [
     [
       "Gaza Strip, Palestine",
-      32
-    ],
-    [
-      "United States",
-      24
+      25
     ],
     [
       "ישראל",
-      23
+      18
     ],
     [
-      "مصر",
-      9
+      "United States",
+      14
     ],
     [
-      "Sudan",
+      "Ukraine",
       7
     ],
     [
-      "עזה, עיר תחתית, רובע העיר התחתית, חיפה, נפת חיפה, מחוז חיפה, 3303333, ישראל",
+      "City of New York, New York, United States",
       7
     ],
     [
@@ -134,16 +126,20 @@
       6
     ],
     [
-      "Australia",
+      "Sudan",
       6
     ],
     [
-      "Ayiti",
-      5
+      "Palestine",
+      6
     ],
     [
-      "لبنان",
-      5
+      "Syria",
+      4
+    ],
+    [
+      "West Bank, Palestine",
+      4
     ]
   ]
 }

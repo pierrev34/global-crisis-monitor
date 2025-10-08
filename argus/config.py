@@ -48,7 +48,8 @@ CRISIS_COLORS = {
     "Humanitarian Crises": "orange",
     "Economic Crises": "blue",
     "Health Emergencies": "purple",
-    "Environmental Issues": "green"
+    "Environmental Issues": "green",
+    "Human Rights Violations": "darkred"
 }
 
 # Output settings

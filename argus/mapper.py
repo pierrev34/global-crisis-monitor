@@ -318,16 +318,28 @@ class CrisisMapper:
         
         return popup_html
     
-    def _get_folium_color(self, hex_color: str) -> str:
+    def _get_folium_color(self, color: str) -> str:
         """
-        Convert hex color to Folium color name
+        Convert hex color to Folium color name, or return if already a Folium color
         
         Args:
-            hex_color: Hex color code
+            color: Hex color code or Folium color name
             
         Returns:
             Folium color name (red, blue, green, etc.)
         """
+        # Valid Folium color names
+        valid_folium_colors = {
+            'red', 'darkred', 'lightred', 'orange', 'beige', 'green', 
+            'darkgreen', 'lightgreen', 'blue', 'darkblue', 'lightblue', 
+            'purple', 'darkpurple', 'pink', 'cadetblue', 'white', 'gray', 
+            'lightgray', 'black'
+        }
+        
+        # If it's already a valid Folium color, return as-is
+        if color.lower() in valid_folium_colors:
+            return color.lower()
+        
         # Map hex colors to Folium's limited color set
         color_map = {
             '#8B0000': 'darkred',
@@ -338,7 +350,7 @@ class CrisisMapper:
             '#4682B4': 'blue',
             '#228B22': 'green'
         }
-        return color_map.get(hex_color, 'gray')
+        return color_map.get(color, 'gray')
     
     def _get_fallback_location(self, article: Dict, category: str) -> Optional[Tuple[float, float, str]]:
         """
@@ -816,9 +828,30 @@ class CrisisMapper:
                 if category in self.crisis_colors:
                     category_counts[category] = category_counts.get(category, 0) + 1
         
-        # Generate JavaScript object for categories
+        # Convert Folium colors to hex for display
+        folium_to_hex = {
+            'red': '#d63e2a',
+            'darkred': '#a23336',
+            'orange': '#f69730',
+            'blue': '#38aadd',
+            'purple': '#d252b9',
+            'green': '#72b026',
+            'gray': '#575757',
+            'darkgreen': '#728224',
+            'lightred': '#ff8e7f',
+            'lightblue': '#8adaff'
+        }
+        
+        # Build category colors dict with hex values
+        category_colors_hex = {}
+        for category, folium_color in self.crisis_colors.items():
+            hex_color = folium_to_hex.get(folium_color, '#575757')
+            category_colors_hex[category] = hex_color
+        
+        # Generate JavaScript objects
         import json
         categories_js = json.dumps(category_counts)
+        colors_js = json.dumps(category_colors_hex)
         
         # Create filter panel HTML/CSS/JS
         filter_panel = f"""
@@ -954,15 +987,7 @@ class CrisisMapper:
             const categoryCounts = {categories_js};
             
             // Category colors matching Python config
-            const categoryColors = {{
-                'Human Rights Violations': '#8B0000',
-                'Political Conflicts': '#DC143C',
-                'Humanitarian Crises': '#FF6B35',
-                'Natural Disasters': '#FF8C00',
-                'Health Emergencies': '#9370DB',
-                'Economic Crises': '#4682B4',
-                'Environmental Issues': '#228B22'
-            }};
+            const categoryColors = {colors_js};
             
             // Track visibility state
             let categoryStates = {{}};
