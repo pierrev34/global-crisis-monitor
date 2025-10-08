@@ -816,17 +816,30 @@ class CrisisMapper:
         return output_file
     
     def _add_filter_panel(self, html_file: str, crisis_data: List[Dict] = None):
-        """Add custom filter panel to the generated map HTML"""
+        """Add custom search + filter panel to the generated map HTML"""
         with open(html_file, 'r', encoding='utf-8') as f:
             html_content = f.read()
         
-        # Count categories from crisis data
+        # Count categories from crisis data and build searchable index
         category_counts = {}
+        search_index = []
+        
         if crisis_data:
-            for item in crisis_data:
-                category = item.get('predicted_category', 'Other')
+            aggregated = self.aggregate_crises(crisis_data)
+            for crisis in aggregated:
+                category = crisis.get('category', 'Other')
                 if category in self.crisis_colors:
                     category_counts[category] = category_counts.get(category, 0) + 1
+                
+                # Build search index with location + category
+                location = crisis.get('location_name', '')
+                search_index.append({
+                    'location': location,
+                    'category': category,
+                    'lat': crisis.get('lat'),
+                    'lon': crisis.get('lon'),
+                    'count': crisis.get('article_count', 1)
+                })
         
         # Convert Folium colors to hex for display
         folium_to_hex = {
@@ -839,7 +852,8 @@ class CrisisMapper:
             'gray': '#575757',
             'darkgreen': '#728224',
             'lightred': '#ff8e7f',
-            'lightblue': '#8adaff'
+            'lightblue': '#8adaff',
+            'cadetblue': '#5f9ea0'
         }
         
         # Build category colors dict with hex values
@@ -852,21 +866,84 @@ class CrisisMapper:
         import json
         categories_js = json.dumps(category_counts)
         colors_js = json.dumps(category_colors_hex)
+        search_index_js = json.dumps(search_index)
         
-        # Create filter panel HTML/CSS/JS
+        # Create search + filter panel HTML/CSS/JS
         filter_panel = f"""
         <style>
+            .search-panel {{
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                background: white;
+                border-radius: 2px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+                padding: 10px;
+                z-index: 1000;
+                min-width: 240px;
+                max-width: 280px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+                border: 0.5px solid #333;
+                font-size: 11px;
+            }}
+            .search-input {{
+                width: 100%;
+                padding: 6px 8px;
+                border: 0.5px solid #666;
+                border-radius: 2px;
+                font-size: 11px;
+                font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+                box-sizing: border-box;
+            }}
+            .search-input:focus {{
+                outline: none;
+                border-color: #333;
+            }}
+            .search-results {{
+                max-height: 200px;
+                overflow-y: auto;
+                margin-top: 8px;
+                display: none;
+            }}
+            .search-results.active {{
+                display: block;
+            }}
+            .search-result-item {{
+                padding: 5px 8px;
+                cursor: pointer;
+                border-bottom: 0.5px solid #eee;
+                font-size: 10px;
+            }}
+            .search-result-item:hover {{
+                background: #f5f5f5;
+            }}
+            .search-result-location {{
+                font-weight: bold;
+                color: #333;
+            }}
+            .search-result-category {{
+                font-size: 9px;
+                color: #666;
+                margin-top: 2px;
+            }}
+            .search-stats {{
+                font-size: 9px;
+                color: #999;
+                margin-top: 5px;
+                padding-top: 5px;
+                border-top: 0.5px solid #eee;
+            }}
             .filter-panel {{
                 position: fixed;
-                top: 80px;
+                top: 265px;
                 right: 10px;
                 background: white;
                 border-radius: 2px;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.12);
                 padding: 8px 10px;
                 z-index: 1000;
-                min-width: 180px;
-                max-width: 200px;
+                min-width: 240px;
+                max-width: 280px;
                 font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
                 border: 0.5px solid #333;
                 font-size: 11px;
@@ -968,6 +1045,19 @@ class CrisisMapper:
             }}
         </style>
         
+        <!-- Search Panel -->
+        <div class="search-panel" id="searchPanel">
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput" 
+                placeholder="Search location or crisis type..."
+                autocomplete="off"
+            />
+            <div class="search-results" id="searchResults"></div>
+        </div>
+        
+        <!-- Filter Panel -->
         <div class="filter-panel" id="filterPanel">
             <div class="filter-header" onclick="toggleFilterPanel()">
                 <h3>Filter</h3>
@@ -983,11 +1073,81 @@ class CrisisMapper:
         </div>
         
         <script>
-            // Category data from Python
+            // Data from Python
             const categoryCounts = {categories_js};
-            
-            // Category colors matching Python config
             const categoryColors = {colors_js};
+            const searchIndex = {search_index_js};
+            
+            // Get reference to Leaflet map
+            let mapInstance = null;
+            setTimeout(() => {{
+                // Find the map instance (Folium creates it with a specific pattern)
+                const mapElements = document.querySelectorAll('[id^="map_"]');
+                if (mapElements.length > 0) {{
+                    const mapId = mapElements[0].id;
+                    mapInstance = window[mapId];
+                }}
+            }}, 1000);
+            
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchResults = document.getElementById('searchResults');
+            
+            searchInput.addEventListener('input', function(e) {{
+                const query = e.target.value.toLowerCase().trim();
+                
+                if (query.length < 2) {{
+                    searchResults.classList.remove('active');
+                    searchResults.innerHTML = '';
+                    return;
+                }}
+                
+                // Search through index
+                const matches = searchIndex.filter(item => 
+                    item.location.toLowerCase().includes(query) ||
+                    item.category.toLowerCase().includes(query)
+                ).slice(0, 10); // Limit to 10 results
+                
+                if (matches.length === 0) {{
+                    searchResults.innerHTML = '<div class="search-result-item" style="color:#999;">No results found</div>';
+                    searchResults.classList.add('active');
+                    return;
+                }}
+                
+                // Display results
+                let html = '';
+                matches.forEach(match => {{
+                    const colorDot = `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${{categoryColors[match.category] || '#999'}};margin-right:4px;"></span>`;
+                    html += `
+                        <div class="search-result-item" onclick="zoomToLocation(${{match.lat}}, ${{match.lon}}, '${{match.location.replace(/'/g, "\\\\'")}}')" data-lat="${{match.lat}}" data-lon="${{match.lon}}">
+                            <div class="search-result-location">${{colorDot}}${{match.location}}</div>
+                            <div class="search-result-category">${{match.category}} • ${{match.count}} incident${{match.count > 1 ? 's' : ''}}</div>
+                        </div>
+                    `;
+                }});
+                html += `<div class="search-stats">${{matches.length}} result${{matches.length > 1 ? 's' : ''}} found</div>`;
+                
+                searchResults.innerHTML = html;
+                searchResults.classList.add('active');
+            }});
+            
+            // Close search results when clicking outside
+            document.addEventListener('click', function(e) {{
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {{
+                    searchResults.classList.remove('active');
+                }}
+            }});
+            
+            // Zoom to location function
+            function zoomToLocation(lat, lon, name) {{
+                if (mapInstance) {{
+                    mapInstance.setView([lat, lon], 8);
+                    searchResults.classList.remove('active');
+                    searchInput.value = name;
+                }} else {{
+                    console.error('Map instance not found');
+                }}
+            }}
             
             // Track visibility state
             let categoryStates = {{}};

@@ -41,15 +41,15 @@ MAP_CONFIG = {
     "tile_style": "OpenStreetMap"
 }
 
-# Color mapping for crisis types
+# Color mapping for crisis types - using maximally distinct Folium colors
 CRISIS_COLORS = {
-    "Natural Disasters": "red",
-    "Political Conflicts": "darkred", 
-    "Humanitarian Crises": "orange",
-    "Economic Crises": "blue",
-    "Health Emergencies": "purple",
-    "Environmental Issues": "green",
-    "Human Rights Violations": "darkred"
+    "Natural Disasters": "red",           # Bright red for disasters
+    "Political Conflicts": "darkred",     # Dark red for conflicts
+    "Humanitarian Crises": "orange",      # Orange for humanitarian
+    "Economic Crises": "blue",            # Blue for economic
+    "Health Emergencies": "purple",       # Purple for health
+    "Environmental Issues": "green",      # Green for environment
+    "Human Rights Violations": "cadetblue" # Distinct blue for human rights
 }
 
 # Output settings

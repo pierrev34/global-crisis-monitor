@@ -1,11 +1,11 @@
 {
-  "timestamp": "2025-10-08T15:44:31.041152",
+  "timestamp": "2025-10-08T15:55:30.397522",
   "pipeline_stats": {
-    "total_articles_fetched": 123,
+    "total_articles_fetched": 124,
     "unique_sources": 12,
-    "articles_classified": 123,
-    "crisis_articles_found": 105,
-    "mappable_crisis_articles": 95
+    "articles_classified": 124,
+    "crisis_articles_found": 106,
+    "mappable_crisis_articles": 96
   },
   "classification_stats": {
     "category_distribution": {
@@ -13,14 +13,14 @@
       "Humanitarian Crises": 20,
       "Unknown": 18,
       "Natural Disasters": 18,
-      "Political Conflicts": 27
+      "Political Conflicts": 28
     },
-    "average_confidence": 0.7346412159773774
+    "average_confidence": 0.7343618513323986
   },
   "geographic_stats": {
-    "total_locations_extracted": 298,
-    "successfully_geocoded": 289,
-    "geocoding_success_rate": 0.9697986577181208,
+    "total_locations_extracted": 299,
+    "successfully_geocoded": 290,
+    "geocoding_success_rate": 0.9698996655518395,
     "unique_countries_affected": 75,
     "countries_list": [
       "Afghanistan",
@@ -103,7 +103,7 @@
   "top_crisis_locations": [
     [
       "Gaza Strip, Palestine",
-      25
+      26
     ],
     [
       "ישראל",
