@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-10-08T16:21:16.778845",
+  "timestamp": "2025-10-08T16:38:32.885303",
   "pipeline_stats": {
     "total_articles_fetched": 125,
     "unique_sources": 12,
@@ -9,8 +9,8 @@
   },
   "classification_stats": {
     "category_distribution": {
-      "Natural Disasters": 18,
       "Human Rights Violations": 40,
+      "Natural Disasters": 18,
       "Humanitarian Crises": 20,
       "Unknown": 18,
       "Political Conflicts": 29
@@ -18,10 +18,10 @@
     "average_confidence": 0.7340869565217395
   },
   "geographic_stats": {
-    "total_locations_extracted": 311,
-    "successfully_geocoded": 302,
-    "geocoding_success_rate": 0.9710610932475884,
-    "unique_countries_affected": 76,
+    "total_locations_extracted": 315,
+    "successfully_geocoded": 306,
+    "geocoding_success_rate": 0.9714285714285714,
+    "unique_countries_affected": 78,
     "countries_list": [
       "Afghanistan",
       "Anguilla",
@@ -92,7 +92,9 @@
       "قطر",
       "لبنان",
       "مصر",
+      "پاکستان",
       "नेपाल",
+      "বাংলাদেশ",
       "ປະເທດລາວ",
       "འབྲུག་ཡུལ།",
       "မြန်မာ",
@@ -112,15 +114,15 @@
     ],
     [
       "United States",
-      17
-    ],
-    [
-      "Ukraine",
-      7
+      15
     ],
     [
       "City of New York, New York, United States",
-      7
+      9
+    ],
+    [
+      "Ukraine",
+      6
     ],
     [
       "ایران",

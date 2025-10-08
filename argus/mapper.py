@@ -908,7 +908,7 @@ class CrisisMapper:
                 left: 0;
                 top: 0;
                 bottom: 0;
-                width: 320px;
+                width: 280px;
                 background: white;
                 border-right: 1px solid #ddd;
                 display: flex;
@@ -1025,7 +1025,7 @@ class CrisisMapper:
             
             /* Adjust map to make room for sidebar */
             .folium-map {{
-                margin-left: 320px !important;
+                margin-left: 280px !important;
             }}
         </style>
         
@@ -1041,7 +1041,7 @@ class CrisisMapper:
             <div class="sidebar-content">
                 <div class="chat-messages" id="chatMessages">
                     <div class="chat-message bot">
-                        <div>Ask me about crises worldwide. Try "show me conflicts" or "what's happening in gaza"</div>
+                        <div>How can I assist you today?</div>
                     </div>
                 </div>
                 
