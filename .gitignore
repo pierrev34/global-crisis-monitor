@@ -70,4 +70,4 @@ models/
 
 # Generated HTML (contains API key)
 crisis_map.html
-index.html
+# index.html is our deployed landing page on Vercel

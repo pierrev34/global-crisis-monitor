@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARGUS: Global Crisis Monitor</title>
+    <meta name="description" content="ARGUS monitors global crises daily from NGOs, human rights orgs, and disaster feeds. Interactive map with keyword search, stricter classification, and data window notes (7/14/30 days)." />
+    <meta property="og:title" content="ARGUS: Global Crisis Monitor" />
+    <meta property="og:description" content="Daily crisis tracking from trusted sources with an interactive map, search, and data windows." />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Computer Modern Serif", Georgia, "Times New Roman", serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.15;
+            font-size: 13px;
+        }
+        
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        h1 {
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .subtitle {
+            font-size: 0.8rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+        
+        hr {
+            border: none;
+            border-top: 0.5px solid #000;
+            margin: 2rem 0;
+        }
+        
+        .nav-links {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .nav-links a {
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin: 0 1rem;
+        }
+        
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .map-container {
+            margin: 2rem 0;
+            border: 1px solid #ddd;
+        }
+        
+        .map-frame {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            display: block;
+        }
+        
+        .stats-section {
+            margin: 2rem 0;
+        }
+        
+        .stats-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-column h3 {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .stat-item {
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            color: #333;
+        }
+        
+        .crisis-categories {
+            margin-top: 1rem;
+        }
+        
+        .category-item {
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            color: #333;
+        }
+        
+        .about-section {
+            margin: 2rem 0;
+        }
+        
+        .about-section h2 {
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .about-section p {
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .tech-list {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 1rem;
+        }
+        
+        .footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 0.5px solid #000;
+        }
+        
+        .footer a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .map-stats-layout {
+            position: relative;
+        }
+        
+        .map-container {
+            width: 100%;
+        }
+        
+        .stats-panel {
+            position: absolute;
+            top: 0;
+            right: -320px;
+            width: 300px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 1rem;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .stats-panel {
+                position: static;
+                right: auto;
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .map-frame {
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-links">
+            <a href="https://github.com/pierrev34/global-crisis-monitor" target="_blank">view source code</a>
+            |
+            <a href="#" id="link7">7 days</a>
+            <a href="#" id="link14">14 days</a>
+            <a href="#" id="link30">30 days</a>
+        </div>
+        
+        <!-- Map and Statistics Layout -->
+        <div class="map-stats-layout">
+            <!-- Interactive Map -->
+            <div class="map-container" id="map">
+                <iframe 
+                    src="https://pierrev34.github.io/global-crisis-monitor/crisis_map.html" 
+                    class="map-frame"
+                    title="Interactive Crisis Map">
+                </iframe>
+            </div>
+            
+            <!-- Statistics Panel -->
+            <div class="stats-panel">
+                <h2 class="stats-title">Live Data</h2>
+                
+                <div class="stat-item">Events: <span id="crisis-count">3</span></div>
+                <div class="stat-item">Sources: <span id="source-count">2</span></div>
+                
+                <div style="margin-top: 1rem; font-size: 0.7rem; color: #666;">
+                    <span id="last-update">Updated: 2025-10-01 23:03</span>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <!-- About Section -->
+        <div class="about-section">
+            <h2>System Overview</h2>
+            <p>
+                ARGUS monitors 15+ trusted sources (NGOs, human rights orgs, disaster monitors, and regional media) and updates daily via CI. It applies stricter, rule-based classification to avoid soft-news false positives, extracts locations with NLP + geocoding, and renders an interactive crisis map with keyword search, category filters, heatmaps, and data window notes.
+            </p>
+            <p>
+                Sources include Human Rights Watch, Amnesty International, UN OCHA, ReliefWeb, Radio Free Asia, USGS/GDACS, and others. Location extraction uses spaCy + Nominatim with crisis-zone overrides (e.g., Gaza, Xinjiang). Search supports aliases (e.g., USA/US/U.S., DRC, Gaza).
+            </p>
+            <div class="tech-list">
+                Technology stack: Python, spaCy NER, Geopy, Folium, NGO RSS feeds, GitHub Actions
+            </div>
+        </div>
+        
+    </div>
+
+    <script>
+        const GH_BASE = 'https://pierrev34.github.io/global-crisis-monitor';
+        // Load statistics from gh-pages summary so Vercel doesn't need to build
+        fetch(`${GH_BASE}/crisis_summary.json`)
+            .then(response => response.json())
+            .then(data => {
+                // Update simplified statistics
+                document.getElementById('crisis-count').textContent = 
+                    data.pipeline_stats?.crisis_articles_found || '0';
+                document.getElementById('source-count').textContent = 
+                    data.pipeline_stats?.unique_sources || '0';
+                
+                // Update timestamp
+                const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : new Date().toLocaleDateString();
+                document.getElementById('last-update').textContent = `Updated: ${timestamp.split(',')[0]}`;
+            })
+            .catch(error => {
+                console.log('Using demo data');
+                // Keep default values
+            });
+
+        // Data window controls: Load maps from GitHub Pages
+        const iframe = document.querySelector('.map-frame');
+        const link7 = document.getElementById('link7');
+        const link14 = document.getElementById('link14');
+        const link30 = document.getElementById('link30');
+        function setActive(el) {
+            [link7, link14, link30].forEach(a => a.style.fontWeight = 'normal');
+            el.style.fontWeight = 'bold';
+        }
+        link7.addEventListener('click', (e) => { e.preventDefault(); iframe.src = `${GH_BASE}/crisis_map.html`; setActive(link7); });
+        link14.addEventListener('click', (e) => { e.preventDefault(); iframe.src = `${GH_BASE}/crisis_map_14d.html`; setActive(link14); });
+        link30.addEventListener('click', (e) => { e.preventDefault(); iframe.src = `${GH_BASE}/crisis_map_30d.html`; setActive(link30); });
+    </script>
+</body>
+</html>
