@@ -198,6 +198,13 @@ class GeographicExtractor:
             'sudan': {'lat': 15.5007, 'lon': 32.5599, 'name': 'Sudan'},
             'south sudan': {'lat': 6.8770, 'lon': 31.3070, 'name': 'South Sudan'},
             'somalia': {'lat': 5.1521, 'lon': 46.1996, 'name': 'Somalia'},
+            # China-related systemic crises and regions
+            'xinjiang': {'lat': 43.8250, 'lon': 87.6168, 'name': 'Xinjiang, China'},
+            'uighur': {'lat': 43.8250, 'lon': 87.6168, 'name': 'Xinjiang, China'},
+            'uyghur': {'lat': 43.8250, 'lon': 87.6168, 'name': 'Xinjiang, China'},
+            'tibet': {'lat': 29.6520, 'lon': 91.1721, 'name': 'Tibet, China'},
+            'hong kong': {'lat': 22.3193, 'lon': 114.1694, 'name': 'Hong Kong, China'},
+            'china': {'lat': 35.8617, 'lon': 104.1954, 'name': 'China'},
         }
         
         # Check if this is a known crisis zone
@@ -221,8 +228,8 @@ class GeographicExtractor:
             # Primary: Nominatim (OSM) - add context to improve accuracy
             location = None
             try:
-                # Try with original text first
-                location = self.geocoder.geocode(location_text)
+                # Try with original text first (prefer English results for consistent search)
+                location = self.geocoder.geocode(location_text, language='en')
             except (GeocoderTimedOut, GeocoderServiceError) as e:
                 logger.warning(f"Geocoding service error for '{location_text}': {e}")
             except Exception as e:
@@ -296,6 +303,31 @@ class GeographicExtractor:
             
             # Extract locations using NER
             extracted_locations = self.extract_locations(full_text)
+
+            # Fallback: infer from crisis keywords if NER missed it (systemic regions)
+            if not extracted_locations:
+                lower = full_text.lower()
+                fallback_keywords = [
+                    ('xinjiang', 'Xinjiang'),
+                    ('uyghur', 'Xinjiang'),
+                    ('uighur', 'Xinjiang'),
+                    ('tibet', 'Tibet'),
+                    ('hong kong', 'Hong Kong'),
+                    ('beijing', 'Beijing'),
+                    ('china', 'China'),
+                ]
+                for trigger, canonical in fallback_keywords:
+                    if trigger in lower:
+                        extracted_locations = [{
+                            'text': canonical,
+                            'original_text': canonical,
+                            'start_char': 0,
+                            'end_char': 0,
+                            'label': 'GPE',
+                            'confidence': 0.5,
+                            'fallback': True
+                        }]
+                        break
             
             # Geocode each location
             geocoded_locations = []

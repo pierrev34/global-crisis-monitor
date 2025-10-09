@@ -832,6 +832,9 @@ class CrisisMapper:
         search_index = []
         total_events = 0
         unique_sources = set()
+        window_start = 'N/A'
+        window_end = 'N/A'
+        ts_values = []
         
         if crisis_data:
             aggregated = self.aggregate_crises(crisis_data)
@@ -858,6 +861,20 @@ class CrisisMapper:
                                                         article_data['article'].get('source', ''))
                     if source:
                         unique_sources.add(source)
+            
+            # Compute data window from original crisis_data timestamps
+            try:
+                for item in crisis_data:
+                    art = item.get('article', {})
+                    ts = art.get('published_timestamp')
+                    if isinstance(ts, (int, float)) and ts > 0:
+                        ts_values.append(ts)
+                if ts_values:
+                    from datetime import datetime
+                    window_start = datetime.utcfromtimestamp(min(ts_values)).strftime('%Y-%m-%d')
+                    window_end = datetime.utcfromtimestamp(max(ts_values)).strftime('%Y-%m-%d')
+            except Exception:
+                pass
         
         # Convert Folium colors to hex for display
         folium_to_hex = {
@@ -931,6 +948,15 @@ class CrisisMapper:
                 font-size: 10px;
                 color: #666;
                 margin: 0;
+            }}
+
+            .window-select {{
+                margin-top: 6px;
+            }}
+            .window-select select {{
+                width: 100%;
+                padding: 4px 6px;
+                font-size: 11px;
             }}
             
             /* Content area */
@@ -1029,7 +1055,14 @@ class CrisisMapper:
             <!-- Header -->
             <div class="sidebar-header">
                 <h1 class="sidebar-title">CRISIS MONITOR</h1>
-                <p class="sidebar-stats">{total_events} events • {len(unique_sources)} sources</p>
+                <p class="sidebar-stats">{total_events} events • {len(unique_sources)} sources<br><span class="muted">Window: {window_start} – {window_end} UTC</span></p>
+                <div class="window-select">
+                    <select id="windowSelect">
+                        <option value="crisis_map.html">Last 7 days</option>
+                        <option value="crisis_map_14d.html">Last 14 days</option>
+                        <option value="crisis_map_30d.html">Last 30 days</option>
+                    </select>
+                </div>
             </div>
             
             <!-- Chat Interface -->
@@ -1069,6 +1102,53 @@ class CrisisMapper:
                     mapInstance = window[mapId];
                 }}
             }}, 1000);
+
+            // Initialize data window selector
+            setTimeout(() => {{
+                const sel = document.getElementById('windowSelect');
+                if (!sel) return;
+                const path = (window.location.pathname || '').toLowerCase();
+                if (path.indexOf('crisis_map_30d.html') !== -1) {{
+                    sel.value = 'crisis_map_30d.html';
+                }} else if (path.indexOf('crisis_map_14d.html') !== -1) {{
+                    sel.value = 'crisis_map_14d.html';
+                }} else {{
+                    sel.value = 'crisis_map.html';
+                }}
+                sel.addEventListener('change', function() {{
+                    window.location.href = this.value;
+                }});
+            }}, 0);
+
+            // --- Search helpers ---
+            function normalizeText(s) {{
+                try {{
+                    return (s || '')
+                        .toString()
+                        .toLowerCase()
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '')  // strip diacritics
+                        .replace(/[^a-z0-9 ,\-]/g, ' ')    // drop punctuation except comma/hyphen
+                        .replace(/\s+/g, ' ')              // collapse spaces
+                        .trim();
+                }} catch {{
+                    return (s || '').toString().toLowerCase().trim();
+                }}
+            }}
+
+            const aliasMap = {{
+                'us': 'united states',
+                'u s': 'united states',
+                'usa': 'united states',
+                'u.s.': 'united states',
+                'u.s': 'united states',
+                'uk': 'united kingdom',
+                'uae': 'united arab emirates',
+                'drc': 'democratic republic of the congo',
+                'dr congo': 'democratic republic of the congo',
+                'gaza': 'gaza strip',
+                'nyc': 'new york'
+            }};
             
             // Chat functionality
             async function sendMessage() {{
@@ -1128,11 +1208,25 @@ class CrisisMapper:
                 }}
                 
                 // Search for location or category
-                let searchTerm = q.replace(/^(show me|show|find|search|where is|what about|tell me about|whats in|what's in)\s+/i, '').trim();
-                
+                let searchTerm = q.replace(/^(show me|show|find|search|where is|what about|tell me about|whats in|what's in|what is happening in|what's happening in|whats happening in|what is going on in|what's going on in)\s+/i, '').trim();
+                let normalized = normalizeText(searchTerm);
+                // If user asked "... in X" or "... about X", grab X
+                const inIdx = normalized.lastIndexOf(' in ');
+                const aboutIdx = normalized.lastIndexOf(' about ');
+                const splitIdx = Math.max(inIdx, aboutIdx);
+                if (splitIdx > -1) {{
+                    normalized = normalized.substring(splitIdx + (inIdx > aboutIdx ? 4 : 7));
+                }}
+                // Trim trailing noise
+                normalized = normalized.replace(/\b(now|today|currently)\b$/,'').trim();
+                // Remove any trailing punctuation
+                normalized = normalized.replace(/[^a-z0-9 \-,]/gi, '').trim();
+                if (aliasMap[normalized]) {{
+                    normalized = aliasMap[normalized];
+                }}
                 // Try location match first
                 const locationMatches = searchIndex.filter(item =>
-                    item.location.toLowerCase().includes(searchTerm)
+                    normalizeText(item.location).includes(normalized)
                 );
                 
                 if (locationMatches.length > 0) {{
@@ -1151,12 +1245,11 @@ class CrisisMapper:
                     }}
                     return response;
                 }}
-                
+
                 // Try category match
                 const categoryMatches = searchIndex.filter(item =>
-                    item.category.toLowerCase().includes(searchTerm)
+                    normalizeText(item.category).includes(normalized)
                 );
-                
                 if (categoryMatches.length > 0) {{
                     let html = `<strong>Found ${{categoryMatches.length}} ${{categoryMatches[0].category}} locations:</strong><br><br>`;
                     categoryMatches.slice(0, 8).forEach((item, i) => {{

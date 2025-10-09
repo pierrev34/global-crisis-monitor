@@ -27,9 +27,11 @@ jobs:
         pip install -r requirements.txt
         python -m spacy download en_core_web_sm
         
-    - name: Run Enhanced ARGUS Crisis Monitor v2.0
+    - name: Build 7/14/30-day maps
       run: |
-        python main.py --hours 168 --max-articles 150 --confidence 0.3
+        python main.py --hours 168 --max-articles 150 --confidence 0.3 --output crisis_map.html
+        python main.py --hours 336 --max-articles 200 --confidence 0.3 --output crisis_map_14d.html
+        python main.py --hours 720 --max-articles 250 --confidence 0.3 --output crisis_map_30d.html
         
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
