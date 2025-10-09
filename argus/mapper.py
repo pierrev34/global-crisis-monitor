@@ -884,15 +884,10 @@ class CrisisMapper:
         colors_js = json.dumps(category_colors_hex)
         search_index_js = json.dumps(search_index)
         
-        # Generate suggested questions for chat
-        suggested_questions = [
-            "What are the most urgent crises right now?",
-            "Which organizations are responding?",
-            "How can I help with these crises?",
-            "Show me crises in the Middle East",
-            "What natural disasters are happening?"
-        ]
-        suggestions_js = json.dumps(suggested_questions)
+        # Get Groq API key from environment
+        import os
+        groq_api_key = os.getenv('GROQ_API_KEY', '')
+        groq_key_js = json.dumps(groq_api_key)
         
         # Create unified sidebar UI
         sidebar_ui = f"""
@@ -908,7 +903,7 @@ class CrisisMapper:
                 left: 0;
                 top: 0;
                 bottom: 0;
-                width: 280px;
+                width: 240px;
                 background: white;
                 border-right: 1px solid #ddd;
                 display: flex;
@@ -1025,7 +1020,7 @@ class CrisisMapper:
             
             /* Adjust map to make room for sidebar */
             .folium-map {{
-                margin-left: 280px !important;
+                margin-left: 240px !important;
             }}
         </style>
         
@@ -1063,7 +1058,7 @@ class CrisisMapper:
             const categoryCounts = {categories_js};
             const categoryColors = {colors_js};
             const searchIndex = {search_index_js};
-            const suggestedQuestions = {suggestions_js};
+            const GROQ_API_KEY = {groq_key_js};
             
             // Get reference to Leaflet map
             let mapInstance = null;
@@ -1077,7 +1072,7 @@ class CrisisMapper:
             }}, 1000);
             
             // Chat functionality
-            function sendMessage() {{
+            async function sendMessage() {{
                 const input = document.getElementById('chatInput');
                 const message = input.value.trim();
                 if (!message) return;
@@ -1091,67 +1086,116 @@ class CrisisMapper:
                 messagesDiv.appendChild(userMsg);
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
                 
-                // Process query and respond
-                const answer = processQuery(message);
-                
-                setTimeout(() => {{
-                    const botMsg = document.createElement('div');
-                    botMsg.className = 'chat-message bot';
-                    botMsg.innerHTML = answer;
-                    messagesDiv.appendChild(botMsg);
-                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
-                }}, 300);
-                
                 input.value = '';
+                
+                // Show thinking indicator
+                const thinkingMsg = document.createElement('div');
+                thinkingMsg.className = 'chat-message bot';
+                thinkingMsg.innerHTML = '<em>Thinking...</em>';
+                messagesDiv.appendChild(thinkingMsg);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                
+                // Get response
+                const answer = GROQ_API_KEY 
+                    ? await queryGroq(message)
+                    : processQuery(message);
+                
+                // Replace thinking with actual response
+                thinkingMsg.innerHTML = answer;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }}
+            
+            async function queryGroq(userMessage) {{
+                if (!GROQ_API_KEY) {{
+                    return processQuery(userMessage);
+                }}
+                
+                // Build context from search index
+                let context = 'Crisis data:\\n';
+                searchIndex.slice(0, 20).forEach(item => {{
+                    context += `- ${{item.location}}: ${{item.count}} ${{item.category}} incident(s)\\n`;
+                }});
+                
+                const systemPrompt = `You are a crisis monitoring assistant. Answer questions about global crises based ONLY on this data:
+
+${{context}}
+
+Provide concise, helpful answers. If asked about a location, mention if it's in the data and provide relevant details. Keep responses under 100 words.`;
+
+                try {{
+                    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {{
+                        method: 'POST',
+                        headers: {{
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${{GROQ_API_KEY}}`
+                        }},
+                        body: JSON.stringify({{
+                            model: 'llama-3.1-8b-instant',
+                            messages: [
+                                {{ role: 'system', content: systemPrompt }},
+                                {{ role: 'user', content: userMessage }}
+                            ],
+                            temperature: 0.3,
+                            max_tokens: 150
+                        }})
+                    }});
+                    
+                    if (response.ok) {{
+                        const data = await response.json();
+                        return data.choices[0].message.content;
+                    }} else {{
+                        console.log('Groq API error:', response.status);
+                    }}
+                }} catch (e) {{
+                    console.log('Groq query failed:', e);
+                }}
+                
+                // Fallback to keyword search
+                return processQuery(userMessage);
             }}
             
             function processQuery(query) {{
-                const q = query.toLowerCase();
+                const q = query.toLowerCase().trim();
                 
-                // Search for location
+                // Extract search term (remove "show me", "find", etc.)
+                let searchTerm = q
+                    .replace(/^(show me|show|find|search|where is|whats in|what's in)\s+/i, '')
+                    .trim();
+                
+                // Search for location (more flexible matching)
                 const locationMatches = searchIndex.filter(item =>
-                    item.location.toLowerCase().includes(q)
+                    item.location.toLowerCase().includes(searchTerm)
                 );
                 
                 // Search for category
                 const categoryMatches = searchIndex.filter(item =>
-                    item.category.toLowerCase().includes(q)
+                    item.category.toLowerCase().includes(searchTerm)
                 );
                 
-                // Show me X / filter by category
-                if (q.includes('show') || q.includes('filter') || q.includes('hide')) {{
-                    for (const [cat, count] of Object.entries(categoryCounts)) {{
-                        if (q.includes(cat.toLowerCase()) || q.includes(cat.split(' ')[0].toLowerCase())) {{
-                            filterByCategory(cat, !q.includes('hide'));
-                            return `${{q.includes('hide') ? 'Hiding' : 'Showing'}} <strong>${{cat}}</strong> (${{count}} locations). Map updated.`;
-                        }}
-                    }}
-                }}
-                
-                // Location query
+                // Location query (prioritize this)
                 if (locationMatches.length > 0) {{
                     const loc = locationMatches[0];
                     if (mapInstance) {{
                         mapInstance.setView([loc.lat, loc.lon], 8);
                     }}
-                    return `Found <strong>${{loc.location}}</strong>: ${{loc.count}} ${{loc.category}} incident${{loc.count > 1 ? 's' : ''}}. Map zoomed to location.`;
+                    return `Found <strong>${{loc.location}}</strong>: ${{loc.count}} ${{loc.category}} incident${{loc.count > 1 ? 's' : ''}}. Zoomed to location.`;
                 }}
                 
                 // Category query
                 if (categoryMatches.length > 0) {{
-                    let html = `Found <strong>${{categoryMatches.length}}</strong> locations with ${{categoryMatches[0].category}}:<br>`;
-                    categoryMatches.slice(0, 5).forEach(item => {{
-                        html += `• ${{item.location}} (${{item.count}} incident${{item.count > 1 ? 's' : ''}})<br>`;
+                    let html = `Found <strong>${{categoryMatches.length}}</strong> ${{categoryMatches[0].category}} locations:<br>`;
+                    categoryMatches.slice(0, 8).forEach(item => {{
+                        html += `• ${{item.location}} (${{item.count}})<br>`;
                     }});
-                    if (categoryMatches.length > 5) {{
-                        html += `<em>+ ${{categoryMatches.length - 5}} more</em>`;
+                    if (categoryMatches.length > 8) {{
+                        html += `<em>+ ${{categoryMatches.length - 8}} more</em>`;
                     }}
                     return html;
                 }}
                 
                 // Statistics
-                if (q.includes('how many') || q.includes('total') || q.includes('count')) {{
-                    let stats = `<strong>${{searchIndex.length}} total crisis locations</strong>:<br>`;
+                if (q.includes('how many') || q.includes('total') || q.includes('count') || q.includes('stats')) {{
+                    let stats = `<strong>${{searchIndex.length}} crisis locations</strong>:<br>`;
                     Object.entries(categoryCounts).forEach(([cat, count]) => {{
                         stats += `• ${{cat}}: ${{count}}<br>`;
                     }});
@@ -1159,29 +1203,18 @@ class CrisisMapper:
                 }}
                 
                 // List all
-                if (q.includes('list') || q.includes('all')) {{
-                    let html = 'Top crisis locations:<br>';
+                if (q.includes('list') || q === 'all') {{
+                    let html = 'Top 10 locations:<br>';
                     searchIndex.slice(0, 10).forEach((item, i) => {{
-                        html += `${{i+1}}. ${{item.location}} (${{item.category}}, ${{item.count}} incidents)<br>`;
+                        html += `${{i+1}}. ${{item.location}} (${{item.count}})<br>`;
                     }});
                     return html;
                 }}
                 
-                return `No results for "${{query}}". Try: "show me gaza", "humanitarian crises", "how many events", or "list all"`;
+                // Fallback - show available locations
+                return `Try: "${{searchIndex[0].location.split(',')[0]}}", "humanitarian", "how many total", or "list all"`;
             }}
             
-            function filterByCategory(category, show) {{
-                const layerInputs = document.querySelectorAll('.leaflet-control-layers-overlays input[type="checkbox"]');
-                layerInputs.forEach(input => {{
-                    const label = input.parentElement;
-                    const labelText = label ? label.textContent.trim() : '';
-                    if (labelText === category || labelText.startsWith(category)) {{
-                        if (input.checked !== show) {{
-                            input.click();
-                        }}
-                    }}
-                }});
-            }}
             
             function zoomToLocation(lat, lon) {{
                 if (mapInstance) {{

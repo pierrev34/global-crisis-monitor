@@ -1,26 +1,26 @@
 {
-  "timestamp": "2025-10-08T16:38:32.885303",
+  "timestamp": "2025-10-08T17:02:42.206042",
   "pipeline_stats": {
-    "total_articles_fetched": 125,
+    "total_articles_fetched": 126,
     "unique_sources": 12,
-    "articles_classified": 125,
-    "crisis_articles_found": 107,
-    "mappable_crisis_articles": 97
+    "articles_classified": 126,
+    "crisis_articles_found": 109,
+    "mappable_crisis_articles": 99
   },
   "classification_stats": {
     "category_distribution": {
-      "Human Rights Violations": 40,
       "Natural Disasters": 18,
-      "Humanitarian Crises": 20,
-      "Unknown": 18,
-      "Political Conflicts": 29
+      "Human Rights Violations": 40,
+      "Political Conflicts": 30,
+      "Humanitarian Crises": 21,
+      "Unknown": 17
     },
-    "average_confidence": 0.7340869565217395
+    "average_confidence": 0.7409592822636305
   },
   "geographic_stats": {
-    "total_locations_extracted": 315,
-    "successfully_geocoded": 306,
-    "geocoding_success_rate": 0.9714285714285714,
+    "total_locations_extracted": 324,
+    "successfully_geocoded": 315,
+    "geocoding_success_rate": 0.9722222222222222,
     "unique_countries_affected": 78,
     "countries_list": [
       "Afghanistan",
@@ -110,22 +110,30 @@
     ],
     [
       "ישראל",
-      20
+      21
     ],
     [
       "United States",
-      15
+      18
     ],
     [
       "City of New York, New York, United States",
-      9
+      10
     ],
     [
-      "Ukraine",
+      "West Bank, Palestine",
       6
     ],
     [
-      "ایران",
+      "Yemen",
+      6
+    ],
+    [
+      "中国",
+      6
+    ],
+    [
+      "Ukraine",
       6
     ],
     [
@@ -135,14 +143,6 @@
     [
       "Palestine",
       6
-    ],
-    [
-      "Syria",
-      4
-    ],
-    [
-      "West Bank, Palestine",
-      4
     ]
   ]
 }

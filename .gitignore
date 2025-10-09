@@ -63,3 +63,7 @@ models/
 # Environment variables
 .env
 .env.local
+
+# Generated HTML (contains API key)
+crisis_map.html
+index.html
