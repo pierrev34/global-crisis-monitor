@@ -51,6 +51,7 @@ crisis_data.json
 classification_log.jsonl
 crisis_summary.json
 *_summary.json
+!crisis_summary.json
 data_comparison.json
 demo_summary.json
 real_crisis_map.html
@@ -69,5 +70,5 @@ models/
 .env.local
 
 # Generated HTML (contains API key)
-crisis_map.html
+# crisis_map.html (7-day) is tracked so Vercel can serve it locally
 # index.html is our deployed landing page on Vercel

@@ -214,7 +214,6 @@
             <!-- Interactive Map -->
             <div class="map-container" id="map">
                 <iframe 
-                    src="https://pierrev34.github.io/global-crisis-monitor/crisis_map.html" 
                     class="map-frame"
                     title="Interactive Crisis Map">
                 </iframe>
@@ -253,26 +252,30 @@
 
     <script>
         const GH_BASE = 'https://pierrev34.github.io/global-crisis-monitor';
-        // Load statistics from gh-pages summary so Vercel doesn't need to build
-        fetch(`${GH_BASE}/crisis_summary.json`)
-            .then(response => response.json())
-            .then(data => {
-                // Update simplified statistics
-                document.getElementById('crisis-count').textContent = 
-                    data.pipeline_stats?.crisis_articles_found || '0';
-                document.getElementById('source-count').textContent = 
-                    data.pipeline_stats?.unique_sources || '0';
-                
-                // Update timestamp
-                const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : new Date().toLocaleDateString();
-                document.getElementById('last-update').textContent = `Updated: ${timestamp.split(',')[0]}`;
-            })
-            .catch(error => {
-                console.log('Using demo data');
-                // Keep default values
-            });
+        const SITE_BASE = window.location.origin;
+        // Load statistics: try local first, then GH Pages
+        (async () => {
+            try {
+                let data = null;
+                const localRes = await fetch('crisis_summary.json', { cache: 'no-store' });
+                if (localRes.ok) {
+                    data = await localRes.json();
+                } else {
+                    const ghRes = await fetch(`${GH_BASE}/crisis_summary.json`, { cache: 'no-store' });
+                    if (ghRes.ok) data = await ghRes.json();
+                }
+                if (data) {
+                    document.getElementById('crisis-count').textContent = data.pipeline_stats?.crisis_articles_found || '0';
+                    document.getElementById('source-count').textContent = data.pipeline_stats?.unique_sources || '0';
+                    const timestamp = data.timestamp ? new Date(data.timestamp).toLocaleString() : new Date().toLocaleDateString();
+                    document.getElementById('last-update').textContent = `Updated: ${timestamp.split(',')[0]}`;
+                }
+            } catch (e) {
+                console.log('Stats unavailable, using defaults');
+            }
+        })();
 
-        // Data window controls: Load maps from GitHub Pages
+        // Data window controls with fallback: try local static file, else GitHub Pages
         const iframe = document.querySelector('.map-frame');
         const link7 = document.getElementById('link7');
         const link14 = document.getElementById('link14');
@@ -281,9 +284,27 @@
             [link7, link14, link30].forEach(a => a.style.fontWeight = 'normal');
             el.style.fontWeight = 'bold';
         }
-        link7.addEventListener('click', (e) => { e.preventDefault(); iframe.src = `${GH_BASE}/crisis_map.html`; setActive(link7); });
-        link14.addEventListener('click', (e) => { e.preventDefault(); iframe.src = `${GH_BASE}/crisis_map_14d.html`; setActive(link14); });
-        link30.addEventListener('click', (e) => { e.preventDefault(); iframe.src = `${GH_BASE}/crisis_map_30d.html`; setActive(link30); });
+        async function loadMap(path, el) {
+            try {
+                const cacheBuster = Date.now();
+                const res = await fetch(`${path}?t=${cacheBuster}`, { method: 'GET', cache: 'no-store', mode: 'same-origin' });
+                if (res.ok) {
+                    iframe.src = `${path}?t=${cacheBuster}`;
+                } else {
+                    iframe.src = `${GH_BASE}/${path.replace(/^\//,'')}?t=${cacheBuster}`;
+                }
+            } catch {
+                const cacheBuster = Date.now();
+                iframe.src = `${GH_BASE}/${path.replace(/^\//,'')}?t=${cacheBuster}`;
+            }
+            setActive(el);
+        }
+        link7.addEventListener('click', (e) => { e.preventDefault(); loadMap('crisis_map.html', link7); });
+        link14.addEventListener('click', (e) => { e.preventDefault(); loadMap('crisis_map_14d.html', link14); });
+        link30.addEventListener('click', (e) => { e.preventDefault(); loadMap('crisis_map_30d.html', link30); });
+
+        // Initialize default selection (14d)
+        loadMap('crisis_map_14d.html', link14);
     </script>
 </body>
 </html>
