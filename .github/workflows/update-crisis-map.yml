@@ -31,14 +31,6 @@ jobs:
       run: |
         python main.py --hours 168 --max-articles 150 --confidence 0.3
         
-    - name: Commit and push updated map
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add crisis_map.html crisis_summary.json || true
-        git diff --staged --quiet || git commit -m "Auto-update crisis map $(date +%Y-%m-%d)"
-        git push || true
-        
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:

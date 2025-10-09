@@ -8,7 +8,7 @@ Real-time crisis monitoring system aggregating data from NGOs, human rights orga
 - **Rule-Based Classification**: Fast keyword + source trust filtering (no LLM dependency)
 - **Geographic Extraction**: spaCy NER + Nominatim geocoding
 - **Interactive Map**: Folium visualization with crisis markers, heatmap, and filtering
-- **AI Chat**: Optional Groq API integration for conversational crisis queries
+- **Smart Search**: Keyword-based crisis search with location zoom and category filtering
 
 ## Setup
 
@@ -16,9 +16,6 @@ Real-time crisis monitoring system aggregating data from NGOs, human rights orga
 # Install dependencies
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
-
-# Optional: Add Groq API key for AI chat
-echo "GROQ_API_KEY=your_key_here" > .env
 
 # Run pipeline
 python3 main.py --hours 168

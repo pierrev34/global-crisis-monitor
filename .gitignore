@@ -46,11 +46,15 @@ Thumbs.db
 
 # Project specific
 *.log
-# crisis_map.html
-# crisis_summary.json
 articles_cache.json
 crisis_data.json
 classification_log.jsonl
+crisis_summary.json
+*_summary.json
+data_comparison.json
+demo_summary.json
+real_crisis_map.html
+real_map_summary.json
 
 # Model cache
 .cache/

@@ -95,7 +95,9 @@ class CrisisMapper:
                         'crisis_item': crisis_item,
                         'exact_lat': lat,
                         'exact_lon': lon,
-                        'location_name': loc.get('display_name', 'Unknown Location')
+                        # Use the geocoded display name key returned by our extractor
+                        # geo_extractor.geocode_location() sets 'found_name' (or we fallback to raw 'text')
+                        'location_name': loc.get('found_name', loc.get('text', 'Unknown Location'))
                     })
                     break  # Only use first location per article
         
@@ -884,10 +886,8 @@ class CrisisMapper:
         colors_js = json.dumps(category_colors_hex)
         search_index_js = json.dumps(search_index)
         
-        # Get Groq API key from environment
+        # No external API needed - pure client-side search
         import os
-        groq_api_key = os.getenv('GROQ_API_KEY', '')
-        groq_key_js = json.dumps(groq_api_key)
         
         # Create unified sidebar UI
         sidebar_ui = f"""
@@ -1058,7 +1058,6 @@ class CrisisMapper:
             const categoryCounts = {categories_js};
             const categoryColors = {colors_js};
             const searchIndex = {search_index_js};
-            const GROQ_API_KEY = {groq_key_js};
             
             // Get reference to Leaflet map
             let mapInstance = null;
@@ -1095,124 +1094,88 @@ class CrisisMapper:
                 messagesDiv.appendChild(thinkingMsg);
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
                 
-                // Get response
-                const answer = GROQ_API_KEY 
-                    ? await queryGroq(message)
-                    : processQuery(message);
+                // Get response using smart keyword search
+                const answer = processQuery(message);
                 
                 // Replace thinking with actual response
                 thinkingMsg.innerHTML = answer;
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             }}
             
-            async function queryGroq(userMessage) {{
-                if (!GROQ_API_KEY) {{
-                    return processQuery(userMessage);
-                }}
-                
-                // Build context from search index
-                let context = 'Crisis data:\\n';
-                searchIndex.slice(0, 20).forEach(item => {{
-                    context += `- ${{item.location}}: ${{item.count}} ${{item.category}} incident(s)\\n`;
-                }});
-                
-                const systemPrompt = `You are a crisis monitoring assistant. Answer questions about global crises based ONLY on this data:
-
-${{context}}
-
-Provide concise, helpful answers. If asked about a location, mention if it's in the data and provide relevant details. Keep responses under 100 words.`;
-
-                try {{
-                    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {{
-                        method: 'POST',
-                        headers: {{
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${{GROQ_API_KEY}}`
-                        }},
-                        body: JSON.stringify({{
-                            model: 'llama3-8b-8192',
-                            messages: [
-                                {{ role: 'system', content: systemPrompt }},
-                                {{ role: 'user', content: userMessage }}
-                            ],
-                            temperature: 0.3,
-                            max_tokens: 150
-                        }})
-                    }});
-                    
-                    if (response.ok) {{
-                        const data = await response.json();
-                        return data.choices[0].message.content;
-                    }} else {{
-                        console.log('Groq API error:', response.status);
-                    }}
-                }} catch (e) {{
-                    console.log('Groq query failed:', e);
-                }}
-                
-                // Fallback to keyword search
-                return processQuery(userMessage);
-            }}
-            
             function processQuery(query) {{
                 const q = query.toLowerCase().trim();
                 
-                // Extract search term (remove "show me", "find", etc.)
-                let searchTerm = q
-                    .replace(/^(show me|show|find|search|where is|whats in|what's in)\s+/i, '')
-                    .trim();
-                
-                // Search for location (more flexible matching)
-                const locationMatches = searchIndex.filter(item =>
-                    item.location.toLowerCase().includes(searchTerm)
-                );
-                
-                // Search for category
-                const categoryMatches = searchIndex.filter(item =>
-                    item.category.toLowerCase().includes(searchTerm)
-                );
-                
-                // Location query (prioritize this)
-                if (locationMatches.length > 0) {{
-                    const loc = locationMatches[0];
-                    if (mapInstance) {{
-                        mapInstance.setView([loc.lat, loc.lon], 8);
-                    }}
-                    return `Found <strong>${{loc.location}}</strong>: ${{loc.count}} ${{loc.category}} incident${{loc.count > 1 ? 's' : ''}}. Zoomed to location.`;
-                }}
-                
-                // Category query
-                if (categoryMatches.length > 0) {{
-                    let html = `Found <strong>${{categoryMatches.length}}</strong> ${{categoryMatches[0].category}} locations:<br>`;
-                    categoryMatches.slice(0, 8).forEach(item => {{
-                        html += `• ${{item.location}} (${{item.count}})<br>`;
-                    }});
-                    if (categoryMatches.length > 8) {{
-                        html += `<em>+ ${{categoryMatches.length - 8}} more</em>`;
-                    }}
-                    return html;
-                }}
-                
-                // Statistics
+                // Statistics queries
                 if (q.includes('how many') || q.includes('total') || q.includes('count') || q.includes('stats')) {{
-                    let stats = `<strong>${{searchIndex.length}} crisis locations</strong>:<br>`;
+                    let stats = `<strong>${{searchIndex.length}} crisis locations tracked</strong>:<br><br>`;
                     Object.entries(categoryCounts).forEach(([cat, count]) => {{
-                        stats += `• ${{cat}}: ${{count}}<br>`;
+                        stats += `<strong>${{cat}}:</strong> ${{count}} locations<br>`;
                     }});
                     return stats;
                 }}
                 
                 // List all
-                if (q.includes('list') || q === 'all') {{
-                    let html = 'Top 10 locations:<br>';
+                if (q.includes('list') || q === 'all' || q.includes('show all')) {{
+                    let html = '<strong>Top crisis locations:</strong><br><br>';
                     searchIndex.slice(0, 10).forEach((item, i) => {{
-                        html += `${{i+1}}. ${{item.location}} (${{item.count}})<br>`;
+                        html += `${{i+1}}. <strong>${{item.location}}</strong><br>`;
+                        html += `   ${{item.category}} (${{item.count}} incidents)<br>`;
                     }});
+                    if (searchIndex.length > 10) {{
+                        html += `<br><em>+ ${{searchIndex.length - 10}} more locations</em>`;
+                    }}
                     return html;
                 }}
                 
-                // Fallback - show available locations
-                return `Try: "${{searchIndex[0].location.split(',')[0]}}", "humanitarian", "how many total", or "list all"`;
+                // Search for location or category
+                let searchTerm = q.replace(/^(show me|show|find|search|where is|what about|tell me about|whats in|what's in)\s+/i, '').trim();
+                
+                // Try location match first
+                const locationMatches = searchIndex.filter(item =>
+                    item.location.toLowerCase().includes(searchTerm)
+                );
+                
+                if (locationMatches.length > 0) {{
+                    const loc = locationMatches[0];
+                    if (mapInstance) {{
+                        mapInstance.setView([loc.lat, loc.lon], 8);
+                    }}
+                    let response = `<strong>${{loc.location}}</strong><br><br>`;
+                    response += `Category: ${{loc.category}}<br>`;
+                    response += `Incidents: ${{loc.count}}<br><br>`;
+                    response += `<em>Map zoomed to location</em>`;
+                    
+                    if (locationMatches.length > 1) {{
+                        response += `<br><br>Other matches: `;
+                        response += locationMatches.slice(1, 4).map(m => m.location.split(',')[0]).join(', ');
+                    }}
+                    return response;
+                }}
+                
+                // Try category match
+                const categoryMatches = searchIndex.filter(item =>
+                    item.category.toLowerCase().includes(searchTerm)
+                );
+                
+                if (categoryMatches.length > 0) {{
+                    let html = `<strong>Found ${{categoryMatches.length}} ${{categoryMatches[0].category}} locations:</strong><br><br>`;
+                    categoryMatches.slice(0, 8).forEach((item, i) => {{
+                        html += `${{i+1}}. ${{item.location}} (${{item.count}} incidents)<br>`;
+                    }});
+                    if (categoryMatches.length > 8) {{
+                        html += `<br><em>+ ${{categoryMatches.length - 8}} more</em>`;
+                    }}
+                    return html;
+                }}
+                
+                // No matches
+                const examples = [
+                    searchIndex[0].location.split(',')[0],
+                    'humanitarian',
+                    'how many total',
+                    'list all'
+                ];
+                return `No results found for "${{query}}"<br><br>Try: "${{examples.join('", "')}}"`;
             }}
             
             

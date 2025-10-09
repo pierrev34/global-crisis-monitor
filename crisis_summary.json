@@ -1,41 +1,42 @@
 {
-  "timestamp": "2025-10-08T17:09:38.108920",
+  "timestamp": "2025-10-08T18:21:32.643087",
   "pipeline_stats": {
     "total_articles_fetched": 126,
     "unique_sources": 12,
     "articles_classified": 126,
-    "crisis_articles_found": 110,
-    "mappable_crisis_articles": 100
+    "crisis_articles_found": 109,
+    "mappable_crisis_articles": 99
   },
   "classification_stats": {
     "category_distribution": {
+      "Human Rights Violations": 39,
+      "Humanitarian Crises": 20,
+      "Unknown": 17,
       "Natural Disasters": 18,
-      "Human Rights Violations": 40,
-      "Political Conflicts": 30,
-      "Humanitarian Crises": 22,
-      "Unknown": 16
+      "Political Conflicts": 31,
+      "Environmental Issues": 1
     },
-    "average_confidence": 0.7481021394064877
+    "average_confidence": 0.7339487002530486
   },
   "geographic_stats": {
-    "total_locations_extracted": 325,
-    "successfully_geocoded": 317,
-    "geocoding_success_rate": 0.9753846153846154,
-    "unique_countries_affected": 79,
+    "total_locations_extracted": 331,
+    "successfully_geocoded": 325,
+    "geocoding_success_rate": 0.9818731117824774,
+    "unique_countries_affected": 80,
     "countries_list": [
       "Afghanistan",
+      "Angola",
       "Anguilla",
       "Asia",
       "Australia",
       "Ayiti",
       "België / Belgique / Belgien",
-      "Bolivia",
       "Botswana",
-      "Bénin",
+      "Brasil",
       "Canada",
-      "Civitas Vaticana - Città del Vaticano",
-      "Colombia",
+      "Chile",
       "Cuba",
+      "Danmark",
       "Deutschland",
       "Ecuador",
       "España",
@@ -54,6 +55,7 @@
       "Papua Niugini",
       "Philippines",
       "Polska",
+      "Portugal",
       "République démocratique du Congo",
       "Schweiz/Suisse/Svizzera/Svizra",
       "Singapore",
@@ -61,44 +63,44 @@
       "South Sudan",
       "Sri Lanka",
       "Sudan",
+      "Suomi / Finland",
       "Syria",
+      "Sénégal",
       "Tanzania",
       "Tchad تشاد",
       "Türkiye",
       "Ukraine",
       "United Kingdom",
       "United States",
+      "Uruguay",
       "Vanuatu",
+      "Viti",
       "Việt Nam",
       "Yemen",
-      "Zambia",
       "Ελλάς",
       "Κύπρος - Kıbrıs",
       "Кыргызстан",
       "Монгол улс ᠮᠤᠩᠭᠤᠯ ᠤᠯᠤᠰ",
       "Россия",
       "Україна",
-      "Қазақстан",
       "ישראל",
       "الأراضي الفلسطينية",
       "الأردن",
       "البحرين",
       "السعودية",
       "السودان",
-      "العراق",
       "اليمن",
       "ایران",
       "تونس",
-      "سوريا",
       "قطر",
       "لبنان",
       "مصر",
       "پاکستان",
       "नेपाल",
       "বাংলাদেশ",
-      "ປະເທດລາວ",
       "འབྲུག་ཡུལ།",
       "မြန်မာ",
+      "ኢትዮጵያ إثيوبيا",
       "中国",
       "日本",
       "조선민주주의인민공화국"
@@ -107,7 +109,7 @@
   "top_crisis_locations": [
     [
       "Gaza Strip, Palestine",
-      27
+      25
     ],
     [
       "ישראל",
@@ -115,14 +117,14 @@
     ],
     [
       "United States",
-      18
+      20
     ],
     [
       "City of New York, New York, United States",
       10
     ],
     [
-      "West Bank, Palestine",
+      "中国",
       7
     ],
     [
@@ -130,20 +132,20 @@
       7
     ],
     [
+      "West Bank, Palestine",
+      6
+    ],
+    [
       "Yemen",
-      6
-    ],
-    [
-      "中国",
-      6
-    ],
-    [
-      "Ukraine",
       6
     ],
     [
       "Sudan",
       6
+    ],
+    [
+      "ایران",
+      5
     ]
   ]
 }

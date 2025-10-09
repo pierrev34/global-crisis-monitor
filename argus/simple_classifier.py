@@ -113,21 +113,26 @@ class SimpleCrisisClassifier:
         source_category = article.get('source_category', 'Mixed')
         priority = article.get('priority', 'medium')
         
-        # Exclude entertainment/celebrity/sports news and non-crisis content
+        # Exclude entertainment/celebrity/sports and soft-news content
         exclusions = [
+            # entertainment/sports
             'singer', 'musician', 'artist', 'band', 'album', 'concert', 'tour',
             'celebrity', 'actor', 'actress', 'movie', 'film', 'hollywood',
             'sports', 'game', 'match', 'player', 'team', 'championship',
             'fashion', 'runway', 'designer',
             'cancels tour', 'cancels show', 'postpones tour',
             'book tour', 'music tour', 'concert tour',
+            # soft-news/editorial formats
+            'opinion', 'op-ed', 'editorial', 'analysis', 'commentary', 'column',
+            'live blog', 'live updates', 'explainer', 'timeline', 'q&a',
             'newsletter', 'edition', 'manifesto', 'humanifesto',
+            # meta/newsroom items
             'webinar', 'podcast', 'event announcement', 'upcoming event',
             'publication launch', 'new report available', 'press release about report'
         ]
         
         # Exclude generic publications/newsletters
-        if any(term in title for term in ['edition', 'newsletter', 'manifesto', 'podcast', 'webinar']):
+        if any(term in title for term in ['edition', 'newsletter', 'manifesto', 'podcast', 'webinar', 'opinion', 'op-ed', 'analysis', 'live blog', 'live updates', 'explainer', 'timeline', 'q&a']):
             return self._create_result(article, 'Unknown', 0.0, 'excluded_publication')
         
         # If entertainment/sports indicators without clear crisis impact
@@ -149,8 +154,10 @@ class SimpleCrisisClassifier:
         
         # Step 3: Keyword matching for each category
         category_scores = {}
+        category_match_counts = {}
         for category, keywords in self.category_keywords.items():
             score = sum(1 for keyword in keywords if keyword in text)
+            category_match_counts[category] = score
             if score > 0:
                 # Normalize by keyword count
                 category_scores[category] = score / len(keywords)
@@ -158,9 +165,14 @@ class SimpleCrisisClassifier:
         if category_scores:
             top_category = max(category_scores, key=category_scores.get)
             confidence = min(category_scores[top_category] * 2, 0.95)  # Scale up but cap
+            match_count = category_match_counts.get(top_category, 0)
+            
+            # Additional gating for Human Rights Violations to avoid incidental mentions
+            if top_category == 'Human Rights Violations' and match_count < 2:
+                return self._create_result(article, 'Unknown', 0.0, 'insufficient_hrv_evidence')
             
             # Require minimum keyword density
-            if confidence >= 0.15:
+            if confidence >= 0.25:
                 return self._create_result(article, top_category, confidence, 'keyword_match')
         
         # Step 4: Default to unknown
@@ -193,7 +205,7 @@ class SimpleCrisisClassifier:
             'article': article,
             'predicted_category': category,
             'confidence': confidence,
-            'is_crisis': category != 'Unknown' and confidence >= 0.15,
+            'is_crisis': category != 'Unknown' and confidence >= 0.25,
             'classification_method': method,
             'all_scores': {category: confidence}
         }
