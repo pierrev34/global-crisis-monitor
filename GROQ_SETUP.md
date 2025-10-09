@@ -3,7 +3,7 @@
 ## Why Groq?
 
 - **Free tier**: 30 requests/minute (plenty for personal use)
-- **Open source models**: Llama 3.1
+- **Open source models**: Llama 3 (8B parameter model)
 - **Super fast**: ~500 tokens/second
 - **Works for anyone**: No local installation needed
 
