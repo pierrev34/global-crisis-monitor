@@ -950,14 +950,7 @@ class CrisisMapper:
                 margin: 0;
             }}
 
-            .window-select {{
-                margin-top: 6px;
-            }}
-            .window-select select {{
-                width: 100%;
-                padding: 4px 6px;
-                font-size: 11px;
-            }}
+            /* window selector removed (fixed to 7 days) */
             
             /* Content area */
             .sidebar-content {{
@@ -1055,14 +1048,7 @@ class CrisisMapper:
             <!-- Header -->
             <div class="sidebar-header">
                 <h1 class="sidebar-title">CRISIS MONITOR</h1>
-                <p class="sidebar-stats">{total_events} events • {len(unique_sources)} sources<br><span class="muted">Window: {window_start} – {window_end} UTC</span></p>
-                <div class="window-select">
-                    <select id="windowSelect">
-                        <option value="crisis_map.html">Last 7 days</option>
-                        <option value="crisis_map_14d.html">Last 14 days</option>
-                        <option value="crisis_map_30d.html">Last 30 days</option>
-                    </select>
-                </div>
+                <p class="sidebar-stats">{total_events} events • {len(unique_sources)} sources<br><span class="muted">Window: {window_start} – {window_end} UTC • Last 7 days</span></p>
             </div>
             
             <!-- Chat Interface -->
@@ -1103,22 +1089,7 @@ class CrisisMapper:
                 }}
             }}, 1000);
 
-            // Initialize data window selector
-            setTimeout(() => {{
-                const sel = document.getElementById('windowSelect');
-                if (!sel) return;
-                const path = (window.location.pathname || '').toLowerCase();
-                if (path.indexOf('crisis_map_30d.html') !== -1) {{
-                    sel.value = 'crisis_map_30d.html';
-                }} else if (path.indexOf('crisis_map_14d.html') !== -1) {{
-                    sel.value = 'crisis_map_14d.html';
-                }} else {{
-                    sel.value = 'crisis_map.html';
-                }}
-                sel.addEventListener('change', function() {{
-                    window.location.href = this.value;
-                }});
-            }}, 0);
+            // Data window fixed to 7 days; selector removed
 
             // --- Search helpers ---
             function normalizeText(s) {{
