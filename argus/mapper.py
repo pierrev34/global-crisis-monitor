@@ -40,11 +40,21 @@ class CrisisMapper:
             Folium Map object
         """
         # Create base map centered on world
+        # Use tiles=None and add a TileLayer with no_wrap to prevent world repeating at extreme zooms
         world_map = folium.Map(
             location=self.config['default_location'],
             zoom_start=self.config['default_zoom'],
-            tiles=self.config['tile_style']
+            tiles=None,
+            min_zoom=2,
+            max_bounds=True
         )
+        folium.TileLayer(
+            tiles=self.config['tile_style'],
+            name="Base Map",
+            control=False,
+            no_wrap=True,
+            attr="OpenStreetMap"
+        ).add_to(world_map)
         
         # Add fullscreen button
         plugins.Fullscreen().add_to(world_map)
@@ -1064,7 +1074,7 @@ class CrisisMapper:
                         type="text" 
                         class="chat-input" 
                         id="chatInput" 
-                        placeholder="Ask about crises..."
+                        placeholder="Search places or categories..."
                         onkeypress="if(event.key==='Enter') sendMessage()"
                     />
                     <button class="chat-send-btn" onclick="sendMessage()">Send</button>
