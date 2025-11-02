@@ -1,8 +1,8 @@
 {
-  "generated_at": "2025-11-02T13:19:43.793294Z",
+  "generated_at": "2025-11-02T13:32:08.315956Z",
   "window_days": 30,
   "summary": {
-    "total_incidents": 116,
+    "total_incidents": 115,
     "countries_affected": 43,
     "human_rights_share": 0.32,
     "top_categories": [
@@ -12,7 +12,7 @@
       },
       {
         "name": "Political Conflicts",
-        "count": 32
+        "count": 31
       },
       {
         "name": "Humanitarian Crises",
@@ -27,9 +27,9 @@
       "ngo": 4,
       "media": 8
     },
-    "prev_7d_total": null,
-    "delta_pct": null,
-    "rolling_avg_30d": 3.7
+    "prev_7d_total": 5,
+    "delta_pct": 1880.0,
+    "rolling_avg_30d": 3.4
   },
   "time_series": [
     {
@@ -102,7 +102,9 @@
     },
     {
       "date": "2025-10-20",
-      "categories": {}
+      "categories": {
+        "Human Rights Violations": 1
+      }
     },
     {
       "date": "2025-10-21",
@@ -118,7 +120,10 @@
     },
     {
       "date": "2025-10-24",
-      "categories": {}
+      "categories": {
+        "Natural Disasters": 1,
+        "Humanitarian Crises": 1
+      }
     },
     {
       "date": "2025-10-25",
@@ -126,41 +131,64 @@
     },
     {
       "date": "2025-10-26",
-      "categories": {}
+      "categories": {
+        "Humanitarian Crises": 1,
+        "Natural Disasters": 1
+      }
     },
     {
       "date": "2025-10-27",
-      "categories": {}
+      "categories": {
+        "Humanitarian Crises": 2
+      }
     },
     {
       "date": "2025-10-28",
-      "categories": {}
+      "categories": {
+        "Human Rights Violations": 1,
+        "Humanitarian Crises": 1
+      }
     },
     {
       "date": "2025-10-29",
-      "categories": {}
+      "categories": {
+        "Human Rights Violations": 12,
+        "Humanitarian Crises": 1,
+        "Natural Disasters": 1
+      }
     },
     {
       "date": "2025-10-30",
-      "categories": {}
+      "categories": {
+        "Human Rights Violations": 7,
+        "Political Conflicts": 6,
+        "Humanitarian Crises": 2,
+        "Natural Disasters": 5
+      }
     },
     {
       "date": "2025-10-31",
-      "categories": {}
+      "categories": {
+        "Human Rights Violations": 4,
+        "Humanitarian Crises": 7,
+        "Natural Disasters": 4,
+        "Political Conflicts": 4
+      }
     },
     {
       "date": "2025-11-01",
       "categories": {
-        "Natural Disasters": 1
+        "Humanitarian Crises": 7,
+        "Natural Disasters": 3
       }
     },
     {
       "date": "2025-11-02",
       "categories": {
-        "Natural Disasters": 19,
-        "Humanitarian Crises": 27,
-        "Human Rights Violations": 37,
-        "Political Conflicts": 32
+        "Natural Disasters": 5,
+        "Humanitarian Crises": 5,
+        "Political Conflicts": 21,
+        "Human Rights Violations": 1
       }
     }
   ],
@@ -588,7 +616,7 @@
           "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000rl31",
           "source": "USGS Earthquakes (Significant)",
           "category": "Natural Disasters",
-          "published": "2025-11-02T21:11:59.097Z"
+          "published": "2025-11-02T21:22:21.068Z"
         }
       ]
     },
@@ -1368,7 +1396,7 @@
     },
     {
       "name": "Al Jazeera English",
-      "count": 6,
+      "count": 5,
       "type": "media"
     },
     {

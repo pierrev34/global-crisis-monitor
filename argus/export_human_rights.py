@@ -171,10 +171,17 @@ def build_time_series(crisis_articles: List[Dict], window_days: int = 7) -> List
             # Parse date (handle various formats)
             try:
                 if isinstance(published, str):
-                    if len(published) == 14:  # YYYYMMDDHHMMSS
+                    if len(published) == 14:  # YYYYMMDDHHMMSS (GDELT format)
                         pub_date = datetime.strptime(published[:8], '%Y%m%d')
                     else:
-                        pub_date = datetime.fromisoformat(published.replace('Z', '+00:00'))
+                        # Try multiple date formats
+                        from email.utils import parsedate_to_datetime
+                        try:
+                            # RFC 2822 format (RSS feeds): "Sat, 02 Nov 2024 12:00:00 GMT"
+                            pub_date = parsedate_to_datetime(published)
+                        except:
+                            # ISO format: "2024-11-02T12:00:00Z"
+                            pub_date = datetime.fromisoformat(published.replace('Z', '+00:00'))
                 else:
                     pub_date = datetime.now()
             except Exception as e:
