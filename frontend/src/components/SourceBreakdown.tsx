@@ -47,7 +47,7 @@ export default function SourceBreakdown({ sources, totalIncidents }: SourceBreak
   );
 
   return (
-    <div className="bg-white border border-border rounded-xl p-6">
+    <div className="bg-white border border-border rounded-2xl p-5">
       <h3 className="text-base font-semibold text-text-primary mb-2">
         Source Transparency
       </h3>

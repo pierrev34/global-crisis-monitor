@@ -20,9 +20,9 @@ export default function CountryDetail({ country, onClose }: CountryDetailProps) 
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
         {/* Header */}
-        <div className="sticky top-0 bg-white border-b border-border p-6 flex justify-between items-start rounded-t-xl">
+        <div className="sticky top-0 bg-white border-b border-border p-5 flex justify-between items-start rounded-t-2xl">
           <div>
             <h2 className="text-xl font-semibold text-text-primary mb-1">
               {country.country}

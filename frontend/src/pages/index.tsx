@@ -5,6 +5,7 @@ import IncidentsStackedChart from '@/components/IncidentsStackedChart';
 import CountryTable from '@/components/CountryTable';
 import CountryDetail from '@/components/CountryDetail';
 import SourceBreakdown from '@/components/SourceBreakdown';
+import KeyTakeaways from '@/components/KeyTakeaways';
 import { HumanRightsFeed, CountryIncident } from '@/types/feed';
 
 /**
@@ -169,7 +170,7 @@ export default function Home() {
                   Human Rights Situation Dashboard
                 </h1>
                 <p className="text-sm text-text-muted">
-                  Incidents from high-trust NGO and media sources (last 7 days)
+                  Summarizes human-rights–relevant incidents from high-trust NGO and media sources. Highlights spikes, shifts in category mix, and countries with emerging risks.
                 </p>
               </div>
               <div className="text-right">
@@ -193,18 +194,22 @@ export default function Home() {
         </header>
 
         {/* Main Content */}
-        <div className="max-w-[1200px] mx-auto px-6 py-8">
+        <div className="max-w-[1180px] mx-auto px-6 py-5">
           {/* KPI Strip */}
           <KpiStrip summary={feed.summary} />
 
-          {/* Main Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-7">
-            {/* Left Column - Chart and Table */}
-            <div className="lg:col-span-2 space-y-7">
-              <IncidentsStackedChart timeSeries={feed.time_series} />
-              <CountryTable
+          {/* Chart - Full Width */}
+          <IncidentsStackedChart timeSeries={feed.time_series} />
+
+          {/* Two Column Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
+            {/* Left Column - Key Takeaways */}
+            <div className="lg:col-span-2">
+              <KeyTakeaways
+                timeSeries={feed.time_series}
                 countries={feed.by_country}
-                onSelectCountry={setSelectedCountry}
+                sources={feed.sources}
+                totalIncidents={feed.summary.total_incidents}
               />
             </div>
 
@@ -215,6 +220,14 @@ export default function Home() {
                 totalIncidents={feed.summary.total_incidents}
               />
             </div>
+          </div>
+
+          {/* Countries Table - Below */}
+          <div className="mt-5">
+            <CountryTable
+              countries={feed.by_country}
+              onSelectCountry={setSelectedCountry}
+            />
           </div>
         </div>
 

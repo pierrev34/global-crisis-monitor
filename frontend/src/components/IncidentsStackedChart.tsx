@@ -10,8 +10,13 @@ import {
   ResponsiveContainer,
   Surface,
   Symbols,
+  Line,
+  ComposedChart,
+  ReferenceLine,
+  Label,
 } from 'recharts';
 import { TimeSeriesPoint, getCategoryColor } from '@/types/feed';
+import { calculateRollingAverage, detectSpikes, formatDate } from '@/utils/analysis';
 
 interface IncidentsStackedChartProps {
   timeSeries: TimeSeriesPoint[];
@@ -27,7 +32,7 @@ export default function IncidentsStackedChart({
 }: IncidentsStackedChartProps) {
   if (!timeSeries || timeSeries.length === 0) {
     return (
-      <div className="bg-white border border-border rounded-xl p-6">
+      <div className="bg-white border border-border rounded-2xl p-5">
         <h3 className="text-base font-semibold text-text-primary mb-1">
           Incidents over time
         </h3>
@@ -48,13 +53,18 @@ export default function IncidentsStackedChart({
     'Political Conflicts',       // #1d4ed8 - strong blue
     'Humanitarian Crises',       // #0ea5e9 - cyan
     'Health Emergencies',        // #94a3b8 - slate
-    'Natural Disasters',         // #dbeafe - ice blue
+    'Natural Disasters',         // #bfdbfe - light blue
     'Economic Crises',
     'Environmental Issues',
   ].filter((cat) => {
     // Only include categories that exist in the data
     return timeSeries.some((point) => point.categories[cat]);
   });
+
+  // Calculate rolling average and detect spikes
+  const rollingAvgs = calculateRollingAverage(timeSeries, 7);
+  const spikes = detectSpikes(timeSeries, 1.25);
+  const spikeSet = new Set(spikes.map(s => s.date));
 
   // Custom legend icon renderer with border for light colors
   const renderLegendIcon = (props: any) => {
@@ -130,15 +140,20 @@ export default function IncidentsStackedChart({
   };
 
   // Transform data for Recharts
-  const chartData = timeSeries.map((point) => {
-    const formattedDate = new Date(point.date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-    });
+  const chartData = timeSeries.map((point, index) => {
+    const formattedDate = formatDate(point.date);
+    
+    const total = Object.values(point.categories).reduce((sum, val) => sum + val, 0);
+    const isLast7Days = index >= timeSeries.length - 7;
+    const isSpike = spikeSet.has(point.date);
     
     const dataPoint: any = {
       date: formattedDate,
       fullDate: point.date,
+      total,
+      rollingAvg: rollingAvgs[index],
+      isLast7Days,
+      isSpike,
     };
     
     categories.forEach((cat) => {
@@ -149,20 +164,20 @@ export default function IncidentsStackedChart({
   });
 
   return (
-    <div className="bg-white border border-border rounded-xl p-6">
+    <div className="bg-white border border-border rounded-2xl p-5">
       <h3 className="text-base font-semibold text-text-primary mb-1">
         Incidents over time
       </h3>
-      <p className="text-xs text-text-muted mb-6">
-        Daily counts grouped by crisis category (UTC)
+      <p className="text-xs text-text-muted mb-5">
+        Daily counts grouped by crisis category (UTC). Last 7 days emphasized.
       </p>
 
-      <ResponsiveContainer width="100%" height={340}>
-        <BarChart
+      <ResponsiveContainer width="100%" height={360}>
+        <ComposedChart
           data={chartData}
-          margin={{ top: 10, right: 10, left: -10, bottom: 5 }}
+          margin={{ top: 20, right: 10, left: -10, bottom: 5 }}
           barGap={0}
-          barCategoryGap="12%"
+          barCategoryGap="10%"
         >
           <CartesianGrid 
             strokeDasharray="0" 
@@ -215,16 +230,53 @@ export default function IncidentsStackedChart({
               );
             }}
           />
-          {categories.map((category, index) => (
-            <Bar
-              key={category}
-              dataKey={category}
-              stackId="a"
-              fill={getCategoryColor(category)}
-              radius={index === categories.length - 1 ? [6, 6, 0, 0] : [0, 0, 0, 0]}
-            />
-          ))}
-        </BarChart>
+          {categories.map((category, index) => {
+            const isLightCategory = category === 'Natural Disasters';
+            return (
+              <Bar
+                key={category}
+                dataKey={category}
+                stackId="a"
+                fill={getCategoryColor(category)}
+                radius={index === categories.length - 1 ? [6, 6, 0, 0] : [0, 0, 0, 0]}
+                stroke={isLightCategory ? '#e5e7eb' : 'none'}
+                strokeWidth={isLightCategory ? 0.5 : 0}
+              />
+            );
+          })}
+          
+          {/* Rolling average line */}
+          <Line
+            type="monotone"
+            dataKey="rollingAvg"
+            stroke="#94a3b8"
+            strokeWidth={1.5}
+            dot={false}
+            name="7-day average"
+            strokeDasharray="3 3"
+          />
+          
+          {/* Spike labels */}
+          {chartData.map((point: any, index: number) => {
+            if (point.isSpike && index > 6) {
+              return (
+                <ReferenceLine
+                  key={`spike-${index}`}
+                  x={point.date}
+                  stroke="none"
+                >
+                  <Label
+                    value="Spike"
+                    position="top"
+                    style={{ fontSize: 9, fill: '#ef4444', fontWeight: 600 }}
+                    offset={5}
+                  />
+                </ReferenceLine>
+              );
+            }
+            return null;
+          })}
+        </ComposedChart>
       </ResponsiveContainer>
     </div>
   );

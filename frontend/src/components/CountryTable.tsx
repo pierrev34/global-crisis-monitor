@@ -78,7 +78,7 @@ export default function CountryTable({
   };
 
   return (
-    <div className="bg-white border border-border rounded-xl overflow-hidden">
+    <div className="bg-white border border-border rounded-2xl overflow-hidden">
       <div className="p-5 border-b border-border">
         <h3 className="text-base font-semibold text-text-primary">
           Countries
