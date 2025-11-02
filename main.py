@@ -23,6 +23,7 @@ from argus.rss_fetcher_v2 import fetch_crisis_news
 from argus.simple_classifier import classify_crisis_articles, get_crisis_summary
 from argus.geo_extractor import extract_article_locations
 from argus.mapper import create_crisis_visualization
+from argus.export_human_rights import export_human_rights_json
 from argus.config import OUTPUT_MAP_FILE
 
 # Set up logging
@@ -55,15 +56,15 @@ def run_crisis_monitor(hours_back: int = 168,
     """
     start_time = time.time()
     
-    logger.info("🚀 Starting Enhanced Global Crisis Monitor Pipeline v2.0")
-    logger.info(f"📊 Configuration: hours_back={hours_back}, max_articles={max_articles}, "
+    logger.info("Starting Enhanced Global Crisis Monitor Pipeline v2.0")
+    logger.info(f"Configuration: hours_back={hours_back}, max_articles={max_articles}, "
                 f"confidence_threshold={confidence_threshold}")
-    logger.info(f"✨ NEW: Using diverse sources (NGOs, human rights orgs, regional media)")
-    logger.info(f"⚡ NEW: Fast rule-based classification (no LLM overhead)")
+    logger.info(f"Using diverse sources: NGOs, human rights orgs, regional media")
+    logger.info(f"Fast rule-based classification without LLM overhead")
     
     try:
         # Step 1: Fetch from Diverse Sources
-        logger.info(f"📰 Step 1: Fetching from 15+ diverse crisis sources...")
+        logger.info(f"Step 1: Fetching from 15+ diverse crisis sources...")
         logger.info(f"  • Human Rights: HRW, Amnesty International, UN OCHA")
         logger.info(f"  • Humanitarian: ReliefWeb, UNHCR, MSF, ICRC")
         logger.info(f"  • Regional: Radio Free Asia, Middle East Eye, Al Jazeera")
@@ -75,10 +76,10 @@ def run_crisis_monitor(hours_back: int = 168,
             logger.error("No articles found. Exiting pipeline.")
             return None
         
-        logger.info(f"✅ Fetched {len(articles)} articles from {len(set(a['source_name'] for a in articles))} sources")
+        logger.info(f"Fetched {len(articles)} articles from {len(set(a['source_name'] for a in articles))} sources")
         
         # Step 2: Rule-Based Classification (No LLM)
-        logger.info("🤖 Step 2: Classifying articles (rule-based, no LLM)...")
+        logger.info("Step 2: Classifying articles using rule-based classification...")
         classification_results = classify_crisis_articles(articles)
         
         # Filter to only crisis articles
@@ -88,12 +89,12 @@ def run_crisis_monitor(hours_back: int = 168,
         ]
         
         classification_summary = get_crisis_summary(classification_results)
-        logger.info(f"✅ Classified {len(classification_results)} articles, "
+        logger.info(f"Classified {len(classification_results)} articles, "
                    f"found {len(crisis_articles)} crisis-related")
         logger.info(f"   Category breakdown: {classification_summary.get('category_distribution', {})}")
         
         # Step 3: Geographic Entity Extraction
-        logger.info("🌍 Step 3: Extracting geographic entities...")
+        logger.info("Step 3: Extracting geographic entities...")
         
         # Extract all articles at once for better batching efficiency
         crisis_article_list = [result['article'] for result in crisis_articles]
@@ -117,11 +118,11 @@ def run_crisis_monitor(hours_back: int = 168,
             logger.info("No perfectly geocoded articles found. Using intelligent fallbacks...")
             mappable_articles = enhanced_articles  # Use all articles with fallback logic
         
-        logger.info(f"✅ Processed geographic entities, "
+        logger.info(f"Processed geographic entities, "
                    f"{len(mappable_articles)} articles available for mapping")
         
         # Step 4: Create Interactive Map
-        logger.info("🗺️  Step 4: Creating interactive crisis map...")
+        logger.info("Step 4: Creating interactive crisis map...")
         
         if not mappable_articles:
             logger.warning("No articles available for mapping. Cannot create map.")
@@ -132,10 +133,19 @@ def run_crisis_monitor(hours_back: int = 168,
             output_file or OUTPUT_MAP_FILE
         )
         
-        logger.info(f"✅ Created interactive map: {map_file}")
+        logger.info(f"Created interactive map: {map_file}")
         
-        # Step 5: Generate Summary Report
-        logger.info("📊 Step 5: Generating summary report...")
+        # Step 5: Export Human Rights JSON Feed
+        logger.info("Step 5: Exporting Human Rights Intelligence feed...")
+        hr_feed_path = export_human_rights_json(
+            crisis_articles,
+            window_days=hours_back // 24,  # Convert hours to days
+            output_path='public/data/human_rights_feed.json'
+        )
+        logger.info(f"Human Rights feed exported: {hr_feed_path}")
+        
+        # Step 6: Generate Summary Report
+        logger.info("Step 6: Generating summary report...")
         
         summary = generate_pipeline_summary(
             articles, classification_results, enhanced_articles, mappable_articles
@@ -151,14 +161,15 @@ def run_crisis_monitor(hours_back: int = 168,
         
         # Calculate total runtime
         total_time = time.time() - start_time
-        logger.info(f"🎉 Pipeline completed successfully in {total_time:.2f} seconds")
-        logger.info(f"📋 Summary saved to: {summary_file}")
-        logger.info(f"🗺️  Interactive map: {map_file}")
+        logger.info(f"Pipeline completed successfully in {total_time:.2f} seconds")
+        logger.info(f"Summary saved to: {summary_file}")
+        logger.info(f"Human Rights feed: {hr_feed_path}")
+        logger.info(f"Interactive map: {map_file}")
         
         return map_file
         
     except Exception as e:
-        logger.error(f"❌ Pipeline failed with error: {e}")
+        logger.error(f"Pipeline failed with error: {e}")
         import traceback
         logger.error(f"Traceback:\n{traceback.format_exc()}")
         raise
@@ -250,11 +261,11 @@ def print_pipeline_summary(summary: dict):
     """Print a formatted summary to the console"""
     
     print("\n" + "="*70)
-    print("🌍 ENHANCED GLOBAL CRISIS MONITOR v2.0 - PIPELINE SUMMARY")
+    print("ENHANCED GLOBAL CRISIS MONITOR v2.0 - PIPELINE SUMMARY")
     print("="*70)
     
     stats = summary['pipeline_stats']
-    print(f"\n📊 PROCESSING STATISTICS:")
+    print(f"\nPROCESSING STATISTICS:")
     print(f"   • Articles fetched: {stats['total_articles_fetched']}")
     print(f"   • Unique sources: {stats.get('unique_sources', 'N/A')}")
     print(f"   • Articles classified: {stats['articles_classified']}")
@@ -263,7 +274,7 @@ def print_pipeline_summary(summary: dict):
     print(f"   • NGO/Human Rights sources: HRW, Amnesty, UNHCR, ReliefWeb, MSF, etc.")
     
     class_stats = summary['classification_stats']
-    print(f"\n🤖 CLASSIFICATION RESULTS (Rule-Based, No LLM):")
+    print(f"\nCLASSIFICATION RESULTS (Rule-Based, No LLM):")
     print(f"   • Average confidence: {class_stats['average_confidence']:.2f}")
     print(f"   • Category distribution:")
     # Sort by count descending
@@ -273,14 +284,14 @@ def print_pipeline_summary(summary: dict):
             print(f"     - {category}: {count}")
     
     geo_stats = summary['geographic_stats']
-    print(f"\n🌍 GEOGRAPHIC ANALYSIS:")
+    print(f"\nGEOGRAPHIC ANALYSIS:")
     print(f"   • Locations extracted: {geo_stats['total_locations_extracted']}")
     print(f"   • Successfully geocoded: {geo_stats['successfully_geocoded']}")
     print(f"   • Geocoding success rate: {geo_stats['geocoding_success_rate']:.1%}")
     print(f"   • Countries affected: {geo_stats['unique_countries_affected']}")
     
     if summary['top_crisis_locations']:
-        print(f"\n🔥 TOP CRISIS LOCATIONS:")
+        print(f"\nTOP CRISIS LOCATIONS:")
         for i, (location, count) in enumerate(summary['top_crisis_locations'][:8], 1):
             print(f"   {i}. {location}: {count} incidents")
     
@@ -342,9 +353,9 @@ Examples:
         )
         
         if map_file:
-            print(f"\n🎉 Success! Open {map_file} in your browser to view the crisis map.")
+            print(f"\nSuccess! Open {map_file} in your browser to view the crisis map.")
         else:
-            print("\n⚠️  No crisis map generated. Check the logs for details.")
+            print("\nNo crisis map generated. Check the logs for details.")
             sys.exit(1)
             
     except KeyboardInterrupt:

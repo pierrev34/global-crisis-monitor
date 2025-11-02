@@ -46,10 +46,11 @@ class CrisisMapper:
             zoom_start=self.config['default_zoom'],
             tiles=None,
             min_zoom=2,
-            max_bounds=True
+            max_bounds=True,
+            world_copy_jump=False
         )
         folium.TileLayer(
-            tiles=self.config['tile_style'],
+            tiles="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             name="Base Map",
             control=False,
             no_wrap=True,
@@ -1063,11 +1064,7 @@ class CrisisMapper:
             
             <!-- Chat Interface -->
             <div class="sidebar-content">
-                <div class="chat-messages" id="chatMessages">
-                    <div class="chat-message bot">
-                        <div>How can I assist you today?</div>
-                    </div>
-                </div>
+                <div class="chat-messages" id="chatMessages"></div>
                 
                 <div class="chat-input-container">
                     <input 
@@ -1096,6 +1093,16 @@ class CrisisMapper:
                 if (mapElements.length > 0) {{
                     const mapId = mapElements[0].id;
                     mapInstance = window[mapId];
+                    try {{
+                        // Clamp panning and disable world wrapping at runtime
+                        if (mapInstance && mapInstance.setMaxBounds) {{
+                            mapInstance.setMaxBounds([[-85, -180], [85, 180]]);
+                        }}
+                        if (mapInstance && mapInstance.options) {{
+                            mapInstance.options.worldCopyJump = false;
+                            mapInstance.options.maxBoundsViscosity = 1.0;
+                        }}
+                    }} catch (e) {{}}
                 }}
             }}, 1000);
 

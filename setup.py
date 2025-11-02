@@ -17,9 +17,9 @@ def install_requirements():
     logger.info("Installing Python requirements...")
     try:
         subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
-        logger.info("✅ Requirements installed successfully")
+        logger.info("Requirements installed successfully")
     except subprocess.CalledProcessError as e:
-        logger.error(f"❌ Failed to install requirements: {e}")
+        logger.error(f"Failed to install requirements: {e}")
         return False
     return True
 
@@ -29,9 +29,9 @@ def download_spacy_model():
     logger.info("Downloading spaCy English model...")
     try:
         subprocess.check_call([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
-        logger.info("✅ spaCy model downloaded successfully")
+        logger.info("spaCy model downloaded successfully")
     except subprocess.CalledProcessError as e:
-        logger.error(f"❌ Failed to download spaCy model: {e}")
+        logger.error(f"Failed to download spaCy model: {e}")
         return False
     return True
 
@@ -41,7 +41,7 @@ def test_imports():
     logger.info("Testing module imports...")
     
     required_modules = [
-        'pandas', 'numpy', 'requests', 'transformers', 'torch', 
+        'pandas', 'numpy', 'requests', 
         'spacy', 'geopy', 'folium', 'tqdm', 'bs4'
     ]
     
@@ -50,16 +50,16 @@ def test_imports():
     for module in required_modules:
         try:
             __import__(module)
-            logger.info(f"  ✅ {module}")
+            logger.info(f"  {module}")
         except ImportError as e:
-            logger.error(f"  ❌ {module}: {e}")
+            logger.error(f"  {module}: {e}")
             failed_imports.append(module)
     
     if failed_imports:
         logger.error(f"Failed to import: {', '.join(failed_imports)}")
         return False
     
-    logger.info("✅ All modules imported successfully")
+    logger.info("All modules imported successfully")
     return True
 
 
@@ -72,19 +72,19 @@ def test_spacy_model():
         doc = nlp("Test sentence with New York as a location.")
         entities = [ent.text for ent in doc.ents if ent.label_ in ['GPE', 'LOC']]
         if entities:
-            logger.info(f"✅ spaCy model working (found entities: {entities})")
+            logger.info(f"spaCy model working (found entities: {entities})")
             return True
         else:
-            logger.warning("⚠️  spaCy model loaded but no entities detected in test")
+            logger.warning("spaCy model loaded but no entities detected in test")
             return True
     except Exception as e:
-        logger.error(f"❌ spaCy model test failed: {e}")
+        logger.error(f"spaCy model test failed: {e}")
         return False
 
 
 def main():
     """Main setup function"""
-    print("🚀 Setting up ARGUS Global Crisis Monitor")
+    print("Setting up ARGUS Global Crisis Monitor")
     print("="*50)
     
     success = True
@@ -107,13 +107,13 @@ def main():
     
     print("\n" + "="*50)
     if success:
-        print("🎉 Setup completed successfully!")
+        print("Setup completed successfully!")
         print("\nYou can now run the crisis monitor with:")
         print("  python main.py")
         print("\nFor help with options:")
         print("  python main.py --help")
     else:
-        print("❌ Setup encountered errors. Please check the logs above.")
+        print("Setup encountered errors. Please check the logs above.")
         sys.exit(1)
 
 
