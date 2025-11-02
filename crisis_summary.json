@@ -1,26 +1,26 @@
 {
-  "timestamp": "2025-11-02T12:36:44.798874",
+  "timestamp": "2025-11-02T13:19:43.794633",
   "pipeline_stats": {
-    "total_articles_fetched": 132,
+    "total_articles_fetched": 134,
     "unique_sources": 12,
-    "articles_classified": 132,
-    "crisis_articles_found": 114,
-    "mappable_crisis_articles": 102
+    "articles_classified": 134,
+    "crisis_articles_found": 116,
+    "mappable_crisis_articles": 104
   },
   "classification_stats": {
     "category_distribution": {
-      "Natural Disasters": 19,
+      "Natural Disasters": 20,
       "Humanitarian Crises": 27,
       "Human Rights Violations": 37,
       "Unknown": 18,
-      "Political Conflicts": 31
+      "Political Conflicts": 32
     },
-    "average_confidence": 0.7419301712779979
+    "average_confidence": 0.7439162881245949
   },
   "geographic_stats": {
-    "total_locations_extracted": 308,
-    "successfully_geocoded": 299,
-    "geocoding_success_rate": 0.9707792207792207,
+    "total_locations_extracted": 310,
+    "successfully_geocoded": 300,
+    "geocoding_success_rate": 0.967741935483871,
     "unique_countries_affected": 68,
     "countries_list": [
       "Afghanistan",
@@ -96,7 +96,7 @@
   "top_crisis_locations": [
     [
       "United States",
-      21
+      20
     ],
     [
       "Israel",
@@ -104,7 +104,7 @@
     ],
     [
       "Gaza Strip, Palestine",
-      17
+      15
     ],
     [
       "Sudan",
@@ -119,20 +119,20 @@
       6
     ],
     [
-      "Washington, District of Columbia, United States",
-      6
-    ],
-    [
       "Caribbean, Haiti",
       5
     ],
     [
-      "Al-Fashir, Al Fasher, North Darfur State, Sudan",
-      4
+      "Washington, District of Columbia, United States",
+      5
     ],
     [
-      "Saudi Arabia",
-      4
+      "Lebanon",
+      5
+    ],
+    [
+      "Ukraine",
+      5
     ]
   ]
 }

@@ -161,37 +161,39 @@ def build_time_series(crisis_articles: List[Dict], window_days: int = 7) -> List
         article = result['article']
         category = result.get('predicted_category', 'Unknown')
         
-        # Extract publish date
-        published = article.get('published_date')
-        if not published:
-            continue
+        # Extract publish date with multiple fallbacks
+        published = article.get('published_date') or article.get('published') or article.get('pubDate')
         
-        # Parse date (handle various formats)
-        try:
-            if isinstance(published, str):
-                if len(published) == 14:  # YYYYMMDDHHMMSS
-                    pub_date = datetime.strptime(published[:8], '%Y%m%d')
+        # If no date, use today as fallback
+        if not published:
+            pub_date = datetime.now()
+        else:
+            # Parse date (handle various formats)
+            try:
+                if isinstance(published, str):
+                    if len(published) == 14:  # YYYYMMDDHHMMSS
+                        pub_date = datetime.strptime(published[:8], '%Y%m%d')
+                    else:
+                        pub_date = datetime.fromisoformat(published.replace('Z', '+00:00'))
                 else:
-                    pub_date = datetime.fromisoformat(published.replace('Z', '+00:00'))
-            else:
-                continue
-            
-            date_str = pub_date.strftime('%Y-%m-%d')
-            if date_str in date_buckets:
-                date_buckets[date_str][category] += 1
-        except Exception as e:
-            logger.debug(f"Could not parse date {published}: {e}")
-            continue
+                    pub_date = datetime.now()
+            except Exception as e:
+                logger.debug(f"Could not parse date {published}: {e}, using today")
+                pub_date = datetime.now()
+        
+        date_str = pub_date.strftime('%Y-%m-%d')
+        if date_str in date_buckets:
+            date_buckets[date_str][category] += 1
     
-    # Convert to list format
+    # Convert to list format - include ALL days (even with zero incidents)
     time_series = []
     for date_str in sorted(date_buckets.keys()):
         categories_dict = dict(date_buckets[date_str])
-        if categories_dict:  # Only include days with data
-            time_series.append({
-                'date': date_str,
-                'categories': categories_dict
-            })
+        # Include all days to show proper 30-day timeline
+        time_series.append({
+            'date': date_str,
+            'categories': categories_dict if categories_dict else {}
+        })
     
     return time_series
 

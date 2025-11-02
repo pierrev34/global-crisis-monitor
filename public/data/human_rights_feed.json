@@ -1,9 +1,9 @@
 {
-  "generated_at": "2025-11-02T12:36:44.733044Z",
+  "generated_at": "2025-11-02T13:19:43.793294Z",
   "window_days": 30,
   "summary": {
-    "total_incidents": 114,
-    "countries_affected": 0,
+    "total_incidents": 116,
+    "countries_affected": 43,
     "human_rights_share": 0.32,
     "top_categories": [
       {
@@ -12,7 +12,7 @@
       },
       {
         "name": "Political Conflicts",
-        "count": 31
+        "count": 32
       },
       {
         "name": "Humanitarian Crises",
@@ -20,7 +20,7 @@
       },
       {
         "name": "Natural Disasters",
-        "count": 19
+        "count": 20
       }
     ],
     "source_mix": {
@@ -29,9 +29,125 @@
     },
     "prev_7d_total": null,
     "delta_pct": null,
-    "rolling_avg_30d": 1.5
+    "rolling_avg_30d": 3.7
   },
   "time_series": [
+    {
+      "date": "2025-10-03",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-04",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-05",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-06",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-07",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-08",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-09",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-10",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-11",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-12",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-13",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-14",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-15",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-16",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-17",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-18",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-19",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-20",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-21",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-22",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-23",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-24",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-25",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-26",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-27",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-28",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-29",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-30",
+      "categories": {}
+    },
+    {
+      "date": "2025-10-31",
+      "categories": {}
+    },
     {
       "date": "2025-11-01",
       "categories": {
@@ -41,11 +157,1174 @@
     {
       "date": "2025-11-02",
       "categories": {
-        "Natural Disasters": 2
+        "Natural Disasters": 19,
+        "Humanitarian Crises": 27,
+        "Human Rights Violations": 37,
+        "Political Conflicts": 32
       }
     }
   ],
-  "by_country": [],
+  "by_country": [
+    {
+      "country": "United States",
+      "iso2": "US",
+      "lat": 37.09,
+      "lon": -95.71,
+      "incidents": 14,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 19:39:51 +0000",
+      "items": [
+        {
+          "title": "U.S. airstrikes in Latin America and the Caribbean are murder. Congress must stop them now",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/u-s-airstrikes-in-latin-america-and-the-caribbean-are-murder-congress-must-stop-them-now/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 19:39:51 +0000"
+        },
+        {
+          "title": "Tens of Millions at Risk of Hunger if US Food Assistance Lapses",
+          "url": "https://www.hrw.org/news/2025/10/29/tens-of-millions-at-risk-of-hunger-if-us-food-assistance-lapses",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 15:21:14 -0400"
+        },
+        {
+          "title": "Green flood alert in United States",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103580",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Wed, 29 Oct 2025 06:53:28 GMT"
+        },
+        {
+          "title": "US: Parental Notice for Abortion Causes Harm",
+          "url": "https://www.hrw.org/news/2025/10/29/us-parental-notice-for-abortion-causes-harm",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 06:00:00 -0400"
+        },
+        {
+          "title": "Washington 30 October #1",
+          "url": "https://www.crisisgroup.org/content/washington-30-october-1",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Thu, 30 Oct 2025 17:24:22 +0000"
+        },
+        {
+          "title": "Tunisia: Authorities must immediately release detained lawyer Ahmed Souab",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/tunisia-authorities-must-immediately-release-detained-lawyer-ahmed-souab/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Thu, 30 Oct 2025 13:38:55 +0000"
+        },
+        {
+          "title": "Orange alert for tropical cyclone MONTHA-25. Population affected by Category 1 (120 km/h) wind speeds or higher is 0  (20.02 million in Tropical Storm).",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=TC&eventid=1001232",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Sun, 26 Oct 2025 13:52:15 GMT"
+        },
+        {
+          "title": "South Lebanon mourns victims of new Israeli airstrikes",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/south-lebanon-mourns-victims-new-israeli-airstrikes",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 18:07:18 +0000"
+        },
+        {
+          "title": "Who killed Shireen?",
+          "url": "https://www.aljazeera.com/video/featured-documentaries/2025/11/2/who-killed-shireen?traffic_source=rss",
+          "source": "Al Jazeera English",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 16:00:00 +0000"
+        },
+        {
+          "title": "US court questions legality of pro-Palestine British journalist's detention",
+          "url": "https://www.middleeasteye.net/news/us-court-questions-legality-pro-palestine-british-journalist-detention",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 15:36:14 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Sudan",
+      "iso2": "SD",
+      "lat": 12.86,
+      "lon": 30.22,
+      "incidents": 12,
+      "top_category": "Humanitarian Crises",
+      "latest": "Wed, 29 Oct 2025 16:42:01 +0000",
+      "items": [
+        {
+          "title": "Today's top news: Occupied Palestinian Territory, Sudan, Hurricane Melissa, Ukraine",
+          "url": "https://www.unocha.org/news/todays-top-news-occupied-palestinian-territory-sudan-hurricane-melissa-ukraine-0",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Wed, 29 Oct 2025 16:42:01 +0000"
+        },
+        {
+          "title": "Sudan: Mass Atrocities in Captured Darfur City",
+          "url": "https://www.hrw.org/news/2025/10/29/sudan-mass-atrocities-in-captured-darfur-city",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 15:00:00 -0400"
+        },
+        {
+          "title": "Today's top news: Occupied Palestinian Territory, Sudan, Hurricane Melissa",
+          "url": "https://www.unocha.org/news/todays-top-news-occupied-palestinian-territory-sudan-hurricane-melissa",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Tue, 28 Oct 2025 15:06:49 +0000"
+        },
+        {
+          "title": "Today's top news: Sudan, Occupied Palestinian Territory, Hurricane Melissa",
+          "url": "https://www.unocha.org/news/todays-top-news-sudan-occupied-palestinian-territory-hurricane-melissa",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Thu, 30 Oct 2025 17:01:47 +0000"
+        },
+        {
+          "title": "Emergency Relief Chief warns Security Council attacks in El Fasher \"recall the horrors\" that Darfur endured 20 years ago",
+          "url": "https://www.unocha.org/news/emergency-relief-chief-warns-security-council-attacks-el-fasher-recall-horrors-darfur-endured",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Thu, 30 Oct 2025 15:30:10 +0000"
+        },
+        {
+          "title": "Sudan: UN Relief Chief calls for protection of civilians and their access to aid in El Fasher",
+          "url": "https://www.unocha.org/news/sudan-un-relief-chief-calls-protection-civilians-and-their-access-aid-el-fasher",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Sun, 26 Oct 2025 17:06:57 +0000"
+        },
+        {
+          "title": "Humanitarian disaster worsens across Sudan after RSF takes over el-Fasher",
+          "url": "https://www.aljazeera.com/news/2025/11/2/humanitarian-disaster-worsens-across-sudan-after-rsf-takes-over-el-fasher?traffic_source=rss",
+          "source": "Al Jazeera English",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 15:40:49 +0000"
+        },
+        {
+          "title": "He told the world what was happening in El Fasher. Then they sought him out. How Sudan lost ‘a true hero of the war’",
+          "url": "https://www.theguardian.com/global-development/2025/nov/02/he-told-the-world-what-was-happening-in-el-fasher-then-they-sought-him-out-how-sudan-lost-a-true-hero-of-the-war",
+          "source": "The Guardian - World",
+          "category": "Human Rights Violations",
+          "published": "Sun, 02 Nov 2025 12:00:03 GMT"
+        },
+        {
+          "title": "Sudan: Women and Girls in Sudan - Escalation of Hostilities (29 Oct 2025)",
+          "url": "https://reliefweb.int/report/sudan/sudan-women-and-girls-sudan-escalation-hostilities-29-oct-2025",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sun, 02 Nov 2025 07:51:07 +0000"
+        },
+        {
+          "title": "Today's top news: Occupied Palestinian Territory, Sudan, Hurricane Melissa, Ukraine",
+          "url": "https://www.unocha.org/news/todays-top-news-occupied-palestinian-territory-sudan-hurricane-melissa-ukraine",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Mon, 27 Oct 2025 15:47:17 +0000"
+        }
+      ]
+    },
+    {
+      "country": "China",
+      "iso2": "CN",
+      "lat": 35.86,
+      "lon": 104.19,
+      "incidents": 8,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 17 Sep 2025 13:50:05 +0000",
+      "items": [
+        {
+          "title": "Hong Kong to ‘fast-track’ mega-project near border",
+          "url": "https://rfa.org/english/china/2025/09/17/hong-kong-northern-metropolis/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Wed, 17 Sep 2025 13:50:05 +0000"
+        },
+        {
+          "title": "Closing arguments conclude in Hong Kong mogul Jimmy Lai’s trial",
+          "url": "https://rfa.org/english/china/2025/08/28/jimmy-lai-hong-kong-closing-arguments/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Thu, 28 Aug 2025 15:06:22 +0000"
+        },
+        {
+          "title": "Mass protest by parents prompts reversal of private school closure in China",
+          "url": "https://rfa.org/english/china/2025/05/15/china-parents-protest-private-school-closure/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Thu, 15 May 2025 20:24:36 +0000"
+        },
+        {
+          "title": "Hong Kong exiles seek to preserve democracy’s memory through Lennon Walls in Taiwan",
+          "url": "https://rfa.org/english/china/2025/06/12/hong-kong-exiles-lennon-walls-taiwan/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Thu, 12 Jun 2025 20:17:00 +0000"
+        },
+        {
+          "title": "Palestinian detainee dies in Israeli prison after being denied care",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/palestinian-detainee-dies-israeli-prison-after-being-denied-care",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 17:36:01 +0000"
+        },
+        {
+          "title": "China-US relations: ‘Somewhere between a ceasefire and a truce’",
+          "url": "https://www.aljazeera.com/video/the-bottom-line/2025/11/2/china-us-relations-somewhere-between-a-ceasefire-and-a?traffic_source=rss",
+          "source": "Al Jazeera English",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 17:24:27 +0000"
+        },
+        {
+          "title": "Dalai Lama succession: China warns India against interfering in Tibet-related matters",
+          "url": "https://rfa.org/english/tibet/2025/07/05/tibet-dalai-lama-china-india-succession/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Sat, 05 Jul 2025 01:24:24 +0000"
+        },
+        {
+          "title": "Imprisoned Hong Kong activist Joshua Wong faces new ‘foreign collusion’ charge",
+          "url": "https://rfa.org/english/china/2025/06/06/china-hong-kong-joshua-wong/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Fri, 06 Jun 2025 15:17:45 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Jamaica",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 7,
+      "top_category": "Humanitarian Crises",
+      "latest": "Thu, 30 Oct 2025 13:24:23 GMT",
+      "items": [
+        {
+          "title": "Green flood alert in Jamaica",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103587",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Thu, 30 Oct 2025 13:24:23 GMT"
+        },
+        {
+          "title": "Jamaica Coordination Structure - Sector Contacts and Government Counterparts",
+          "url": "https://reliefweb.int/report/jamaica/jamaica-coordination-structure-sector-contacts-and-government-counterparts",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sun, 02 Nov 2025 00:00:00 +0000"
+        },
+        {
+          "title": "Jamaica: Caribe: Huracán Melissa - Flash Update No. 3 (al 31 de octubre 2025)",
+          "url": "https://reliefweb.int/report/jamaica/caribe-huracan-melissa-flash-update-no-3-al-31-de-octubre-2025",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sat, 01 Nov 2025 02:57:55 +0000"
+        },
+        {
+          "title": "Jamaica: The Caribbean: Hurricane Melissa - Flash Update No. 3 (as of 31 October 2025)",
+          "url": "https://reliefweb.int/report/jamaica/caribbean-hurricane-melissa-flash-update-no-3-31-october-2025",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sat, 01 Nov 2025 02:55:08 +0000"
+        },
+        {
+          "title": "Jamaica: Hurricane Melissa - Situation Report No. 1 (as of 31 October)",
+          "url": "https://reliefweb.int/report/jamaica/jamaica-hurricane-melissa-situation-report-no-1-31-october",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sat, 01 Nov 2025 02:29:03 +0000"
+        },
+        {
+          "title": "Jamaica Gender in Brief - Caribbean Gender Alliance",
+          "url": "https://reliefweb.int/report/jamaica/jamaica-gender-brief-caribbean-gender-alliance",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Fri, 31 Oct 2025 23:13:15 +0000"
+        },
+        {
+          "title": "Hurricane Melissa death toll nears 50 as Jamaica relief efforts intensify and storm heads north",
+          "url": "https://www.theguardian.com/world/2025/oct/30/hurricane-melissa-bermuda-leaving-devastation-jamaica",
+          "source": "The Guardian - World",
+          "category": "Humanitarian Crises",
+          "published": "Fri, 31 Oct 2025 05:31:23 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Israel",
+      "iso2": "IL",
+      "lat": 31.05,
+      "lon": 34.85,
+      "incidents": 6,
+      "top_category": "Political Conflicts",
+      "latest": "Thu, 30 Oct 2025 17:26:38 +0000",
+      "items": [
+        {
+          "title": "Israel 30 October 2025 #1",
+          "url": "https://www.crisisgroup.org/content/israel-30-october-2025-1",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Thu, 30 Oct 2025 17:26:38 +0000"
+        },
+        {
+          "title": "Israel receives bodies of three captives, must return 45 Palestinians",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israel-receives-bodies-three-captives-must-return-45-palestinians",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 19:47:56 +0000"
+        },
+        {
+          "title": "How labour unions in Europe can help end Israel’s genocide in Gaza",
+          "url": "https://www.aljazeera.com/opinions/2025/11/2/how-labour-unions-in-europe-can-help-end-israels-genocide-in-gaza?traffic_source=rss",
+          "source": "Al Jazeera English",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 15:08:14 +0000"
+        },
+        {
+          "title": "Israel to appoint new army lawyer after Palestinian prisoner rape scandal",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israel-appoint-new-army-lawyer-after-palestinian-prisoner-rape-scandal",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 13:06:15 +0000"
+        },
+        {
+          "title": "Israel to appoint new army lawyer after Palestinian prisoner rape scandal",
+          "url": "https://www.middleeasteye.net/news/israel-appoint-new-army-lawyer-after-palestinian-detainee-rape-video-scandal",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 12:26:46 +0000"
+        },
+        {
+          "title": "Israeli Ground Incursion Raises Spectre of Israel-Lebanon Clash",
+          "url": "https://www.crisisgroup.org/middle-east-north-africa/lebanon-israelpalestine/israeli-ground-incursion-raises-spectre-israel-lebanon-clash",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Fri, 31 Oct 2025 10:33:50 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Palestine",
+      "iso2": "PS",
+      "lat": 31.95,
+      "lon": 35.23,
+      "incidents": 6,
+      "top_category": "Political Conflicts",
+      "latest": "Sun, 02 Nov 2025 19:27:35 GMT",
+      "items": [
+        {
+          "title": "Hamas hands over three coffins it says contain bodies of Gaza hostages",
+          "url": "https://www.bbc.com/news/articles/c3ep044jz47o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 19:27:35 GMT"
+        },
+        {
+          "title": "Red Cross to receive bodies of Israeli captives in Gaza handover",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/red-cross-receive-bodies-israeli-captives-gaza-handover",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 18:51:28 +0000"
+        },
+        {
+          "title": "At least 500 bodies recovered in Gaza since Israel’s so-called ceasefire",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/least-500-bodies-recovered-gaza-israels-so-called-ceasefire",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 16:36:43 +0000"
+        },
+        {
+          "title": "Israeli strike kills one in Gaza as Netanyahu vows to 'eliminate' Hamas",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-strike-kills-one-gaza-netanyahu-vows-eliminate-hamas",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 14:36:16 +0000"
+        },
+        {
+          "title": "Gaza death toll rises to 68,865",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/gaza-death-toll-rises-68865",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 11:52:24 +0000"
+        },
+        {
+          "title": "Israeli forces detain 21 Palestinians in West Bank, including children",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-forces-detain-21-palestinians-west-bank-including-children",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 11:33:52 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Afghanistan",
+      "iso2": "AF",
+      "lat": 33.93,
+      "lon": 67.71,
+      "incidents": 3,
+      "top_category": "Natural Disasters",
+      "latest": "Sun, 02 Nov 2025 20:44:52 GMT",
+      "items": [
+        {
+          "title": "Red earthquake alert (Magnitude 6.3M, Depth:28km) in Afghanistan 02/11/2025 20:29 UTC, 60 thousand (in MMI>=VII).",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=EQ&eventid=1508467",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Sun, 02 Nov 2025 20:44:52 GMT"
+        },
+        {
+          "title": "Afghanistan: Eastern Region Earthquake Response Overview - October 2025",
+          "url": "https://reliefweb.int/report/afghanistan/afghanistan-eastern-region-earthquake-response-overview-october-2025",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sun, 02 Nov 2025 06:35:43 +0000"
+        },
+        {
+          "title": "M 6.3 - 22 km WSW of Khulm, Afghanistan",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000rl31",
+          "source": "USGS Earthquakes (Significant)",
+          "category": "Natural Disasters",
+          "published": "2025-11-02T21:11:59.097Z"
+        }
+      ]
+    },
+    {
+      "country": "Cuba",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 3,
+      "top_category": "Humanitarian Crises",
+      "latest": "Thu, 30 Oct 2025 13:01:33 GMT",
+      "items": [
+        {
+          "title": "Orange flood alert in Cuba",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103585",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Thu, 30 Oct 2025 13:01:33 GMT"
+        },
+        {
+          "title": "Hurricane Melissa Flash Update #3 - Cuba",
+          "url": "https://reliefweb.int/report/cuba/hurricane-melissa-flash-update-3-cuba-0",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sat, 01 Nov 2025 00:51:01 +0000"
+        },
+        {
+          "title": "Hurricane Melissa Flash Update #3 - Cuba",
+          "url": "https://reliefweb.int/report/cuba/hurricane-melissa-flash-update-3-cuba",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sat, 01 Nov 2025 00:50:08 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Philippines",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Natural Disasters",
+      "latest": "Sun, 02 Nov 2025 19:24:32 GMT",
+      "items": [
+        {
+          "title": "Green earthquake alert (Magnitude 5.5M, Depth:141.463km) in Philippines 02/11/2025 19:06 UTC, 1.9 million in MMI IV.",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=EQ&eventid=1508459",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Sun, 02 Nov 2025 19:24:32 GMT"
+        },
+        {
+          "title": "Red alert for tropical cyclone KALMAEGI-25. Population affected by Category 1 (120 km/h) wind speeds or higher is 9.421 million .",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=TC&eventid=1001233",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Sat, 01 Nov 2025 07:53:31 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Brazil",
+      "iso2": "BR",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Human Rights Violations",
+      "latest": "Fri, 31 Oct 2025 20:15:00 -0400",
+      "items": [
+        {
+          "title": "Brazil: Serious Investigative Failures in Deadly Rio Raid",
+          "url": "https://www.hrw.org/news/2025/10/31/brazil-serious-investigative-failures-in-deadly-rio-raid",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Fri, 31 Oct 2025 20:15:00 -0400"
+        },
+        {
+          "title": "‘How do you rebuild all this?’ Black River residents assess damage after Hurricane Melissa",
+          "url": "https://www.theguardian.com/world/2025/oct/31/black-river-jamaica-residents-assess-damage-after-hurricane-melissa",
+          "source": "The Guardian - World",
+          "category": "Natural Disasters",
+          "published": "Fri, 31 Oct 2025 17:59:01 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Colombia",
+      "iso2": "CO",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Humanitarian Crises",
+      "latest": "Wed, 29 Oct 2025 11:49:56 +0000",
+      "items": [
+        {
+          "title": "Global: Amnesty delegation meets abortion defenders as backlash against human rights intensifies",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/global-amnesty-delegation-meets-abortion-defenders-as-backlash-against-human-rights-intensifies/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 11:49:56 +0000"
+        },
+        {
+          "title": "Colombia - Análisis sobre la priorización de la respuesta humanitaria (PRPC 2025)",
+          "url": "https://reliefweb.int/report/colombia/colombia-analisis-sobre-la-priorizacion-de-la-respuesta-humanitaria-prpc-2025",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Fri, 31 Oct 2025 16:23:25 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Haiti",
+      "iso2": "HT",
+      "lat": 18.97,
+      "lon": -72.29,
+      "incidents": 2,
+      "top_category": "Humanitarian Crises",
+      "latest": "Fri, 31 Oct 2025 15:22:42 +0000",
+      "items": [
+        {
+          "title": "As Hurricane Melissa batters the Caribbean, UN, governments race to save lives",
+          "url": "https://www.unocha.org/news/hurricane-melissa-batters-caribbean-un-governments-race-save-lives",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Fri, 31 Oct 2025 15:22:42 +0000"
+        },
+        {
+          "title": "Weather tracker: Hurricane Melissa leaves trail of destruction across Caribbean",
+          "url": "https://www.theguardian.com/environment/2025/oct/31/weather-tracker-hurricane-melissa-caribbean-jamaica-haiti-cuba",
+          "source": "The Guardian - World",
+          "category": "Humanitarian Crises",
+          "published": "Fri, 31 Oct 2025 07:50:21 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Ukraine",
+      "iso2": "UA",
+      "lat": 48.38,
+      "lon": 31.17,
+      "incidents": 2,
+      "top_category": "Human Rights Violations",
+      "latest": "Sun, 02 Nov 2025 20:34:19 GMT",
+      "items": [
+        {
+          "title": "Nato 'will stand with Ukraine' to get long-lasting peace, senior official tells BBC",
+          "url": "https://www.bbc.com/news/articles/czxng7kxnp9o?at_medium=RSS&at_campaign=rss",
+          "source": "BBC World",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 20:34:19 GMT"
+        },
+        {
+          "title": "Ukrainian journalist Dmytro: “I never imagined that people would be kidnapped”",
+          "url": "https://www.amnesty.org/en/latest/campaigns/2025/10/ukrainian-journalist-dmytro-i-never-imagined-that-people-would-be-kidnapped/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Fri, 31 Oct 2025 14:24:57 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Lebanon",
+      "iso2": "LB",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Political Conflicts",
+      "latest": "Thu, 30 Oct 2025 17:27:35 +0000",
+      "items": [
+        {
+          "title": "Lebanon 30 October 2025 #1",
+          "url": "https://www.crisisgroup.org/content/lebanon-30-october-2025-1",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Thu, 30 Oct 2025 17:27:35 +0000"
+        },
+        {
+          "title": "Israeli drone strike hits southern Lebanon",
+          "url": "https://www.middleeasteye.net/live-blog/live-blog-update/israeli-drone-strike-hits-southern-lebanon",
+          "source": "Middle East Eye",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 21:01:44 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Iran",
+      "iso2": "IR",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Political Conflicts",
+      "latest": "Thu, 30 Oct 2025 17:25:38 +0000",
+      "items": [
+        {
+          "title": "Tehran 30 October 2025 #1",
+          "url": "https://www.crisisgroup.org/content/tehran-30-october-2025-1",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Thu, 30 Oct 2025 17:25:38 +0000"
+        },
+        {
+          "title": "Tehran 29 October 2025 #1",
+          "url": "https://www.crisisgroup.org/content/tehran-29-october-2025-1",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Thu, 30 Oct 2025 17:22:21 +0000"
+        }
+      ]
+    },
+    {
+      "country": "South Sudan",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Political Conflicts",
+      "latest": "Thu, 30 Oct 2025 15:18:49 +0000",
+      "items": [
+        {
+          "title": "The Trial of South Sudan’s Vice President Riek Machar",
+          "url": "https://www.crisisgroup.org/africa/south-sudan/trial-south-sudans-vice-president-riek-machar",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Thu, 30 Oct 2025 15:18:49 +0000"
+        },
+        {
+          "title": "Today's top news: Occupied Palestinian Territory, Tropical Storm Melissa, South Sudan, Ukraine",
+          "url": "https://www.unocha.org/news/todays-top-news-occupied-palestinian-territory-tropical-storm-melissa-south-sudan-ukraine",
+          "source": "UN OCHA (Humanitarian Affairs)",
+          "category": "Humanitarian Crises",
+          "published": "Fri, 24 Oct 2025 15:30:13 +0000"
+        }
+      ]
+    },
+    {
+      "country": "France",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 22:21:34 +0000",
+      "items": [
+        {
+          "title": "France: ‘Historic victory’ as French law adopts consent-based definition of rape",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/france-historic-victory-as-french-law-adopts-consent-based-definition-of-rape/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 22:21:34 +0000"
+        },
+        {
+          "title": "France Redefines Rape in Landmark Law",
+          "url": "https://www.hrw.org/news/2025/10/30/france-redefines-rape-in-landmark-law",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Thu, 30 Oct 2025 04:17:45 -0400"
+        }
+      ]
+    },
+    {
+      "country": "Mali",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 2,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 15:17:22 -0400",
+      "items": [
+        {
+          "title": "Convicted in Mali for Expressing ‘Unwavering Solidarity’",
+          "url": "https://www.hrw.org/news/2025/10/29/convicted-in-mali-for-expressing-unwavering-solidarity",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 15:17:22 -0400"
+        },
+        {
+          "title": "Education in Mali Shuttered Amid Islamist Armed Group’s Siege",
+          "url": "https://www.hrw.org/news/2025/10/28/education-in-mali-shuttered-amid-islamist-armed-groups-siege",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Tue, 28 Oct 2025 15:26:45 -0400"
+        }
+      ]
+    },
+    {
+      "country": "Turkey",
+      "iso2": "TR",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Natural Disasters",
+      "latest": "2025-11-02T15:18:52.276Z",
+      "items": [
+        {
+          "title": "M 6.0 - 4 km ESE of Sındırgı, Turkey",
+          "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000rjsu",
+          "source": "USGS Earthquakes (Significant)",
+          "category": "Natural Disasters",
+          "published": "2025-11-02T15:18:52.276Z"
+        }
+      ]
+    },
+    {
+      "country": "Somalia",
+      "iso2": "SO",
+      "lat": 5.15,
+      "lon": 46.2,
+      "incidents": 1,
+      "top_category": "Humanitarian Crises",
+      "latest": "Sun, 02 Nov 2025 07:25:55 +0000",
+      "items": [
+        {
+          "title": "Somalia - Humanitarian Response Dashboard, September 2025",
+          "url": "https://reliefweb.int/report/somalia/somalia-humanitarian-response-dashboard-september-2025",
+          "source": "ReliefWeb - All Updates",
+          "category": "Humanitarian Crises",
+          "published": "Sun, 02 Nov 2025 07:25:55 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Papua New Guinea",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Natural Disasters",
+      "latest": "Sat, 01 Nov 2025 06:52:48 GMT",
+      "items": [
+        {
+          "title": "Green flood alert in Papua New Guinea",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103591",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Sat, 01 Nov 2025 06:52:48 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Algeria",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Fri, 31 Oct 2025 16:42:17 +0000",
+      "items": [
+        {
+          "title": "Algeria: Authorities must quash outrageous 15-year sentence against unionist Ali Mammeri",
+          "url": "https://www.amnesty.org/en/latest/press-release/2025/10/algeria-authorities-must-quash-outrageous-15-year-sentence-against-unionist-ali-mammeri/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Fri, 31 Oct 2025 16:42:17 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Australia",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Political Conflicts",
+      "latest": "Fri, 31 Oct 2025 15:54:53 +0000",
+      "items": [
+        {
+          "title": "Drug War or Regime Change? Trump’s Venezuela and Western Hemisphere Policy",
+          "url": "https://www.crisisgroup.org/latin-america-caribbean/venezuela/drug-war-or-regime-change-trumps-venezuela-and-western-hemisphere-policy",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Fri, 31 Oct 2025 15:54:53 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Pakistan",
+      "iso2": "PK",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Political Conflicts",
+      "latest": "Fri, 31 Oct 2025 14:35:37 +0000",
+      "items": [
+        {
+          "title": "On Our Radar",
+          "url": "https://www.crisisgroup.org/global/our-radar",
+          "source": "International Crisis Group",
+          "category": "Political Conflicts",
+          "published": "Fri, 31 Oct 2025 14:35:37 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Uganda",
+      "iso2": "UG",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Natural Disasters",
+      "latest": "Fri, 31 Oct 2025 08:11:11 GMT",
+      "items": [
+        {
+          "title": "Green flood alert in Uganda",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103590",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Fri, 31 Oct 2025 08:11:11 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Kenya",
+      "iso2": "KE",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Natural Disasters",
+      "latest": "Fri, 31 Oct 2025 07:52:32 GMT",
+      "items": [
+        {
+          "title": "Green flood alert in Kenya",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103589",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Fri, 31 Oct 2025 07:52:32 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Latvia",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Thu, 30 Oct 2025 22:17:42 +0000",
+      "items": [
+        {
+          "title": "Latvia: President must reverse parliament’s appalling and dangerous decision to leave Istanbul Convention",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/latvia-president-must-reverse-parliaments-appalling-and-dangerous-decision-to-leave-istanbul-convention/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Thu, 30 Oct 2025 22:17:42 +0000"
+        }
+      ]
+    },
+    {
+      "country": "South Africa",
+      "iso2": "ZA",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Thu, 30 Oct 2025 12:22:00 +0000",
+      "items": [
+        {
+          "title": "How do we protect the right to housing amid the growing threat of climate change?",
+          "url": "https://www.amnesty.org/en/latest/campaigns/2025/10/how-do-we-protect-the-right-to-housing-amid-the-growing-threat-of-climate-change/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Thu, 30 Oct 2025 12:22:00 +0000"
+        }
+      ]
+    },
+    {
+      "country": "New Zealand",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Natural Disasters",
+      "latest": "Thu, 30 Oct 2025 09:10:39 GMT",
+      "items": [
+        {
+          "title": "Green earthquake alert (Magnitude 5.5M, Depth:313.108km) in Kermadec Islands Region 30/10/2025 08:52 UTC, [unknown].",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=EQ&eventid=1507878",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Thu, 30 Oct 2025 09:10:39 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Spain",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Natural Disasters",
+      "latest": "Thu, 30 Oct 2025 07:31:11 GMT",
+      "items": [
+        {
+          "title": "Green flood alert in Spain",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103583",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Thu, 30 Oct 2025 07:31:11 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Portugal",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Natural Disasters",
+      "latest": "Thu, 30 Oct 2025 06:20:32 GMT",
+      "items": [
+        {
+          "title": "Green flood alert in Portugal",
+          "url": "https://www.gdacs.org/report.aspx?eventtype=FL&eventid=1103582",
+          "source": "GDACS Global Disasters",
+          "category": "Natural Disasters",
+          "published": "Thu, 30 Oct 2025 06:20:32 GMT"
+        }
+      ]
+    },
+    {
+      "country": "Eswatini",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Thu, 30 Oct 2025 00:00:00 -0400",
+      "items": [
+        {
+          "title": "Eswatini: No Justice for June 2021 Security Force Violence",
+          "url": "https://www.hrw.org/news/2025/10/30/eswatini-no-justice-for-june-2021-security-force-violence",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Thu, 30 Oct 2025 00:00:00 -0400"
+        }
+      ]
+    },
+    {
+      "country": "Luxembourg",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Thu, 30 Oct 2025 01:01:00 +0000",
+      "items": [
+        {
+          "title": "Europe: Human rights defenders excluded by discriminatory Schengen visa system",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/europe-human-rights-defenders-excluded-by-discriminatory-schengen-visa-system/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Thu, 30 Oct 2025 01:01:00 +0000"
+        }
+      ]
+    },
+    {
+      "country": "South Korea",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 20:00:00 -0400",
+      "items": [
+        {
+          "title": "South Korea: Census to Count Same-Sex Couples",
+          "url": "https://www.hrw.org/news/2025/10/29/south-korea-census-to-count-same-sex-couples",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 20:00:00 -0400"
+        }
+      ]
+    },
+    {
+      "country": "Tanzania",
+      "iso2": "TZ",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 17:27:23 +0000",
+      "items": [
+        {
+          "title": "Tanzania: Authorities must investigate police use of force against election day protesters",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/tanzania-authorities-must-investigate-police-use-of-force-against-election-day-protesters/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 17:27:23 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Burkina Faso",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 16:44:57 +0000",
+      "items": [
+        {
+          "title": "Malawi: Landmark High Court ruling affirms rights of sexual violence survivors",
+          "url": "https://www.amnesty.org/en/latest/news/2025/10/malawi-landmark-high-court-ruling-affirms-rights-of-sexual-violence-survivors/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 16:44:57 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Libya",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 08:00:01 -0400",
+      "items": [
+        {
+          "title": "Are European Football Clubs Sportswashing Libyan Abuses?",
+          "url": "https://www.hrw.org/news/2025/10/29/are-european-football-clubs-sportswashing-libyan-abuses",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 08:00:01 -0400"
+        }
+      ]
+    },
+    {
+      "country": "Saudi Arabia",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 29 Oct 2025 00:00:00 -0400",
+      "items": [
+        {
+          "title": "Saudi Arabia: Grand Mufti Should Back Religious Tolerance",
+          "url": "https://www.hrw.org/news/2025/10/29/saudi-arabia-grand-mufti-should-back-religious-tolerance",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "Wed, 29 Oct 2025 00:00:00 -0400"
+        }
+      ]
+    },
+    {
+      "country": "Myanmar",
+      "iso2": "MM",
+      "lat": 21.91,
+      "lon": 95.96,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Mon, 20 Oct 2025 14:29:54 +0000",
+      "items": [
+        {
+          "title": "Myanmar junta says it seized 30 Starlink receivers in scam center raid",
+          "url": "https://rfa.org/english/myanmar/2025/10/20/myanmar-starlink-scam-center-raid/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Mon, 20 Oct 2025 14:29:54 +0000"
+        }
+      ]
+    },
+    {
+      "country": "North Korea",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Tue, 02 Sep 2025 15:43:34 +0000",
+      "items": [
+        {
+          "title": "North Korea’s Kim Jong Un arrives in Beijing for military parade",
+          "url": "https://rfa.org/english/korea/2025/09/02/kim-jong-un-beijing-parade/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Tue, 02 Sep 2025 15:43:34 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Thailand",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Wed, 30 Jul 2025 20:19:06 +0000",
+      "items": [
+        {
+          "title": "Cambodian migrant workers in Thailand attacked amid border tensions",
+          "url": "https://rfa.org/english/cambodia/2025/07/30/cambodia-migrant-workers-attacked-thailand/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Wed, 30 Jul 2025 20:19:06 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Vietnam",
+      "iso2": "XX",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Human Rights Violations",
+      "latest": "Mon, 14 Jul 2025 15:58:59 +0000",
+      "items": [
+        {
+          "title": "Vietnam to ban gas-powered motorbikes in central Hanoi next year",
+          "url": "https://rfa.org/english/vietnam/2025/07/14/vietnam-hanoi-motorbike-ban/",
+          "source": "Radio Free Asia",
+          "category": "Human Rights Violations",
+          "published": "Mon, 14 Jul 2025 15:58:59 +0000"
+        }
+      ]
+    },
+    {
+      "country": "Nigeria",
+      "iso2": "NG",
+      "lat": 0.0,
+      "lon": 0.0,
+      "incidents": 1,
+      "top_category": "Political Conflicts",
+      "latest": "Sun, 02 Nov 2025 13:49:17 +0000",
+      "items": [
+        {
+          "title": "‘No Christian genocide in Nigeria’ gov’t says after Trump’s threats",
+          "url": "https://www.aljazeera.com/news/2025/11/2/nigeria-welcomes-us-assistance-to-fight-terrorism-after-trumps-threats?traffic_source=rss",
+          "source": "Al Jazeera English",
+          "category": "Political Conflicts",
+          "published": "Sun, 02 Nov 2025 13:49:17 +0000"
+        }
+      ]
+    }
+  ],
   "sources": [
     {
       "name": "GDACS Global Disasters",
@@ -93,18 +1372,18 @@
       "type": "media"
     },
     {
+      "name": "USGS Earthquakes (Significant)",
+      "count": 4,
+      "type": "media"
+    },
+    {
       "name": "The Guardian - World",
       "count": 4,
       "type": "media"
     },
     {
-      "name": "USGS Earthquakes (Significant)",
-      "count": 3,
-      "type": "media"
-    },
-    {
       "name": "BBC World",
-      "count": 1,
+      "count": 2,
       "type": "media"
     }
   ]
