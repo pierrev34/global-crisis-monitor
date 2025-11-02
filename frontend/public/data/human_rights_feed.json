@@ -1,0 +1,319 @@
+{
+  "generated_at": "2025-11-02T19:00:00Z",
+  "window_days": 7,
+  "summary": {
+    "total_incidents": 108,
+    "countries_affected": 34,
+    "human_rights_share": 0.42,
+    "top_categories": [
+      {
+        "name": "Human Rights Violations",
+        "count": 45
+      },
+      {
+        "name": "Political Conflicts",
+        "count": 28
+      },
+      {
+        "name": "Humanitarian Crises",
+        "count": 19
+      },
+      {
+        "name": "Natural Disasters",
+        "count": 10
+      },
+      {
+        "name": "Health Emergencies",
+        "count": 6
+      }
+    ],
+    "source_mix": {
+      "ngo": 61,
+      "media": 47
+    }
+  },
+  "time_series": [
+    {
+      "date": "2025-10-27",
+      "categories": {
+        "Human Rights Violations": 7,
+        "Political Conflicts": 4,
+        "Humanitarian Crises": 2,
+        "Natural Disasters": 1
+      }
+    },
+    {
+      "date": "2025-10-28",
+      "categories": {
+        "Human Rights Violations": 5,
+        "Political Conflicts": 6,
+        "Humanitarian Crises": 3,
+        "Natural Disasters": 2
+      }
+    },
+    {
+      "date": "2025-10-29",
+      "categories": {
+        "Human Rights Violations": 8,
+        "Political Conflicts": 5,
+        "Humanitarian Crises": 4,
+        "Natural Disasters": 1
+      }
+    },
+    {
+      "date": "2025-10-30",
+      "categories": {
+        "Human Rights Violations": 6,
+        "Political Conflicts": 3,
+        "Humanitarian Crises": 2,
+        "Health Emergencies": 1
+      }
+    },
+    {
+      "date": "2025-10-31",
+      "categories": {
+        "Human Rights Violations": 9,
+        "Political Conflicts": 4,
+        "Humanitarian Crises": 3,
+        "Natural Disasters": 2
+      }
+    },
+    {
+      "date": "2025-11-01",
+      "categories": {
+        "Human Rights Violations": 5,
+        "Political Conflicts": 3,
+        "Humanitarian Crises": 2,
+        "Natural Disasters": 3,
+        "Health Emergencies": 2
+      }
+    },
+    {
+      "date": "2025-11-02",
+      "categories": {
+        "Human Rights Violations": 5,
+        "Political Conflicts": 3,
+        "Humanitarian Crises": 3,
+        "Natural Disasters": 1,
+        "Health Emergencies": 3
+      }
+    }
+  ],
+  "by_country": [
+    {
+      "country": "Sudan",
+      "iso2": "SD",
+      "lat": 12.86,
+      "lon": 30.22,
+      "incidents": 12,
+      "top_category": "Humanitarian Crises",
+      "latest": "2025-11-02T15:30:00Z",
+      "items": [
+        {
+          "title": "Humanitarian crisis deepens as conflict displaces millions",
+          "url": "https://www.unhcr.org/news/sudan-displacement-2025",
+          "source": "UNHCR",
+          "category": "Humanitarian Crises",
+          "published": "2025-11-02T15:30:00Z"
+        },
+        {
+          "title": "Access to healthcare limited in conflict zones",
+          "url": "https://www.msf.org/sudan-healthcare-access",
+          "source": "Doctors Without Borders",
+          "category": "Humanitarian Crises",
+          "published": "2025-11-01T10:15:00Z"
+        }
+      ]
+    },
+    {
+      "country": "Ethiopia",
+      "iso2": "ET",
+      "lat": 9.15,
+      "lon": 40.49,
+      "incidents": 9,
+      "top_category": "Human Rights Violations",
+      "latest": "2025-11-02T08:45:00Z",
+      "items": [
+        {
+          "title": "Arbitrary detention of activists in Addis Ababa",
+          "url": "https://www.hrw.org/news/2025/11/02/ethiopia-activists-detained",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "2025-11-02T08:45:00Z"
+        },
+        {
+          "title": "Press freedom concerns as journalists face harassment",
+          "url": "https://www.amnesty.org/en/latest/news/2025/11/ethiopia-press-freedom/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "2025-10-31T14:20:00Z"
+        }
+      ]
+    },
+    {
+      "country": "Myanmar",
+      "iso2": "MM",
+      "lat": 21.91,
+      "lon": 95.96,
+      "incidents": 8,
+      "top_category": "Human Rights Violations",
+      "latest": "2025-11-01T18:00:00Z",
+      "items": [
+        {
+          "title": "Military crackdown continues against pro-democracy protesters",
+          "url": "https://www.hrw.org/news/2025/11/01/myanmar-military-crackdown",
+          "source": "Human Rights Watch",
+          "category": "Human Rights Violations",
+          "published": "2025-11-01T18:00:00Z"
+        }
+      ]
+    },
+    {
+      "country": "Yemen",
+      "iso2": "YE",
+      "lat": 15.55,
+      "lon": 48.52,
+      "incidents": 7,
+      "top_category": "Humanitarian Crises",
+      "latest": "2025-11-01T12:30:00Z",
+      "items": [
+        {
+          "title": "Food insecurity reaches critical levels",
+          "url": "https://reliefweb.int/report/yemen/food-crisis-2025",
+          "source": "ReliefWeb",
+          "category": "Humanitarian Crises",
+          "published": "2025-11-01T12:30:00Z"
+        }
+      ]
+    },
+    {
+      "country": "Syria",
+      "iso2": "SY",
+      "lat": 34.8,
+      "lon": 38.99,
+      "incidents": 7,
+      "top_category": "Political Conflicts",
+      "latest": "2025-10-31T16:45:00Z",
+      "items": [
+        {
+          "title": "Ongoing violence in northwest regions",
+          "url": "https://www.aljazeera.com/news/2025/10/31/syria-conflict",
+          "source": "Al Jazeera",
+          "category": "Political Conflicts",
+          "published": "2025-10-31T16:45:00Z"
+        }
+      ]
+    },
+    {
+      "country": "Afghanistan",
+      "iso2": "AF",
+      "lat": 33.93,
+      "lon": 67.71,
+      "incidents": 6,
+      "top_category": "Human Rights Violations",
+      "latest": "2025-11-02T11:00:00Z",
+      "items": [
+        {
+          "title": "Restrictions on women's rights tighten further",
+          "url": "https://www.amnesty.org/en/latest/news/2025/11/afghanistan-womens-rights/",
+          "source": "Amnesty International",
+          "category": "Human Rights Violations",
+          "published": "2025-11-02T11:00:00Z"
+        }
+      ]
+    },
+    {
+      "country": "Ukraine",
+      "iso2": "UA",
+      "lat": 48.38,
+      "lon": 31.17,
+      "incidents": 6,
+      "top_category": "Political Conflicts",
+      "latest": "2025-11-02T09:15:00Z",
+      "items": [
+        {
+          "title": "Civilian infrastructure targeted in recent attacks",
+          "url": "https://www.bbc.com/news/world-europe-ukraine-2025",
+          "source": "BBC World",
+          "category": "Political Conflicts",
+          "published": "2025-11-02T09:15:00Z"
+        }
+      ]
+    },
+    {
+      "country": "Haiti",
+      "iso2": "HT",
+      "lat": 18.97,
+      "lon": -72.29,
+      "incidents": 5,
+      "top_category": "Humanitarian Crises",
+      "latest": "2025-10-30T14:00:00Z",
+      "items": [
+        {
+          "title": "Gang violence displaces thousands in Port-au-Prince",
+          "url": "https://www.unhcr.org/news/haiti-displacement-2025",
+          "source": "UNHCR",
+          "category": "Humanitarian Crises",
+          "published": "2025-10-30T14:00:00Z"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "name": "Human Rights Watch",
+      "count": 22,
+      "type": "ngo"
+    },
+    {
+      "name": "Amnesty International",
+      "count": 17,
+      "type": "ngo"
+    },
+    {
+      "name": "UN OCHA",
+      "count": 14,
+      "type": "un"
+    },
+    {
+      "name": "UNHCR",
+      "count": 8,
+      "type": "un"
+    },
+    {
+      "name": "ReliefWeb",
+      "count": 12,
+      "type": "un"
+    },
+    {
+      "name": "Doctors Without Borders",
+      "count": 6,
+      "type": "ngo"
+    },
+    {
+      "name": "International Crisis Group",
+      "count": 4,
+      "type": "ngo"
+    },
+    {
+      "name": "BBC World",
+      "count": 9,
+      "type": "media"
+    },
+    {
+      "name": "Al Jazeera",
+      "count": 8,
+      "type": "media"
+    },
+    {
+      "name": "Reuters",
+      "count": 7,
+      "type": "media"
+    },
+    {
+      "name": "The Guardian",
+      "count": 6,
+      "type": "media"
+    }
+  ]
+}
