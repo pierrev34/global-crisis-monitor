@@ -1,0 +1,111 @@
+{
+  "generated_at": "2025-11-02T12:36:44.733044Z",
+  "window_days": 30,
+  "summary": {
+    "total_incidents": 114,
+    "countries_affected": 0,
+    "human_rights_share": 0.32,
+    "top_categories": [
+      {
+        "name": "Human Rights Violations",
+        "count": 37
+      },
+      {
+        "name": "Political Conflicts",
+        "count": 31
+      },
+      {
+        "name": "Humanitarian Crises",
+        "count": 27
+      },
+      {
+        "name": "Natural Disasters",
+        "count": 19
+      }
+    ],
+    "source_mix": {
+      "ngo": 4,
+      "media": 8
+    },
+    "prev_7d_total": null,
+    "delta_pct": null,
+    "rolling_avg_30d": 1.5
+  },
+  "time_series": [
+    {
+      "date": "2025-11-01",
+      "categories": {
+        "Natural Disasters": 1
+      }
+    },
+    {
+      "date": "2025-11-02",
+      "categories": {
+        "Natural Disasters": 2
+      }
+    }
+  ],
+  "by_country": [],
+  "sources": [
+    {
+      "name": "GDACS Global Disasters",
+      "count": 15,
+      "type": "media"
+    },
+    {
+      "name": "ReliefWeb - All Updates",
+      "count": 15,
+      "type": "ngo"
+    },
+    {
+      "name": "Middle East Eye",
+      "count": 14,
+      "type": "media"
+    },
+    {
+      "name": "Radio Free Asia",
+      "count": 13,
+      "type": "media"
+    },
+    {
+      "name": "Amnesty International",
+      "count": 12,
+      "type": "ngo"
+    },
+    {
+      "name": "Human Rights Watch",
+      "count": 11,
+      "type": "ngo"
+    },
+    {
+      "name": "UN OCHA (Humanitarian Affairs)",
+      "count": 10,
+      "type": "ngo"
+    },
+    {
+      "name": "International Crisis Group",
+      "count": 10,
+      "type": "media"
+    },
+    {
+      "name": "Al Jazeera English",
+      "count": 6,
+      "type": "media"
+    },
+    {
+      "name": "The Guardian - World",
+      "count": 4,
+      "type": "media"
+    },
+    {
+      "name": "USGS Earthquakes (Significant)",
+      "count": 3,
+      "type": "media"
+    },
+    {
+      "name": "BBC World",
+      "count": 1,
+      "type": "media"
+    }
+  ]
+}

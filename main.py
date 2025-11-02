@@ -139,7 +139,7 @@ def run_crisis_monitor(hours_back: int = 168,
         logger.info("Step 5: Exporting Human Rights Intelligence feed...")
         hr_feed_path = export_human_rights_json(
             crisis_articles,
-            window_days=hours_back // 24,  # Convert hours to days
+            window_days=30,  # Always generate 30 days for insight-first dashboard
             output_path='public/data/human_rights_feed.json'
         )
         logger.info(f"Human Rights feed exported: {hr_feed_path}")

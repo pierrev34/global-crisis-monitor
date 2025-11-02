@@ -48,6 +48,10 @@ export interface Summary {
     ngo: number;
     media: number;
   };
+  // Week-over-week comparison
+  prev_7d_total?: number;
+  delta_pct?: number;
+  rolling_avg_30d?: number;
 }
 
 export interface HumanRightsFeed {

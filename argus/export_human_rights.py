@@ -314,22 +314,22 @@ def build_source_breakdown(crisis_articles: List[Dict]) -> List[Dict]:
 
 
 def export_human_rights_json(crisis_articles: List[Dict], 
-                             window_days: int = 7,
+                             window_days: int = 30,
                              output_path: str = 'public/data/human_rights_feed.json') -> str:
     """
     Export crisis data in frontend-friendly JSON format
     
     Args:
         crisis_articles: List of classified crisis articles
-        window_days: Time window in days (default 7)
+        window_days: Time window in days (default 30 for insight-first view)
         output_path: Output file path
     
     Returns:
         Path to generated JSON file
     """
-    logger.info(f"📊 Exporting human rights feed for {len(crisis_articles)} articles...")
+    logger.info(f"Exporting human rights feed for {len(crisis_articles)} articles...")
     
-    # Build time series
+    # Build time series for full 30 days
     time_series = build_time_series(crisis_articles, window_days)
     
     # Aggregate by country
@@ -365,6 +365,33 @@ def export_human_rights_json(crisis_articles: List[Dict],
     ngo_count = sum(1 for s in sources if s['type'] in ['ngo', 'un'])
     media_count = sum(1 for s in sources if s['type'] == 'media')
     
+    # Calculate week-over-week comparison
+    # Last 7 days vs previous 7 days
+    current_7d_total = 0
+    prev_7d_total = 0
+    
+    if len(time_series) >= 14:
+        # Last 7 days
+        for point in time_series[-7:]:
+            current_7d_total += sum(point['categories'].values())
+        # Previous 7 days (days 7-14 from end)
+        for point in time_series[-14:-7]:
+            prev_7d_total += sum(point['categories'].values())
+    elif len(time_series) >= 7:
+        # Only have current week
+        for point in time_series[-7:]:
+            current_7d_total += sum(point['categories'].values())
+    
+    delta_pct = None
+    if prev_7d_total > 0:
+        delta_pct = round(((current_7d_total - prev_7d_total) / prev_7d_total) * 100, 1)
+    
+    # Calculate 30-day rolling average
+    rolling_avg_30d = None
+    if time_series:
+        total_30d = sum(sum(point['categories'].values()) for point in time_series)
+        rolling_avg_30d = round(total_30d / len(time_series), 1)
+    
     # Build final JSON structure
     feed = {
         'generated_at': datetime.now().isoformat() + 'Z',
@@ -377,7 +404,10 @@ def export_human_rights_json(crisis_articles: List[Dict],
             'source_mix': {
                 'ngo': ngo_count,
                 'media': media_count
-            }
+            },
+            'prev_7d_total': prev_7d_total if prev_7d_total > 0 else None,
+            'delta_pct': delta_pct,
+            'rolling_avg_30d': rolling_avg_30d
         },
         'time_series': time_series,
         'by_country': by_country,
@@ -392,9 +422,11 @@ def export_human_rights_json(crisis_articles: List[Dict],
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(feed, f, indent=2, ensure_ascii=False)
     
-    logger.info(f"✅ Exported human rights feed to {output_path}")
-    logger.info(f"   • {total_incidents} incidents across {countries_affected} countries")
-    logger.info(f"   • {hrv_count} human rights violations ({human_rights_share:.1%})")
-    logger.info(f"   • {ngo_count} NGO/UN items, {media_count} media items")
+    logger.info(f"Exported human rights feed to {output_path}")
+    logger.info(f"   {total_incidents} incidents across {countries_affected} countries")
+    logger.info(f"   {hrv_count} human rights violations ({human_rights_share:.1%})")
+    logger.info(f"   {ngo_count} NGO/UN items, {media_count} media items")
+    if delta_pct is not None:
+        logger.info(f"   Week-over-week: {delta_pct:+.1f}%")
     
     return str(output_file)

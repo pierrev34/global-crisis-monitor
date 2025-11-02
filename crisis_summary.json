@@ -1,0 +1,138 @@
+{
+  "timestamp": "2025-11-02T12:36:44.798874",
+  "pipeline_stats": {
+    "total_articles_fetched": 132,
+    "unique_sources": 12,
+    "articles_classified": 132,
+    "crisis_articles_found": 114,
+    "mappable_crisis_articles": 102
+  },
+  "classification_stats": {
+    "category_distribution": {
+      "Natural Disasters": 19,
+      "Humanitarian Crises": 27,
+      "Human Rights Violations": 37,
+      "Unknown": 18,
+      "Political Conflicts": 31
+    },
+    "average_confidence": 0.7419301712779979
+  },
+  "geographic_stats": {
+    "total_locations_extracted": 308,
+    "successfully_geocoded": 299,
+    "geocoding_success_rate": 0.9707792207792207,
+    "unique_countries_affected": 68,
+    "countries_list": [
+      "Afghanistan",
+      "Africa",
+      "Algeria",
+      "Australia",
+      "Bahamas",
+      "Brazil",
+      "Burkina Faso",
+      "Cambodia",
+      "China",
+      "Colombia",
+      "Costa Rica",
+      "Cuba",
+      "Czechia",
+      "Denmark",
+      "Dominican Republic",
+      "Egypt",
+      "Eswatini",
+      "Europe",
+      "Finland",
+      "France",
+      "Greece",
+      "Haiti",
+      "India",
+      "Iran",
+      "Israel",
+      "Jamaica",
+      "Kenya",
+      "Laos",
+      "Latvia",
+      "Lebanon",
+      "Libya",
+      "Luxembourg",
+      "Mali",
+      "Mexico",
+      "Myanmar",
+      "New Zealand",
+      "Nigeria",
+      "North America",
+      "North Korea",
+      "Pakistan",
+      "Palestine",
+      "Palestinian Territories",
+      "Panama",
+      "Papua New Guinea",
+      "Peru",
+      "Philippines",
+      "Poland",
+      "Portugal",
+      "Russia",
+      "Saudi Arabia",
+      "Somalia",
+      "South Africa",
+      "South Korea",
+      "South Sudan",
+      "Spain",
+      "Sudan",
+      "Taiwan",
+      "Tanzania",
+      "Thailand",
+      "Trinidad and Tobago",
+      "Turkey",
+      "Uganda",
+      "Ukraine",
+      "United Arab Emirates",
+      "United Kingdom",
+      "United States",
+      "Venezuela",
+      "Vietnam"
+    ]
+  },
+  "top_crisis_locations": [
+    [
+      "United States",
+      21
+    ],
+    [
+      "Israel",
+      17
+    ],
+    [
+      "Gaza Strip, Palestine",
+      17
+    ],
+    [
+      "Sudan",
+      11
+    ],
+    [
+      "Jamaica",
+      9
+    ],
+    [
+      "Cuba",
+      6
+    ],
+    [
+      "Washington, District of Columbia, United States",
+      6
+    ],
+    [
+      "Caribbean, Haiti",
+      5
+    ],
+    [
+      "Al-Fashir, Al Fasher, North Darfur State, Sudan",
+      4
+    ],
+    [
+      "Saudi Arabia",
+      4
+    ]
+  ]
+}
