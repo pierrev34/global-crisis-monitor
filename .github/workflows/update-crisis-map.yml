@@ -1,20 +1,20 @@
-name: Update Global Crisis Monitor
+name: Update Human Rights Dashboard Data
 
 on:
   schedule:
     # Run daily at midnight UTC
     - cron: '0 0 * * *'
   workflow_dispatch: # Allow manual triggering
-  push:
-    branches: [ main ]
 
 jobs:
-  update-map:
+  update-data:
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
       
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -27,14 +27,14 @@ jobs:
         pip install -r requirements.txt
         python -m spacy download en_core_web_sm
         
-    - name: Build 7-day map
+    - name: Generate dashboard data
       run: |
-        python main.py --hours 168 --max-articles 150 --confidence 0.3 --output crisis_map.html
+        python main.py --hours 168 --max-articles 200 --confidence 0.3
         
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
-        publish_branch: gh-pages
-        keep_files: true
+    - name: Commit and push data
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add frontend/public/data/human_rights_feed.json
+        git diff --staged --quiet || git commit -m "Updated dashboard data $(date -u +'%Y-%m-%d %H:%M UTC')"
+        git push
