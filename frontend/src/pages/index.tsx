@@ -201,32 +201,21 @@ export default function Home() {
           {/* Chart - Full Width */}
           <IncidentsStackedChart timeSeries={feed.time_series} />
 
-          {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-5">
-            {/* Left Column - Key Takeaways */}
-            <div className="lg:col-span-2">
-              <KeyTakeaways
-                timeSeries={feed.time_series}
-                countries={feed.by_country}
-                sources={feed.sources}
-                totalIncidents={feed.summary.total_incidents}
-              />
-            </div>
-
-            {/* Right Column - Source Breakdown */}
-            <div className="lg:col-span-1">
-              <SourceBreakdown 
-                sources={feed.sources} 
-                totalIncidents={feed.summary.total_incidents}
-              />
-            </div>
+          {/* Key Takeaways - Full Width */}
+          <div className="mt-5">
+            <KeyTakeaways
+              timeSeries={feed.time_series}
+              countries={feed.by_country}
+              sources={feed.sources}
+              totalIncidents={feed.summary.total_incidents}
+            />
           </div>
 
-          {/* Countries Table - Below */}
+          {/* Source Transparency - Full Width */}
           <div className="mt-5">
-            <CountryTable
-              countries={feed.by_country}
-              onSelectCountry={setSelectedCountry}
+            <SourceBreakdown 
+              sources={feed.sources} 
+              totalIncidents={feed.summary.total_incidents}
             />
           </div>
         </div>
