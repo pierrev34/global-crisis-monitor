@@ -14,6 +14,7 @@ import {
   ComposedChart,
   ReferenceLine,
   Label,
+  ReferenceArea,
 } from 'recharts';
 import { TimeSeriesPoint, getCategoryColor } from '@/types/feed';
 import { calculateRollingAverage, detectSpikes, formatDate } from '@/utils/analysis';
@@ -179,11 +180,30 @@ export default function IncidentsStackedChart({
           barGap={0}
           barCategoryGap="10%"
         >
+          {/* Background highlight for last 7 days */}
+          <defs>
+            <pattern id="last7days" patternUnits="userSpaceOnUse" width="100%" height="100%">
+              <rect width="100%" height="100%" fill="#f8fafc" opacity="0.5" />
+            </pattern>
+          </defs>
+          
           <CartesianGrid 
             strokeDasharray="0" 
             stroke="#e2e8f0" 
             vertical={false}
           />
+          
+          {/* Highlight last 7 days */}
+          {chartData.length >= 7 && (
+            <ReferenceArea
+              x1={chartData[chartData.length - 7].date}
+              x2={chartData[chartData.length - 1].date}
+              fill="#f0f9ff"
+              fillOpacity={0.3}
+              strokeOpacity={0}
+            />
+          )}
+          
           <XAxis
             dataKey="date"
             tick={{ fontSize: 11, fill: '#0f172a' }}

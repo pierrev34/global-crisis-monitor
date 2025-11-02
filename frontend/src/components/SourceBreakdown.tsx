@@ -52,13 +52,13 @@ export default function SourceBreakdown({ sources, totalIncidents }: SourceBreak
       </p>
 
       {/* Headline KPI */}
-      <div className="mb-3">
-        <div className="text-sm text-text-primary">
+      <div className="mb-4">
+        <div className="text-sm text-text-primary mb-3">
           <span className="font-semibold">{ngoTotal} / {totalIncidents}</span> from high-trust sources{' '}
           <span className="text-text-muted">({ngoPercentage.toFixed(0)}%)</span>
         </div>
-        {/* Thin progress bar */}
-        <div className="w-full bg-neutral-light h-1 rounded-full overflow-hidden mt-2">
+        {/* Thinner progress bar with more spacing */}
+        <div className="w-full bg-neutral-light h-1 rounded-full overflow-hidden">
           <div 
             className="h-full bg-primary rounded-full transition-all"
             style={{ width: `${ngoPercentage}%` }}
@@ -66,13 +66,13 @@ export default function SourceBreakdown({ sources, totalIncidents }: SourceBreak
         </div>
       </div>
 
-      {/* 2-column breakdown */}
+      {/* 2-column breakdown - reduced padding */}
       <div className="flex gap-2 mb-5">
-        <div className="flex-1 bg-blue-50 rounded-lg px-3 py-2">
+        <div className="flex-1 bg-blue-50 rounded-lg px-2.5 py-1.5">
           <div className="text-xs text-text-muted mb-0.5">NGO / UN</div>
           <div className="text-sm font-semibold text-primary">{ngoPercentage.toFixed(0)}%</div>
         </div>
-        <div className="flex-1 bg-gray-50 rounded-lg px-3 py-2">
+        <div className="flex-1 bg-gray-50 rounded-lg px-2.5 py-1.5">
           <div className="text-xs text-text-muted mb-0.5">Media</div>
           <div className="text-sm font-semibold text-text-body">{mediaPercentage.toFixed(0)}%</div>
         </div>
@@ -88,7 +88,7 @@ export default function SourceBreakdown({ sources, totalIncidents }: SourceBreak
             {displayedNgoSources.map((source) => (
               <div key={source.name} className="flex justify-between items-center py-1">
                 <span className="text-sm text-text-primary">{source.name}</span>
-                <span className="text-sm text-text-muted">{source.count}</span>
+                <span className="text-sm text-text-muted">{source.count} <span className="text-xs">incidents</span></span>
               </div>
             ))}
           </div>
@@ -113,7 +113,7 @@ export default function SourceBreakdown({ sources, totalIncidents }: SourceBreak
             {displayedMediaSources.map((source) => (
               <div key={source.name} className="flex justify-between items-center py-1">
                 <span className="text-sm text-text-primary">{source.name}</span>
-                <span className="text-sm text-text-muted">{source.count}</span>
+                <span className="text-sm text-text-muted">{source.count} <span className="text-xs">incidents</span></span>
               </div>
             ))}
           </div>

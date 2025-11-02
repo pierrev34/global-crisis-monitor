@@ -167,7 +167,7 @@ export default function Home() {
             <div className="flex justify-between items-start">
               <div>
                 <h1 className="text-2xl font-semibold text-text-primary mb-1">
-                  Human Rights Situation Dashboard
+                  Human Rights Dashboard
                 </h1>
                 <p className="text-sm text-text-muted">
                   Summarizes human-rights–relevant incidents from high-trust NGO and media sources. Highlights spikes, shifts in category mix, and countries with emerging risks.
@@ -186,7 +186,7 @@ export default function Home() {
                     hour: 'numeric',
                     minute: '2-digit',
                     hour12: true,
-                  })}
+                  })} UTC
                 </div>
               </div>
             </div>

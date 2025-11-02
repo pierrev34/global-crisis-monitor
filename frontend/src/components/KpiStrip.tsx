@@ -14,6 +14,7 @@ export default function KpiStrip({ summary }: KpiStripProps) {
     countries_affected,
     human_rights_share,
     delta_pct,
+    rolling_avg_30d,
   } = summary;
 
   const formatDelta = (delta: number | null | undefined) => {
@@ -27,6 +28,9 @@ export default function KpiStrip({ summary }: KpiStripProps) {
     return delta > 0 ? 'text-green-600' : 'text-text-muted';
   };
 
+  // Calculate vs 30-day average
+  const vs30DayAvg = rolling_avg_30d ? ((total_incidents / 7 - rolling_avg_30d) / rolling_avg_30d) * 100 : null;
+
   const kpis = [
     {
       label: 'Total Incidents',
@@ -34,6 +38,7 @@ export default function KpiStrip({ summary }: KpiStripProps) {
       caption: 'past 7 days',
       delta: delta_pct,
       deltaText: delta_pct ? `vs previous 7 days: ${formatDelta(delta_pct)}` : null,
+      delta2Text: vs30DayAvg ? `vs 30-day avg: ${formatDelta(vs30DayAvg)}` : null,
     },
     {
       label: 'Countries Affected',
@@ -64,8 +69,15 @@ export default function KpiStrip({ summary }: KpiStripProps) {
             {kpi.caption}
           </div>
           {kpi.deltaText && (
-            <div className={`text-xs font-medium mt-2 ${getDeltaColor(kpi.delta)}`}>
-              {kpi.deltaText}
+            <div className="mt-2 space-y-0.5">
+              <div className={`text-xs font-medium ${getDeltaColor(kpi.delta)}`}>
+                {kpi.deltaText}
+              </div>
+              {kpi.delta2Text && (
+                <div className="text-xs text-text-muted">
+                  {kpi.delta2Text}
+                </div>
+              )}
             </div>
           )}
         </div>
