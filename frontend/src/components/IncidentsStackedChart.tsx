@@ -123,8 +123,10 @@ export default function IncidentsStackedChart({
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (!active || !payload || !payload.length) return null;
 
-    // Calculate total for this day
-    const total = payload.reduce((sum: number, entry: any) => sum + (entry.value || 0), 0);
+    // Calculate total for this day (exclude 7-day average line)
+    const total = payload
+      .filter((entry: any) => entry.name !== '7-day average')
+      .reduce((sum: number, entry: any) => sum + (entry.value || 0), 0);
     
     // Get rolling average for this day
     const dataPoint = chartData.find((d: any) => d.date === label);
