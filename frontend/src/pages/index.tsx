@@ -129,10 +129,9 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-wsj-bg flex items-center justify-center">
+      <div className="min-h-screen bg-bg flex items-center justify-center">
         <div className="text-center">
-          <div className="text-wsj-dark text-xl font-semibold mb-2">Loading...</div>
-          <div className="text-wsj-gray text-sm">Fetching human rights intelligence</div>
+          <div className="text-text-primary text-xl font-semibold">Loading...</div>
         </div>
       </div>
     );
