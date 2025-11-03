@@ -143,12 +143,17 @@ export default function IncidentsStackedChart({
         </div>
         <div className="text-xs text-text-muted mb-2">
           Total: {total} incidents
-          {vsAvg !== null && (
-            <span className="ml-2">
-              (vs 7-day avg: {vsAvg > 0 ? '+' : ''}{vsAvg.toFixed(0)}%)
-            </span>
-          )}
         </div>
+        {rollingAvg !== null && rollingAvg !== undefined && (
+          <div className="text-xs text-text-muted mb-2">
+            7-day avg: {rollingAvg.toFixed(1)}
+            {vsAvg !== null && (
+              <span className="ml-2">
+                ({vsAvg > 0 ? '+' : ''}{vsAvg.toFixed(0)}%)
+              </span>
+            )}
+          </div>
+        )}
         <div className="space-y-1">
           {nonZeroPayload.map((entry: any, index: number) => {
             const color = entry.color;
