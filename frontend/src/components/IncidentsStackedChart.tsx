@@ -131,9 +131,9 @@ export default function IncidentsStackedChart({
     const rollingAvg = dataPoint?.rollingAvg;
     const vsAvg = rollingAvg && rollingAvg > 0 ? ((total - rollingAvg) / rollingAvg * 100) : null;
 
-    // Filter out zero values and reverse order (darkest first)
+    // Filter out zero values, exclude 7-day average line, and reverse order (darkest first)
     const nonZeroPayload = payload
-      .filter((entry: any) => entry.value > 0)
+      .filter((entry: any) => entry.value > 0 && entry.name !== '7-day average')
       .reverse();
 
     return (
@@ -142,7 +142,7 @@ export default function IncidentsStackedChart({
           {label}
         </div>
         <div className="text-xs text-text-muted mb-2">
-          Total: {total} incidents
+          Total: {Math.round(total)} incidents
         </div>
         {rollingAvg !== null && rollingAvg !== undefined && (
           <div className="text-xs text-text-muted mb-2">
@@ -169,7 +169,7 @@ export default function IncidentsStackedChart({
                   }}
                 />
                 <span className="text-xs" style={{ color: '#0f172a' }}>
-                  {entry.name}: {entry.value}
+                  {entry.name}: {Math.round(entry.value)}
                 </span>
               </div>
             );
