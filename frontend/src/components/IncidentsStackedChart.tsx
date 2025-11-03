@@ -276,7 +276,7 @@ export default function IncidentsStackedChart({
             strokeDasharray="3 3"
           />
           
-          {/* Spike labels */}
+          {/* Spike indicators - small dots instead of text labels */}
           {chartData.map((point: any, index: number) => {
             if (point.isSpike && index > 6) {
               return (
@@ -286,10 +286,10 @@ export default function IncidentsStackedChart({
                   stroke="none"
                 >
                   <Label
-                    value="Spike"
+                    value="▲"
                     position="top"
-                    style={{ fontSize: 9, fill: '#ef4444', fontWeight: 600 }}
-                    offset={5}
+                    style={{ fontSize: 11, fill: '#ef4444', fontWeight: 700 }}
+                    offset={8}
                   />
                 </ReferenceLine>
               );

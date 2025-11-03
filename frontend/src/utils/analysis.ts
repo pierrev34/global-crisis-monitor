@@ -46,26 +46,35 @@ export function calculateRollingAverage(timeSeries: TimeSeriesPoint[], window: n
 }
 
 /**
- * Detect spikes (days where total > 1.25x rolling average)
+ * Detect spike days where incidents are significantly above the rolling average
+ * Uses a more conservative threshold (1.8x) to avoid too many false positives
  */
-export function detectSpikes(timeSeries: TimeSeriesPoint[], threshold: number = 1.25): Spike[] {
+export function detectSpikes(
+  timeSeries: TimeSeriesPoint[],
+  threshold: number = 1.8
+): { date: string; value: number; avgValue: number }[] {
+  if (timeSeries.length < 8) return [];
+
   const rollingAvgs = calculateRollingAverage(timeSeries, 7);
-  const spikes: Spike[] = [];
-  
+  const spikes: { date: string; value: number; avgValue: number }[] = [];
+
   timeSeries.forEach((point, index) => {
+    if (index < 7) return; // Skip first 7 days (no rolling average yet)
+
     const total = Object.values(point.categories).reduce((sum, val) => sum + val, 0);
-    const rollingAvg = rollingAvgs[index];
-    
-    if (total > rollingAvg * threshold) {
+    const avg = rollingAvgs[index] || 0;
+
+    // Detect if current day is significantly above rolling average
+    // Only mark as spike if it's both above threshold AND has meaningful volume (>5 incidents)
+    if (avg > 0 && total > avg * threshold && total > 5) {
       spikes.push({
         date: point.date,
-        total,
-        rollingAvg,
-        multiplier: total / rollingAvg,
+        value: total,
+        avgValue: avg,
       });
     }
   });
-  
+
   return spikes;
 }
 
