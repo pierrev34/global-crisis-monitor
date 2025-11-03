@@ -64,8 +64,14 @@ export default function IncidentsStackedChart({
 
   // Calculate rolling average and detect spikes
   const rollingAvgs = calculateRollingAverage(timeSeries, 7);
-  const spikes = detectSpikes(timeSeries, 1.25);
+  const spikes = detectSpikes(timeSeries, 1.8); // Use conservative threshold
   const spikeSet = new Set(spikes.map(s => s.date));
+  
+  // Trim to show only days with data (remove long flat start)
+  const firstDataIndex = timeSeries.findIndex(point => 
+    Object.values(point.categories).reduce((sum, val) => sum + val, 0) > 0
+  );
+  const trimmedTimeSeries = firstDataIndex >= 0 ? timeSeries.slice(firstDataIndex) : timeSeries;
 
   // Custom legend icon renderer with border for light colors
   const renderLegendIcon = (props: any) => {
@@ -88,71 +94,20 @@ export default function IncidentsStackedChart({
     );
   };
 
-  // Custom tooltip with proper color indicators
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (!active || !payload || !payload.length) return null;
-
-    return (
-      <div
-        style={{
-          backgroundColor: 'white',
-          border: '1px solid #e2e8f0',
-          borderRadius: '12px',
-          padding: '12px',
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-        }}
-      >
-        <div style={{ fontWeight: 600, marginBottom: '8px', fontSize: '13px', color: '#0f172a' }}>
-          {label}
-        </div>
-        {payload.map((entry: any, index: number) => {
-          const isLightColor = entry.color === '#bfdbfe' || entry.color === '#dbeafe';
-          
-          return (
-            <div
-              key={`tooltip-${index}`}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                marginBottom: index < payload.length - 1 ? '6px' : '0',
-              }}
-            >
-              <div
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  backgroundColor: entry.color,
-                  marginRight: '8px',
-                  flexShrink: 0,
-                  border: isLightColor ? '1px solid rgba(15, 23, 42, 0.06)' : 'none',
-                }}
-              />
-              <span style={{ fontSize: '12px', color: '#0f172a', marginRight: '8px' }}>
-                {entry.name}:
-              </span>
-              <span style={{ fontSize: '12px', fontWeight: 600, color: '#0f172a' }}>
-                {entry.value}
-              </span>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  // Transform data for Recharts
-  const chartData = timeSeries.map((point, index) => {
+  // Transform data for Recharts (move before tooltip to avoid circular dependency)
+  const chartData = trimmedTimeSeries.map((point, index) => {
+    const originalIndex = firstDataIndex >= 0 ? firstDataIndex + index : index;
     const formattedDate = formatDate(point.date);
     
     const total = Object.values(point.categories).reduce((sum, val) => sum + val, 0);
-    const isLast7Days = index >= timeSeries.length - 7;
+    const isLast7Days = index >= trimmedTimeSeries.length - 7;
     const isSpike = spikeSet.has(point.date);
     
     const dataPoint: any = {
       date: formattedDate,
       fullDate: point.date,
       total,
-      rollingAvg: rollingAvgs[index],
+      rollingAvg: rollingAvgs[originalIndex],
       isLast7Days,
       isSpike,
     };
@@ -163,6 +118,61 @@ export default function IncidentsStackedChart({
     
     return dataPoint;
   });
+
+  // Custom tooltip with proper color indicators
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (!active || !payload || !payload.length) return null;
+
+    // Calculate total for this day
+    const total = payload.reduce((sum: number, entry: any) => sum + (entry.value || 0), 0);
+    
+    // Get rolling average for this day
+    const dataPoint = chartData.find((d: any) => d.date === label);
+    const rollingAvg = dataPoint?.rollingAvg;
+    const vsAvg = rollingAvg && rollingAvg > 0 ? ((total - rollingAvg) / rollingAvg * 100) : null;
+
+    // Filter out zero values and reverse order (darkest first)
+    const nonZeroPayload = payload
+      .filter((entry: any) => entry.value > 0)
+      .reverse();
+
+    return (
+      <div className="bg-white border border-border rounded-xl p-3 shadow-lg">
+        <div className="text-sm font-semibold text-text-primary mb-2">
+          {label}
+        </div>
+        <div className="text-xs text-text-muted mb-2">
+          Total: {total} incidents
+          {vsAvg !== null && (
+            <span className="ml-2">
+              (vs 7-day avg: {vsAvg > 0 ? '+' : ''}{vsAvg.toFixed(0)}%)
+            </span>
+          )}
+        </div>
+        <div className="space-y-1">
+          {nonZeroPayload.map((entry: any, index: number) => {
+            const color = entry.color;
+            const needsBorder = color === '#bfdbfe' || color === '#dbeafe';
+            
+            return (
+              <div key={`tooltip-${index}`} className="flex items-center gap-2">
+                <div
+                  className="w-2 h-2 rounded-sm flex-shrink-0"
+                  style={{
+                    backgroundColor: color,
+                    border: needsBorder ? '1px solid rgba(15,23,42,0.2)' : 'none',
+                  }}
+                />
+                <span className="text-xs" style={{ color: '#0f172a' }}>
+                  {entry.name}: {entry.value}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="bg-white border border-border rounded-2xl p-5">
@@ -214,6 +224,7 @@ export default function IncidentsStackedChart({
             tick={{ fontSize: 11, fill: '#0f172a' }}
             axisLine={{ stroke: '#e2e8f0' }}
             tickLine={false}
+            domain={[0, (dataMax: number) => Math.ceil(dataMax * 1.15)]}
             label={{ 
               value: 'Incidents', 
               angle: -90, 
@@ -223,24 +234,46 @@ export default function IncidentsStackedChart({
           />
           <Tooltip content={<CustomTooltip />} />
           <Legend
-            wrapperStyle={{ 
-              fontSize: '12px', 
-              paddingTop: '16px',
-            }}
+            verticalAlign="bottom"
+            height={36}
             iconType="square"
             iconSize={10}
-            align="left"
-            formatter={(value, entry: any) => (
-              <span>
-                {renderLegendIcon({ color: entry.color })}
-                <span style={{ color: '#0f172a' }}>{value}</span>
-              </span>
-            )}
+            wrapperStyle={{
+              paddingTop: '20px',
+              fontSize: '12px',
+            }}
             content={(props: any) => {
               const { payload } = props;
+              if (!payload) return null;
+
+              // Separate line indicator from category bars
+              const lineItem = payload.find((p: any) => p.value === '7-day average');
+              const barItems = payload.filter((p: any) => p.value !== '7-day average');
+
               return (
-                <div style={{ fontSize: '12px', paddingTop: '16px', textAlign: 'left' }}>
-                  {payload.map((entry: any, index: number) => (
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  flexWrap: 'wrap',
+                  gap: '8px',
+                  marginTop: '20px',
+                }}>
+                  {/* Show 7-day average first */}
+                  {lineItem && (
+                    <span key="legend-line" style={{ marginRight: '24px', display: 'inline-block' }}>
+                      <span style={{ 
+                        display: 'inline-block',
+                        width: '14px',
+                        height: '2px',
+                        backgroundColor: '#94a3b8',
+                        marginRight: '6px',
+                        verticalAlign: 'middle',
+                        borderTop: '2px dashed #94a3b8'
+                      }} />
+                      <span style={{ color: '#0f172a' }}>{lineItem.value}</span>
+                    </span>
+                  )}
+                  {barItems.map((entry: any, index: number) => (
                     <span key={`legend-${index}`} style={{ marginRight: '16px', display: 'inline-block' }}>
                       {renderLegendIcon({ color: entry.color })}
                       <span style={{ color: '#0f172a' }}>{entry.value}</span>
@@ -276,7 +309,7 @@ export default function IncidentsStackedChart({
             strokeDasharray="3 3"
           />
           
-          {/* Spike indicators - small dots instead of text labels */}
+          {/* Spike indicators - slate dots matching cool theme */}
           {chartData.map((point: any, index: number) => {
             if (point.isSpike && index > 6) {
               return (
@@ -286,10 +319,10 @@ export default function IncidentsStackedChart({
                   stroke="none"
                 >
                   <Label
-                    value="▲"
+                    value="●"
                     position="top"
-                    style={{ fontSize: 11, fill: '#ef4444', fontWeight: 700 }}
-                    offset={8}
+                    style={{ fontSize: 10, fill: '#334155', fontWeight: 600 }}
+                    offset={6}
                   />
                 </ReferenceLine>
               );

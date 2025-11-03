@@ -15,17 +15,27 @@ export default function KpiStrip({ summary }: KpiStripProps) {
     human_rights_share,
     delta_pct,
     rolling_avg_30d,
+    prev_7d_total,
   } = summary;
 
-  const formatDelta = (delta: number | null | undefined) => {
+  const formatDelta = (delta: number | null | undefined, baseline?: number) => {
     if (delta === null || delta === undefined) return null;
-    const sign = delta > 0 ? '+' : '';
-    return `${sign}${delta.toFixed(1)}%`;
+    
+    // If baseline is too low (<10), show "low baseline" instead of huge %
+    if (baseline !== undefined && baseline < 10) {
+      return delta > 0 ? 'up from low baseline' : 'down from low baseline';
+    }
+    
+    // Cap display at ±300%
+    const cappedDelta = Math.max(-300, Math.min(300, delta));
+    const sign = cappedDelta > 0 ? '+' : '';
+    const display = cappedDelta === 300 ? '>300' : cappedDelta === -300 ? '<-300' : cappedDelta.toFixed(0);
+    return `${sign}${display}%`;
   };
 
   const getDeltaColor = (delta: number | null | undefined) => {
     if (delta === null || delta === undefined) return 'text-text-muted';
-    return delta > 0 ? 'text-green-600' : 'text-text-muted';
+    return delta > 0 ? 'text-slate-600' : 'text-text-muted';
   };
 
   // Calculate vs 30-day average
@@ -37,7 +47,7 @@ export default function KpiStrip({ summary }: KpiStripProps) {
       value: total_incidents.toLocaleString(),
       caption: 'past 7 days',
       delta: delta_pct,
-      deltaText: delta_pct ? `vs previous 7 days: ${formatDelta(delta_pct)}` : null,
+      deltaText: delta_pct ? `vs prior 7 days: ${formatDelta(delta_pct, prev_7d_total)}` : null,
       delta2Text: vs30DayAvg ? `vs 30-day avg: ${formatDelta(vs30DayAvg)}` : null,
     },
     {
