@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import dynamic from 'next/dynamic';
 import KpiStrip from '@/components/KpiStrip';
 import IncidentsStackedChart from '@/components/IncidentsStackedChart';
 import CountryTable from '@/components/CountryTable';
@@ -7,6 +8,12 @@ import CountryDetail from '@/components/CountryDetail';
 import SourceBreakdown from '@/components/SourceBreakdown';
 import KeyTakeaways from '@/components/KeyTakeaways';
 import { HumanRightsFeed, CountryIncident } from '@/types/feed';
+
+// Dynamic import for CrisisMap to avoid SSR issues with Leaflet
+const CrisisMap = dynamic(() => import('@/components/CrisisMap'), {
+  ssr: false,
+  loading: () => <div className="h-[500px] w-full bg-slate-100 rounded-lg animate-pulse" />,
+});
 
 /**
  * Main Dashboard Page - ARGUS Human Rights Intelligence
@@ -28,21 +35,21 @@ export default function Home() {
     try {
       setLoading(true);
       setError(null);
-      
+
       // In production, this would fetch from the Python pipeline output
       // For now, try to load from public/data or fall back to mock data
       const response = await fetch('/data/human_rights_feed.json');
-      
+
       if (!response.ok) {
         throw new Error('Failed to load feed data');
       }
-      
+
       const data = await response.json();
       setFeed(data);
     } catch (err) {
       console.error('Error loading feed:', err);
       setError('Unable to load crisis data. Please run the Python pipeline first.');
-      
+
       // Load mock data for development
       loadMockData();
     } finally {
@@ -123,7 +130,7 @@ export default function Home() {
         { name: 'BBC World', count: 9, type: 'media' },
       ],
     };
-    
+
     setFeed(mockFeed);
   };
 
@@ -200,6 +207,20 @@ export default function Home() {
           {/* Chart - Full Width */}
           <IncidentsStackedChart timeSeries={feed.time_series} />
 
+          {/* Interactive Map - Full Width */}
+          <div className="mt-5">
+            <div className="mb-2">
+              <h2 className="text-base font-semibold text-text-primary">Geographic Distribution</h2>
+              <p className="text-xs text-text-muted mt-0.5">
+                Circle size represents incident count. Click any location for details.
+              </p>
+            </div>
+            <CrisisMap
+              countries={feed.by_country}
+              onCountrySelect={setSelectedCountry}
+            />
+          </div>
+
           {/* Key Takeaways - Full Width */}
           <div className="mt-5">
             <KeyTakeaways
@@ -212,8 +233,8 @@ export default function Home() {
 
           {/* Source Transparency - Full Width */}
           <div className="mt-5">
-            <SourceBreakdown 
-              sources={feed.sources} 
+            <SourceBreakdown
+              sources={feed.sources}
               totalIncidents={feed.summary.total_incidents}
             />
           </div>

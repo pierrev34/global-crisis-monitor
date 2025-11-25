@@ -1,138 +1,139 @@
 {
-  "timestamp": "2025-11-02T13:32:08.317692",
+  "timestamp": "2025-11-24T22:14:33.734056",
   "pipeline_stats": {
-    "total_articles_fetched": 133,
-    "unique_sources": 12,
-    "articles_classified": 133,
-    "crisis_articles_found": 115,
-    "mappable_crisis_articles": 104
+    "total_articles_fetched": 93,
+    "unique_sources": 10,
+    "articles_classified": 93,
+    "crisis_articles_found": 82,
+    "mappable_crisis_articles": 78
   },
   "classification_stats": {
     "category_distribution": {
-      "Natural Disasters": 20,
-      "Humanitarian Crises": 27,
-      "Human Rights Violations": 37,
-      "Unknown": 18,
-      "Political Conflicts": 31
+      "Human Rights Violations": 30,
+      "Natural Disasters": 18,
+      "Political Conflicts": 33,
+      "Unknown": 11,
+      "Humanitarian Crises": 1
     },
-    "average_confidence": 0.744246485779667
+    "average_confidence": 0.742805939580133
   },
   "geographic_stats": {
-    "total_locations_extracted": 310,
-    "successfully_geocoded": 300,
-    "geocoding_success_rate": 0.967741935483871,
-    "unique_countries_affected": 68,
+    "total_locations_extracted": 264,
+    "successfully_geocoded": 257,
+    "geocoding_success_rate": 0.9734848484848485,
+    "unique_countries_affected": 69,
     "countries_list": [
       "Afghanistan",
       "Africa",
       "Algeria",
+      "Angola",
+      "Argentina",
       "Australia",
-      "Bahamas",
+      "Bahrain",
+      "Bangladesh",
+      "Belgium",
       "Brazil",
       "Burkina Faso",
-      "Cambodia",
+      "Canada",
+      "Chad",
       "China",
       "Colombia",
-      "Costa Rica",
-      "Cuba",
-      "Czechia",
-      "Denmark",
+      "Cyprus",
       "Dominican Republic",
+      "Ecuador",
       "Egypt",
-      "Eswatini",
-      "Europe",
-      "Finland",
+      "Eritrea",
+      "Ethiopia",
       "France",
-      "Greece",
+      "Germany",
+      "Grenada",
       "Haiti",
+      "Honduras",
       "India",
       "Iran",
+      "Iraq",
+      "Ireland",
       "Israel",
-      "Jamaica",
+      "Italy",
+      "Japan",
+      "Jordan",
       "Kenya",
-      "Laos",
-      "Latvia",
+      "Kosovo",
       "Lebanon",
-      "Libya",
-      "Luxembourg",
-      "Mali",
-      "Mexico",
+      "Malta",
+      "Mongolia",
       "Myanmar",
-      "New Zealand",
+      "Netherlands",
       "Nigeria",
-      "North America",
       "North Korea",
+      "Oman",
       "Pakistan",
       "Palestine",
       "Palestinian Territories",
-      "Panama",
-      "Papua New Guinea",
       "Peru",
       "Philippines",
-      "Poland",
-      "Portugal",
       "Russia",
       "Saudi Arabia",
       "Somalia",
       "South Africa",
-      "South Korea",
+      "South America",
       "South Sudan",
       "Spain",
+      "Sri Lanka",
       "Sudan",
-      "Taiwan",
-      "Tanzania",
+      "Syria",
       "Thailand",
-      "Trinidad and Tobago",
+      "Tunisia",
       "Turkey",
-      "Uganda",
       "Ukraine",
       "United Arab Emirates",
       "United Kingdom",
       "United States",
       "Venezuela",
-      "Vietnam"
+      "Yemen",
+      "Zambia"
     ]
   },
   "top_crisis_locations": [
     [
       "United States",
-      20
+      21
     ],
     [
       "Israel",
-      17
-    ],
-    [
-      "Gaza Strip, Palestine",
-      15
-    ],
-    [
-      "Sudan",
-      11
-    ],
-    [
-      "Jamaica",
-      9
-    ],
-    [
-      "Cuba",
-      6
-    ],
-    [
-      "Caribbean, Haiti",
-      5
-    ],
-    [
-      "Washington, District of Columbia, United States",
-      5
+      14
     ],
     [
       "Lebanon",
+      10
+    ],
+    [
+      "Gaza Strip, Palestine",
+      10
+    ],
+    [
+      "Washington, District of Columbia, United States",
+      7
+    ],
+    [
+      "Beirut, Basta Tahta, Bashura, Beirut Governorate, Lebanon",
+      6
+    ],
+    [
+      "Brazil",
+      6
+    ],
+    [
+      "Iran",
       5
     ],
     [
-      "Ukraine",
+      "Middle East, Baltimore, Maryland, United States",
       5
+    ],
+    [
+      "Sudan",
+      4
     ]
   ]
 }
