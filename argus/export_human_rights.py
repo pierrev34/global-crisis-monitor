@@ -324,7 +324,7 @@ def build_source_breakdown(crisis_articles: List[Dict]) -> List[Dict]:
 
 def export_human_rights_json(crisis_articles: List[Dict], 
                              window_days: int = 30,
-                             output_path: str = 'public/data/human_rights_feed.json') -> str:
+                             output_path: str = 'frontend/public/data/human_rights_feed.json') -> str:
     """
     Export crisis data in frontend-friendly JSON format
     
